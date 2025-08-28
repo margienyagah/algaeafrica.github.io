@@ -31,9 +31,9 @@ nav {
   width: auto;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
+.logo img {
+  height: 60px; /* adjust size */
+  width: auto;
 }
 
 .nav-links li {
@@ -119,3 +119,4 @@ footer {
   padding: 15px;
   margin-top: 20px;
 }
+
