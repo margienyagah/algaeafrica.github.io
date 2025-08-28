@@ -7,59 +7,41 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <!-- Navigation -->
   <header>
     <nav>
-      <div class="logo">AAN</div>
+      <div class="logo">
+        <img src="logo.png" alt="Algae Africa Network Logo">
+      </div>
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#focus">Our Work</a></li>
+        <li><a href="#work">Our Work</a></li>
         <li><a href="#leadership">Leadership</a></li>
         <li><a href="#membership">Membership</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#resources">Resources</a></li>
+        <li><a href="#events">Events</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-text">
-      <h1>Uniting Africa’s researchers, innovators, and investors to accelerate algae development.</h1>
-      <div class="hero-buttons">
-        <a href="#membership" class="btn">Join the Network</a>
-        <a href="#contact" class="btn secondary">Contact Us</a>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Uniting Africa’s researchers, innovators, and investors to accelerate algae development.</h1>
+    <div class="hero-buttons">
+      <a href="#membership" class="btn">Join the Network</a>
+      <a href="#contact" class="btn">Contact Us</a>
     </div>
   </section>
 
-  <!-- Intro -->
-  <section class="intro">
+  <!-- About -->
+  <section id="about" class="section">
+    <h2>About Us</h2>
     <p>Algae Africa Network (AAN) is a collaborative platform uniting researchers, entrepreneurs, policymakers, and investors to accelerate algae development across the continent.</p>
     <p>Together, we are building Africa’s algae movement — from food security to climate resilience, from biorefineries to green industries.</p>
   </section>
 
-  <!-- About -->
-  <section id="about">
-    <h2>About Us</h2>
-    <h3>Who We Are</h3>
-    <p>Algae Africa Network (AAN) is your hub to collaborate, grow, and lead Africa’s algae movement.</p>
-
-    <h3>Our Mission</h3>
-    <ul>
-      <li>Foster knowledge-sharing across African institutions.</li>
-      <li>Spotlight local innovations and biorefinery projects.</li>
-      <li>Connect stakeholders with funding and investment opportunities.</li>
-      <li>Advocate for enabling policies and infrastructure.</li>
-      <li>Build a continental ecosystem for algae-based industries.</li>
-    </ul>
-  </section>
-
-  <!-- Focus Areas -->
-  <section id="focus">
+  <!-- Our Work -->
+  <section id="work" class="section">
     <h2>Our Work / Focus Areas</h2>
     <ul>
       <li>🌱 <b>Sustainable Food & Agriculture</b> – advancing algae-based proteins, feeds, and fertilizers to strengthen food security.</li>
@@ -70,57 +52,54 @@
   </section>
 
   <!-- Leadership -->
-  <section id="leadership">
+  <section id="leadership" class="section">
     <h2>Leadership</h2>
-    <p><b>Founder & Executive Lead:</b> [Your Name] – PhD Researcher, Founder of AAN.</p>
+    <p><b>Founder & Executive Lead:</b> Margaret Nyaga – PhD Researcher, Founder of AAN.</p>
     <p><b>Advisory Board & Trustees:</b> Coming soon – AAN will announce a diverse team of African and international experts supporting our mission.</p>
   </section>
 
-  <!-- Membership -->
-  <section id="membership">
-    <h2>Membership / Get Involved</h2>
-    <p>Join the Algae Africa Network (AAN) to be part of Africa’s algae transformation.</p>
-    <ul>
-      <li><b>Researchers & Students</b> – to collaborate and share knowledge.</li>
-      <li><b>Industry Partners</b> – to scale algae-based innovations into markets.</li>
-      <li><b>NGOs & Policymakers</b> – to shape enabling environments and policy frameworks.</li>
-      <li><b>Investors & Donors</b> – to unlock funding for impactful algae solutions.</li>
-    </ul>
-    <a href="#contact" class="btn">Join the Network</a>
-  </section>
+  <!-- Membership Form -->
+  <section id="membership" class="section">
+    <h2>Join the Network</h2>
+    <p>Become part of Africa’s algae transformation. Fill in the form below to connect with the AAN community.</p>
+    <form action="mailto:info@algaeafrica.org" method="post" enctype="text/plain" class="form-box">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
 
-  <!-- News -->
-  <section id="news">
-    <h2>News & Events</h2>
-    <p><b>Upcoming Event:</b></p>
-    <p>🌐 AAN Inaugural Webinar – [Insert Date]</p>
-    <p><i>Theme:</i> “Launching Africa’s Algae Movement”</p>
-    <a href="#contact" class="btn">Register</a>
-  </section>
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
 
-  <!-- Resources -->
-  <section id="resources">
-    <h2>Resources</h2>
-    <p>Coming soon: A collection of research, policy briefs, and case studies showcasing algae development in Africa.</p>
-  </section>
+      <label for="role">Your Role (Researcher, Student, Investor, etc.):</label>
+      <input type="text" id="role" name="role" required>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>📧 Email: <a href="mailto:info@algaeafrica.org">info@algaeafrica.org</a></p>
-    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/company/algae-africa-network-aan/" target="_blank">Algae Africa Network (AAN)</a></p>
+      <label for="message">Message / Interest:</label>
+      <textarea id="message" name="message" rows="4"></textarea>
 
-    <form action="https://formspree.io/f/your-form-id" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message"></textarea>
-      <button type="submit" class="btn">Send Message</button>
+      <button type="submit" class="btn">Submit</button>
     </form>
   </section>
 
+  <!-- Events -->
+  <section id="events" class="section">
+    <h2>News & Events</h2>
+    <p>🌐 <b>AAN Inaugural Webinar:</b> 28th August 2025<br>
+    Theme: “Launching Africa’s Algae Movement” ✅ Completed</p>
+
+    <p>🌐 <b>Next Webinar:</b> 28th October 2025<br>
+    Theme: “Scaling Algae Innovation Across Africa”</p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <p>📧 Email: <a href="mailto:info@algaeafrica.org">info@algaeafrica.org</a></p>
+    <p>📍 Address: Nairobi, 42705-0100, Kenya</p>
+    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/company/algae-africa-network-aan/" target="_blank">Algae Africa Network (AAN)</a></p>
+  </section>
+
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Algae Africa Network (AAN). All rights reserved.</p>
   </footer>
-
 </body>
 </html>
