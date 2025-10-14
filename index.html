@@ -59,25 +59,57 @@
   </section>
 
   <!-- Membership Form -->
-  <section id="membership" class="section">
-    <h2>Join the Network</h2>
-    <p>Become part of Africa’s algae transformation. Fill in the form below to connect with the AAN community.</p>
-    <form action="mailto:info@algaeafrica.org" method="post" enctype="text/plain" class="form-box">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" name="name" required>
+ <section id="membership" class="section">
+  <h2>Join the Algae Africa Network</h2>
+  <p>Be part of Africa’s algae transformation — connect, collaborate, and grow with innovators, researchers, and partners across the continent.</p>
 
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" required>
+  <form action="https://formspree.io/f/YOUR_NEW_FORM_ID" method="POST" class="membership-form">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" placeholder="Your Full Name" required>
 
-      <label for="role">Your Role (Researcher, Student, Investor, etc.):</label>
-      <input type="text" id="role" name="role" required>
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
 
-      <label for="message">Message / Interest:</label>
-      <textarea id="message" name="message" rows="4"></textarea>
+    <label for="organization">Organization / Institution:</label>
+    <input type="text" id="organization" name="organization" placeholder="Your Organization" required>
 
-      <button type="submit" class="btn">Submit</button>
-    </form>
-  </section>
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country" placeholder="Your Country" required>
+
+    <label for="interest">Area of Interest:</label>
+    <select id="interest" name="interest" required>
+      <option value="">Select one...</option>
+      <option>Research & Education</option>
+      <option>Innovation & Entrepreneurship</option>
+      <option>Climate & Environment</option>
+      <option>Food & Agriculture</option>
+      <option>Investment / Partnership</option>
+    </select>
+
+    <label for="message">Tell us briefly why you’d like to join:</label>
+    <textarea id="message" name="message" rows="4" placeholder="Your message..." required></textarea>
+
+    <input type="hidden" name="_subject" value="New AAN Membership Application">
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <p class="form-note">💡 Once submitted, our team will reach out via email with next steps for your membership.</p>
+</section>
+
+<section id="map" class="section">
+  <h2>Our Members Across Africa</h2>
+  <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
+  
+  <div class="map-container">
+    <iframe 
+      src="https://simplemaps.com/static/demos/africa.html"
+      width="100%" 
+      height="500" 
+      style="border:none; border-radius: 10px;">
+    </iframe>
+  </div>
+</section>
 
   <!-- Events -->
   <section id="events" class="section">
@@ -114,5 +146,6 @@
 
 </body>
 </html>
+
 
 
