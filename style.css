@@ -237,11 +237,46 @@ form button:hover {
   margin-top: 15px;
 }
 
-/* Map Section */
-.map-container {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
+/* Africa Member Map */
+.africa-map-container {
+  position: relative;
+  max-width: 800px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.africa-map {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.country-dot {
+  fill: #3CB371;
+  stroke: #fff;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.country-dot:hover {
+  transform: scale(1.5);
+  fill: #00cc88;
+}
+
+/* Tooltip Styling */
+.tooltip {
+  position: absolute;
+  background: rgba(0, 122, 204, 0.9);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  display: none;
+  pointer-events: none;
+  transform: translate(-50%, -120%);
+  white-space: nowrap;
+  z-index: 10;
 }
 
 #map h2 {
@@ -269,4 +304,5 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
 
