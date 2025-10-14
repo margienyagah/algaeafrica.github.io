@@ -149,10 +149,13 @@
   </section>
 
   <!-- Footer -->
+    <!-- Footer -->
   <footer>
     <p>&copy; 2025 Algae Africa Network (AAN). All rights reserved.</p>
   </footer>
-    <script>
+
+  <!-- Navbar Scroll Effect -->
+  <script>
     window.addEventListener('scroll', function() {
       const header = document.querySelector('header');
       if (window.scrollY > 50) {
@@ -163,25 +166,28 @@
     });
   </script>
 
-  const dots = document.querySelectorAll('.country-dot');
-  const tooltip = document.getElementById('country-tooltip');
+  <!-- Map Tooltip Interaction -->
+  <script>
+    const dots = document.querySelectorAll('.country-dot');
+    const tooltip = document.getElementById('country-tooltip');
 
-  dots.forEach(dot => {
-    dot.addEventListener('mousemove', (e) => {
-      tooltip.style.display = 'block';
-      tooltip.style.left = e.pageX + 'px';
-      tooltip.style.top = e.pageY - 30 + 'px';
-      tooltip.innerText = dot.getAttribute('data-country');
+    dots.forEach(dot => {
+      dot.addEventListener('mousemove', (e) => {
+        tooltip.style.display = 'block';
+        tooltip.style.left = e.pageX + 'px';
+        tooltip.style.top = e.pageY - 30 + 'px';
+        tooltip.innerText = dot.getAttribute('data-country');
+      });
+
+      dot.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
     });
-
-    dot.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
-    });
-  });
-</script>
-
+  </script>
 </body>
 </html>
+
+
 
 
 
