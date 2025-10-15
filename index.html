@@ -97,26 +97,14 @@
   <p class="form-note">💡 Once submitted, our team will reach out via email with next steps for your membership.</p>
 </section>
 
-  <!-- area -->
+<!-- Our Members Map -->
 <section id="map" class="section">
   <h2>Our Members Across Africa</h2>
   <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
-
-  <div class="africa-map-container">
-    <svg
-      version="1.1"
-      id="Layer_1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 800 700"
-      xml:space="preserve"
-      class="africa-map"
-    >
-      <image
-        width="800"
-        height="700"
-        href="https://upload.wikimedia.org/wikipedia/commons/8/86/Africa_blank_map_with_borders.svg"
-      />
+  
+  <div id="africaMap"></div>
+</section>
+  
       <!-- Example glowing markers -->
       <circle class="country-dot" cx="420" cy="460" r="6" data-country="Kenya"></circle>
       <circle class="country-dot" cx="350" cy="390" r="6" data-country="Uganda"></circle>
@@ -183,9 +171,29 @@
         tooltip.style.display = 'none';
       });
     });
+    <!-- Leaflet Map Scripts -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // Initialize Africa Map
+  const map = L.map('africaMap').setView([1.5, 20], 3); // Center roughly on Africa
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Example placeholder marker (you can delete or keep it)
+  // L.marker([1.5, 20]).addTo(map).bindPopup("Africa Center");
+
+  // Later: Add member markers here dynamically when available
+</script>
+
   </script>
 </body>
 </html>
+
 
 
 
