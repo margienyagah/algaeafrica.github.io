@@ -237,31 +237,19 @@ form button:hover {
   margin-top: 15px;
 }
 
-/* Africa Member Map */
-.africa-map-container {
-  position: relative;
-  max-width: 800px;
-  margin: 30px auto;
-  text-align: center;
-}
-
-.africa-map {
+/* Africa Map Section (Leaflet) */
+#africaMap {
+  height: 500px;
   width: 100%;
-  height: auto;
+  max-width: 900px;
+  margin: 30px auto;
   border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1;
 }
 
-.country-dot {
-  fill: #3CB371;
-  stroke: #fff;
-  stroke-width: 2;
-  cursor: pointer;
-  transition: transform 0.3s ease, fill 0.3s ease;
-}
-
-.country-dot:hover {
-  transform: scale(1.5);
-  fill: #00cc88;
+.leaflet-container {
+  border-radius: 10px;
 }
 
 /* Tooltip Styling */
@@ -304,5 +292,6 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
 
 
