@@ -101,22 +101,30 @@
 <section id="map" class="section">
   <h2>Our Members Across Africa</h2>
   <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
-  
   <div id="africaMap"></div>
 </section>
-  
-      <!-- Example glowing markers -->
-      <circle class="country-dot" cx="420" cy="460" r="6" data-country="Kenya"></circle>
-      <circle class="country-dot" cx="350" cy="390" r="6" data-country="Uganda"></circle>
-      <circle class="country-dot" cx="300" cy="510" r="6" data-country="Tanzania"></circle>
-      <circle class="country-dot" cx="250" cy="450" r="6" data-country="DR Congo"></circle>
-      <circle class="country-dot" cx="150" cy="380" r="6" data-country="Nigeria"></circle>
-      <circle class="country-dot" cx="130" cy="500" r="6" data-country="Ghana"></circle>
-      <circle class="country-dot" cx="280" cy="620" r="6" data-country="South Africa"></circle>
-    </svg>
-    <div id="country-tooltip" class="tooltip"></div>
-  </div>
-</section>
+
+<!-- Load Leaflet CSS and JS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Initialize the Africa Map -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const map = L.map('africaMap').setView([1.5, 20], 3);
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example marker (can remove later)
+    L.marker([0.02, 37.9]).addTo(map).bindPopup("Nairobi, Kenya - Example Member");
+  });
+</script>
 
   <!-- Events -->
   <section id="events" class="section">
@@ -193,6 +201,7 @@
   </script>
 </body>
 </html>
+
 
 
 
