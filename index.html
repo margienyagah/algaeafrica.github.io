@@ -101,28 +101,57 @@
 <section id="map" class="section">
   <h2>Our Members Across Africa</h2>
   <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
+
+  <!-- Map container -->
   <div id="africaMap"></div>
 </section>
 
-<!-- Load Leaflet CSS and JS -->
+<!-- Leaflet CSS and JS -->
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- Initialize the Africa Map -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const map = L.map('africaMap').setView([1.5, 20], 3);
+  // Initialize the map centered on Africa
+  const map = L.map("africaMap").setView([1.5, 20], 3);
 
-    // Load OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+  // Add OpenStreetMap tiles
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; OpenStreetMap contributors',
+  }).addTo(map);
 
-    // Example marker (can remove later)
-    L.marker([0.02, 37.9]).addTo(map).bindPopup("Nairobi, Kenya - Example Member");
+  // Custom AAN marker icon (blue-green style)
+  const aanIcon = L.icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854878.png", // you can later replace with your own AAN logo pin
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -28],
+  });
+
+  // Member markers
+  const members = [
+    { name: "Abdelfettah GHERIB", country: "Algeria", city: "Constantine", org: "Biotechnology Research Center (CRBt)", role: "Dr.", coords: [36.36, 6.61] },
+    { name: "Vincent Mbugua", country: "Kenya", city: "Nairobi", org: "Vinnovations", role: "", coords: [-1.286, 36.817] },
+    { name: "Sheila Jepkorir", country: "Kenya", city: "Nairobi", org: "", role: "", coords: [-1.286, 36.817] },
+    { name: "Benard Kioko", country: "Kenya", city: "Mombasa", org: "Maricosmetics", role: "Founder", coords: [-4.043, 39.668] },
+    { name: "Lucile Gingembre", country: "Madagascar", city: "Antananarivo", org: "Seaweed and Beyond", role: "Co-founder/Director", coords: [-18.879, 47.507] },
+    { name: "Abdalah Makaranga", country: "Tanzania", city: "Moshi", org: "Mwenge Catholic University (MWECAU)", role: "Lecturer", coords: [-3.334, 37.341] },
+    { name: "Ndeye Coumba Bousso", country: "Senegal", city: "Dakar", org: "", role: "", coords: [14.6928, -17.4467] },
+    { name: "Alfred Rono", country: "Kenya", city: "Kwale", org: "Plan International Kenya", role: "Seaweed Project Coordinator", coords: [-4.175, 39.452] },
+    { name: "Anthony Adu-Gyamfi", country: "Ghana", city: "Accra", org: "Atlantic Technological University", role: "PhD Researcher", coords: [5.6037, -0.1870] },
+    { name: "Oghogho Eleshin", country: "Nigeria", city: "Lagos", org: "University of Lagos", role: "PhD Student", coords: [6.5244, 3.3792] },
+    { name: "Morufat Li-Hammed", country: "Nigeria", city: "Lagos", org: "", role: "", coords: [6.5244, 3.3792] },
+    { name: "Esther Kadiene", country: "Nigeria", city: "Delta", org: "Delta State University", role: "Lecturer", coords: [5.532, 5.898] },
+    { name: "Dr. Blessing Allen-Adebayo", country: "Nigeria", city: "Lagos", org: "Weaver and Nexus Ltd", role: "Innovation & Entrepreneurship", coords: [6.5244, 3.3792] },
+    { name: "Prof. Taofikat Adesalu", country: "Nigeria", city: "Lagos", org: "University of Lagos", role: "Research & Education", coords: [6.5244, 3.3792] },
+  ];
+
+  // Add markers with popups
+  members.forEach(m => {
+    const popup = `<b>${m.name}</b><br>${m.org ? m.org + "<br>" : ""}${m.role ? m.role + "<br>" : ""}<i>${m.city}, ${m.country}</i>`;
+    L.marker(m.coords, { icon: aanIcon }).addTo(map).bindPopup(popup);
   });
 </script>
 
@@ -201,6 +230,7 @@
   </script>
 </body>
 </html>
+
 
 
 
