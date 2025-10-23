@@ -106,7 +106,7 @@
   <div id="africaMap"></div>
 </section>
 
-<!-- Leaflet CSS and JS -->
+<!-- Leaflet Map Scripts -->
 <link
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -114,44 +114,161 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-  // Initialize the map centered on Africa
-  const map = L.map("africaMap").setView([1.5, 20], 3);
+  // Initialize Africa Map
+  const map = L.map("africaMap").setView([2, 20], 3.2);
 
   // Add OpenStreetMap tiles
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '&copy; OpenStreetMap contributors',
+    attribution: "&copy; OpenStreetMap contributors",
   }).addTo(map);
 
-  // Custom AAN marker icon (blue-green style)
+  // Custom AAN marker icon
   const aanIcon = L.icon({
-    iconUrl: "https://cdn-icons-png.flaticon.com/512/854/854878.png", // you can later replace with your own AAN logo pin
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -28],
+    iconUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Green_marker.svg",
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -25],
   });
 
-  // Member markers
+  // Member data
   const members = [
-    { name: "Abdelfettah GHERIB", country: "Algeria", city: "Constantine", org: "Biotechnology Research Center (CRBt)", role: "Dr.", coords: [36.36, 6.61] },
-    { name: "Vincent Mbugua", country: "Kenya", city: "Nairobi", org: "Vinnovations", role: "", coords: [-1.286, 36.817] },
-    { name: "Sheila Jepkorir", country: "Kenya", city: "Nairobi", org: "", role: "", coords: [-1.286, 36.817] },
-    { name: "Benard Kioko", country: "Kenya", city: "Mombasa", org: "Maricosmetics", role: "Founder", coords: [-4.043, 39.668] },
-    { name: "Lucile Gingembre", country: "Madagascar", city: "Antananarivo", org: "Seaweed and Beyond", role: "Co-founder/Director", coords: [-18.879, 47.507] },
-    { name: "Abdalah Makaranga", country: "Tanzania", city: "Moshi", org: "Mwenge Catholic University (MWECAU)", role: "Lecturer", coords: [-3.334, 37.341] },
-    { name: "Ndeye Coumba Bousso", country: "Senegal", city: "Dakar", org: "", role: "", coords: [14.6928, -17.4467] },
-    { name: "Alfred Rono", country: "Kenya", city: "Kwale", org: "Plan International Kenya", role: "Seaweed Project Coordinator", coords: [-4.175, 39.452] },
-    { name: "Anthony Adu-Gyamfi", country: "Ghana", city: "Accra", org: "Atlantic Technological University", role: "PhD Researcher", coords: [5.6037, -0.1870] },
-    { name: "Oghogho Eleshin", country: "Nigeria", city: "Lagos", org: "University of Lagos", role: "PhD Student", coords: [6.5244, 3.3792] },
-    { name: "Morufat Li-Hammed", country: "Nigeria", city: "Lagos", org: "", role: "", coords: [6.5244, 3.3792] },
-    { name: "Esther Kadiene", country: "Nigeria", city: "Delta", org: "Delta State University", role: "Lecturer", coords: [5.532, 5.898] },
-    { name: "Dr. Blessing Allen-Adebayo", country: "Nigeria", city: "Lagos", org: "Weaver and Nexus Ltd", role: "Innovation & Entrepreneurship", coords: [6.5244, 3.3792] },
-    { name: "Prof. Taofikat Adesalu", country: "Nigeria", city: "Lagos", org: "University of Lagos", role: "Research & Education", coords: [6.5244, 3.3792] },
+    {
+      name: "Dr. Abdelfettah GHERIB",
+      country: "Algeria",
+      city: "Constantine",
+      specialization: "Biotechnology Researcher",
+      org: "CRBt Constantine",
+      lat: 36.36,
+      lng: 6.60,
+    },
+    {
+      name: "Vincent Mbugua",
+      country: "Kenya",
+      city: "Nairobi",
+      specialization: "Algae-based Product Innovator",
+      org: "Vinnovations",
+      lat: -1.286389,
+      lng: 36.817223,
+    },
+    {
+      name: "Sheila Jepkorir",
+      country: "Kenya",
+      city: "Nairobi",
+      specialization: "Environmental Sustainability Advocate",
+      org: "",
+      lat: -1.29,
+      lng: 36.82,
+    },
+    {
+      name: "Benard Kioko",
+      country: "Kenya",
+      city: "Mombasa",
+      specialization: "Founder, Algae Cosmetics and Bioproducts",
+      org: "Maricosmetics",
+      lat: -4.043477,
+      lng: 39.668206,
+    },
+    {
+      name: "Lucile Gingembre",
+      country: "Madagascar",
+      city: "Antananarivo",
+      specialization: "Seaweed Entrepreneurship and Blue Economy",
+      org: "Seaweed and Beyond",
+      lat: -18.8792,
+      lng: 47.5079,
+    },
+    {
+      name: "Dr. Abdalah Makaranga",
+      country: "Tanzania",
+      city: "Moshi",
+      specialization: "Algae Biotechnology Lecturer",
+      org: "Mwenge Catholic University (MWECAU)",
+      lat: -3.35,
+      lng: 37.34,
+    },
+    {
+      name: "Ndeye Coumba Bousso",
+      country: "Senegal",
+      city: "Dakar",
+      specialization: "Microalgae PhD Researcher",
+      org: "",
+      lat: 14.7167,
+      lng: -17.4677,
+    },
+    {
+      name: "Alfred Rono",
+      country: "Kenya",
+      city: "Kwale",
+      specialization: "Seaweed Community Projects",
+      org: "Plan International Kenya",
+      lat: -4.18,
+      lng: 39.45,
+    },
+    {
+      name: "Anthony Adu-Gyamfi",
+      country: "Ghana",
+      city: "Accra",
+      specialization: "PhD Researcher in Marine and Seaweed Biotechnology",
+      org: "Atlantic Technological University",
+      lat: 5.6037,
+      lng: -0.187,
+    },
+    {
+      name: "Oghogho Eleshin",
+      country: "Nigeria",
+      city: "Lagos",
+      specialization: "PhD Researcher in Algal Ecology and Marine Biology",
+      org: "University of Lagos",
+      lat: 6.5244,
+      lng: 3.3792,
+    },
+    {
+      name: "Morufat Li-Hammed",
+      country: "Nigeria",
+      city: "Lagos",
+      specialization: "Marine Research and Education",
+      org: "",
+      lat: 6.5244,
+      lng: 3.3792,
+    },
+    {
+      name: "Dr. Esther Kadiene",
+      country: "Nigeria",
+      city: "Delta State",
+      specialization: "Marine & Environmental Biologist, Lecturer",
+      org: "Delta State University",
+      lat: 5.55,
+      lng: 5.75,
+    },
+    {
+      name: "Dr. Blessing Allen-Adebayo",
+      country: "Nigeria",
+      city: "Lagos",
+      specialization: "Algae Innovation & Entrepreneurship",
+      org: "Weaver and Nexus Ltd",
+      lat: 6.5244,
+      lng: 3.3792,
+    },
+    {
+      name: "Prof. Taofikat Adesalu",
+      country: "Nigeria",
+      city: "Lagos",
+      specialization:
+        "Professor of Algology, Algal Biotechnology & Ecology",
+      org: "University of Lagos",
+      lat: 6.5244,
+      lng: 3.3792,
+    },
   ];
 
-  // Add markers with popups
-  members.forEach(m => {
-    const popup = `<b>${m.name}</b><br>${m.org ? m.org + "<br>" : ""}${m.role ? m.role + "<br>" : ""}<i>${m.city}, ${m.country}</i>`;
-    L.marker(m.coords, { icon: aanIcon }).addTo(map).bindPopup(popup);
+  // Add markers for each member
+  members.forEach((m) => {
+    L.marker([m.lat, m.lng], { icon: aanIcon })
+      .addTo(map)
+      .bindPopup(
+        `<b>${m.name}</b><br>${m.specialization}<br><i>${m.org}</i><br>${m.city}, ${m.country}`
+      );
   });
 </script>
 
@@ -230,6 +347,7 @@
   </script>
 </body>
 </html>
+
 
 
 
