@@ -282,7 +282,55 @@ form button:hover {
   font-size: 1.05rem;
   margin-bottom: 25px;
 }
+/* ---------- Members Directory (add to end of style.css) ---------- */
 
+/* Controls */
+.members-controls { display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
+#member-search { flex:1; padding:8px 12px; border-radius:6px; border:1px solid #ddd; font-size:1rem; }
+#country-filter { padding:8px 12px; border-radius:6px; border:1px solid #ddd; background:#fff; font-size:1rem; }
+
+/* Members grid */
+.members-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin-top:8px; }
+
+/* Card */
+.member-card {
+  border:1px solid #e6e6e6;
+  padding:14px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:120px;
+}
+.member-card h3 { margin:0 0 6px 0; font-size:1.05rem; color:#007ACC; }
+.member-card p { margin:6px 0; font-size:0.95rem; color:#333; }
+.member-card .meta { font-size:0.85rem; color:#666; margin-bottom:6px; }
+
+/* Button */
+.member-card button {
+  margin-top:10px;
+  background:#3CB371;
+  color:#fff;
+  padding:8px 10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+  align-self:flex-start;
+  transition:transform 0.12s ease, box-shadow 0.12s ease;
+}
+.member-card button:hover { transform:translateY(-3px); box-shadow:0 6px 12px rgba(60,179,113,0.12); }
+
+/* Empty state */
+.members-grid p { color:#555; text-align:center; }
+
+/* Responsive tweaks */
+@media (max-width:600px) {
+  .members-controls { flex-direction:column; }
+  #member-search, #country-filter { width:100%; }
+}
 /* Footer */
 footer {
   background: #333;
@@ -304,6 +352,7 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
 
 
 
