@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Algae Africa Network (AAN)</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Leaflet CSS (included once) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
 <body>
   <!-- Navigation -->
   <header>
     <nav>
-     <div class="logo">
-  <img src="logo.png" alt="Algae Africa Network Logo">
-</div>
+      <div class="logo">
+        <img src="logo.png" alt="Algae Africa Network Logo">
+      </div>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Our Work</a></li>
@@ -59,264 +61,66 @@
   </section>
 
   <!-- Membership Form -->
- <section id="membership" class="section">
-  <h2>Join the Algae Africa Network</h2>
-  <p>Be part of Africa’s algae transformation — connect, collaborate, and grow with innovators, researchers, and partners across the continent.</p>
+  <section id="membership" class="section">
+    <h2>Join the Algae Africa Network</h2>
+    <p>Be part of Africa’s algae transformation — connect, collaborate, and grow with innovators, researchers, and partners across the continent.</p>
 
-  <form action="https://formspree.io/f/xrbyovza" method="POST" class="membership-form">
-    <label for="name">Full Name:</label>
-    <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+    <form action="https://formspree.io/f/xrbyovza" method="POST" class="membership-form">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="Your Full Name" required>
 
-    <label for="email">Email Address:</label>
-    <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
 
-    <label for="organization">Organization / Institution:</label>
-    <input type="text" id="organization" name="organization" placeholder="Your Organization" required>
+      <label for="organization">Organization / Institution:</label>
+      <input type="text" id="organization" name="organization" placeholder="Your Organization" required>
 
-    <label for="country">Country:</label>
-    <input type="text" id="country" name="country" placeholder="Your Country" required>
+      <label for="country">Country:</label>
+      <input type="text" id="country" name="country" placeholder="Your Country" required>
 
-    <label for="interest">Area of Interest:</label>
-    <select id="interest" name="interest" required>
-      <option value="">Select one...</option>
-      <option>Research & Education</option>
-      <option>Innovation & Entrepreneurship</option>
-      <option>Climate & Environment</option>
-      <option>Food & Agriculture</option>
-      <option>Investment / Partnership</option>
-    </select>
+      <label for="interest">Area of Interest:</label>
+      <select id="interest" name="interest" required>
+        <option value="">Select one...</option>
+        <option>Research & Education</option>
+        <option>Innovation & Entrepreneurship</option>
+        <option>Climate & Environment</option>
+        <option>Food & Agriculture</option>
+        <option>Investment / Partnership</option>
+      </select>
 
-    <label for="message">Tell us briefly why you’d like to join:</label>
-    <textarea id="message" name="message" rows="4" placeholder="Your message..." required></textarea>
+      <label for="message">Tell us briefly why you’d like to join:</label>
+      <textarea id="message" name="message" rows="4" placeholder="Your message..." required></textarea>
 
-    <input type="hidden" name="_subject" value="New AAN Membership Application">
+      <input type="hidden" name="_subject" value="New AAN Membership Application">
 
-    <button type="submit">Submit Application</button>
-  </form>
+      <button type="submit">Submit Application</button>
+    </form>
 
-  <p class="form-note">💡 Once submitted, our team will reach out via email with next steps for your membership.</p>
-</section>
+    <p class="form-note">💡 Once submitted, our team will reach out via email with next steps for your membership.</p>
+  </section>
 
-<!-- Our Members Map -->
-<section id="map" class="section">
-  <h2>Our Members Across Africa</h2>
-  <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
+  <!-- Our Members Map -->
+  <section id="map" class="section">
+    <h2>Our Members Across Africa</h2>
+    <p>Explore where Algae Africa Network members are contributing to algae innovation and sustainability.</p>
 
-  <!-- Map container -->
-  <div id="africaMap"></div>
-</section>
+    <!-- Map container -->
+    <div id="africaMap"></div>
+  </section>
 
-<!-- Leaflet Map Scripts -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Members Directory (search & country filter + grid) -->
+  <section id="members-directory" class="section">
+    <h2>Members Directory</h2>
 
-<script>
-  // Initialize Africa Map
-  const map = L.map("africaMap").setView([2, 20], 3.2);
+    <div class="members-controls">
+      <input id="member-search" type="search" placeholder="Search name, org, specialization..." />
+      <select id="country-filter">
+        <option value="">Filter by country (all)</option>
+      </select>
+    </div>
 
-  // Add OpenStreetMap tiles
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
-  }).addTo(map);
-
-  // Custom AAN marker icon
-  const aanIcon = L.icon({
-    iconUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/7/73/Green_marker.svg",
-    iconSize: [28, 28],
-    iconAnchor: [14, 28],
-    popupAnchor: [0, -25],
-  });
-
-  // Member data
-  const members = [
-    {
-      name: "Dr. Abdelfettah GHERIB",
-      country: "Algeria",
-      city: "Constantine",
-      specialization: "Biotechnology Researcher",
-      org: "CRBt Constantine",
-      lat: 36.36,
-      lng: 6.60,
-    },
-    {
-      name: "Vincent Mbugua",
-      country: "Kenya",
-      city: "Nairobi",
-      specialization: "Algae-based Product Innovator",
-      org: "Vinnovations",
-      lat: -1.286389,
-      lng: 36.817223,
-    },
-    {
-      name: "Sheila Jepkorir",
-      country: "Kenya",
-      city: "Nairobi",
-      specialization: "AAN Youth Ambassador",
-      org:"Algae Africa Network",
-      lat: -1.29,
-      lng: 36.82,
-    },
-    {
-      name: "Benard Kioko",
-      country: "Kenya",
-      city: "Mombasa",
-      specialization: "Founder, Algae Cosmetics and Bioproducts",
-      org: "Maricosmetics",
-      lat: -4.043477,
-      lng: 39.668206,
-    },
-    {
-      name: "Lucile Gingembre",
-      country: "Madagascar",
-      city: "Antananarivo",
-      specialization: "Seaweed Entrepreneurship and Blue Economy",
-      org: "Seaweed and Beyond",
-      lat: -18.8792,
-      lng: 47.5079
-    },
-    {
-      name: "Dr. Abdalah Makaranga",
-      country: "Tanzania",
-      city: "Moshi",
-      specialization: "Algae Biotechnology Lecturer",
-      org: "Mwenge Catholic University (MWECAU)",
-      lat: -3.35,
-      lng: 37.34,
-    },
-    {
-      name: "Ndeye Coumba Bousso",
-      country: "Senegal",
-      city: "Dakar",
-      specialization: "Microalgae PhD Researcher",
-      org: "",
-      lat: 14.7167,
-      lng: -17.4677,
-    },
-    {
-      name: "Alfred Rono",
-      country: "Kenya",
-      city: "Kwale",
-      specialization: "Seaweed Community Projects",
-      org: "Plan International Kenya",
-      lat: -4.18,
-      lng: 39.45,
-    },
-    {
-      name: "Anthony Adu-Gyamfi",
-      country: "Ghana",
-      city: "Accra",
-      specialization: "PhD Researcher in Marine and Seaweed Biotechnology",
-      org: "Atlantic Technological University",
-      lat: 5.6037,
-      lng: -0.187,
-    },
-    {
-      name: "Oghogho Eleshin",
-      country: "Nigeria",
-      city: "Lagos",
-      specialization: "PhD Researcher in Algal Ecology and Marine Biology",
-      org: "University of Lagos / AAN Youth Ambassador",
-      lat: 6.5344,
-      lng: 3.3799,
-    },
-    {
-      name: "Morufat Li-Hammed",
-      country: "Nigeria",
-      city: "Lagos",
-      specialization: "Marine Research and Education",
-      org: "",
-      lat: 6.5244,
-      lng: 3.3792,
-    },
-    {
-      name: "Dr. Esther Kadiene",
-      country: "Nigeria",
-      city: "Delta State",
-      specialization: "Marine & Environmental Biologist, Lecturer",
-      org: "Delta State University",
-      lat: 5.55,
-      lng: 5.75,
-    },
-    {
-      name: "Dr. Blessing Allen-Adebayo",
-      country: "Nigeria",
-      city: "Lagos",
-      specialization: "Algae Innovation & Entrepreneurship",
-      org: "Weaver and Nexus Ltd",
-      lat: 6.5244,
-      lng: 3.3792,
-    },
-    {
-      name: "Prof. Taofikat Adesalu",
-      country: "Nigeria",
-      city: "Lagos",
-      specialization:
-        "Professor of Algology, Algal Biotechnology & Ecology",
-      org: "University of Lagos",
-      lat: 6.5244,
-      lng: 3.3792,
-    },
-    {
-        name: "Thabugha Joward",
-        country: "Uganda",
-        city: "Kampala",
-        org: "Algae Africa Network",
-        specialization: "AAN Youth Ambassador",
-        lat: 0.3476,
-        lng: 32.5825,
-      },
-    {
-  name: "REZZOUM Nor-Eddine",
-  country: "Morocco",
-  city: "Casablanca",
-  specialization: "Marine Biologist",
-  org: "INRH (National Institute of Fisheries Research)",
-  lat: 33.5731,
-  lng: -7.5898
-},
-{
-  name: "Heba Mahmoud Youssef",
-  country: "Egypt",
-  city: "Beni Suef",
-  specialization: "Microalgae Researcher",
-  org: "Beni-Suef University",
-  lat: 29.0661,
-  lng: 31.0994
-},
-{
-  name: "Karim Mtengai",
-  country: "Tanzania",
-  city: "Mbeya",
-  specialization: "PhD Researcher",
-  org: "Copperbelt University",
-  lat: -8.9,
-  lng: 33.45
-},
-{
-  name: "Elando Fréda Zamanileha",
-  country: "Madagascar",
-  city: "Antananarivo",
-  specialization: "Researcher",
-  org: "URGPGEm, University of Antananarivo",
- lat: -18.8799,
- lng: 47.5099,
-},
-    
-  ];
-
-  // Add markers for each member
-  members.forEach((m) => {
-    L.marker([m.lat, m.lng], { icon: aanIcon })
-      .addTo(map)
-      .bindPopup(
-        `<b>${m.name}</b><br>${m.specialization}<br><i>${m.org}</i><br>${m.city}, ${m.country}`
-      );
-  });
-</script>
+    <div id="members-grid" class="members-grid"></div>
+  </section>
 
   <!-- Events -->
   <section id="events" class="section">
@@ -337,13 +141,297 @@
   </section>
 
   <!-- Footer -->
-    <!-- Footer -->
   <footer>
     <p>&copy; 2025 Algae Africa Network (AAN). All rights reserved.</p>
   </footer>
 
-  <!-- Navbar Scroll Effect -->
+  <!-- Leaflet JS (included once) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Main map + members script -->
   <script>
+    // Initialize Africa Map (single initialization)
+    const map = L.map("africaMap").setView([2, 20], 3.2);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Custom AAN marker icon
+    const aanIcon = L.icon({
+      iconUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/7/73/Green_marker.svg",
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
+      popupAnchor: [0, -25],
+    });
+
+    // MEMBERS ARRAY
+    // (I preserved your original list — edit/add members here as needed)
+    const members = [
+      {
+        name: "Dr. Abdelfettah GHERIB",
+        country: "Algeria",
+        city: "Constantine",
+        specialization: "Biotechnology Researcher",
+        org: "CRBt Constantine",
+        lat: 36.36,
+        lng: 6.60,
+      },
+      {
+        name: "Vincent Mbugua",
+        country: "Kenya",
+        city: "Nairobi",
+        specialization: "Algae-based Product Innovator",
+        org: "Vinnovations",
+        lat: -1.286389,
+        lng: 36.817223,
+      },
+      {
+        name: "Sheila Jepkorir",
+        country: "Kenya",
+        city: "Nairobi",
+        specialization: "AAN Youth Ambassador",
+        org:"Algae Africa Network",
+        lat: -1.29,
+        lng: 36.82,
+      },
+      {
+        name: "Benard Kioko",
+        country: "Kenya",
+        city: "Mombasa",
+        specialization: "Founder, Algae Cosmetics and Bioproducts",
+        org: "Maricosmetics",
+        lat: -4.043477,
+        lng: 39.668206,
+      },
+      {
+        name: "Lucile Gingembre",
+        country: "Madagascar",
+        city: "Antananarivo",
+        specialization: "Seaweed Entrepreneurship and Blue Economy",
+        org: "Seaweed and Beyond",
+        lat: -18.8792,
+        lng: 47.5079
+      },
+      {
+        name: "Dr. Abdalah Makaranga",
+        country: "Tanzania",
+        city: "Moshi",
+        specialization: "Algae Biotechnology Lecturer",
+        org: "Mwenge Catholic University (MWECAU)",
+        lat: -3.35,
+        lng: 37.34,
+      },
+      {
+        name: "Ndeye Coumba Bousso",
+        country: "Senegal",
+        city: "Dakar",
+        specialization: "Microalgae PhD Researcher",
+        org: "",
+        lat: 14.7167,
+        lng: -17.4677,
+      },
+      {
+        name: "Alfred Rono",
+        country: "Kenya",
+        city: "Kwale",
+        specialization: "Seaweed Community Projects",
+        org: "Plan International Kenya",
+        lat: -4.18,
+        lng: 39.45,
+      },
+      {
+        name: "Anthony Adu-Gyamfi",
+        country: "Ghana",
+        city: "Accra",
+        specialization: "PhD Researcher in Marine and Seaweed Biotechnology",
+        org: "Atlantic Technological University",
+        lat: 5.6037,
+        lng: -0.187,
+      },
+      {
+        name: "Oghogho Eleshin",
+        country: "Nigeria",
+        city: "Lagos",
+        specialization: "PhD Researcher in Algal Ecology and Marine Biology",
+        org: "University of Lagos / AAN Youth Ambassador",
+        lat: 6.5344,
+        lng: 3.3799,
+      },
+      {
+        name: "Morufat Li-Hammed",
+        country: "Nigeria",
+        city: "Lagos",
+        specialization: "Marine Research and Education",
+        org: "",
+        lat: 6.5244,
+        lng: 3.3792,
+      },
+      {
+        name: "Dr. Esther Kadiene",
+        country: "Nigeria",
+        city: "Delta State",
+        specialization: "Marine & Environmental Biologist, Lecturer",
+        org: "Delta State University",
+        lat: 5.55,
+        lng: 5.75,
+      },
+      {
+        name: "Dr. Blessing Allen-Adebayo",
+        country: "Nigeria",
+        city: "Lagos",
+        specialization: "Algae Innovation & Entrepreneurship",
+        org: "Weaver and Nexus Ltd",
+        lat: 6.5244,
+        lng: 3.3792,
+      },
+      {
+        name: "Prof. Taofikat Adesalu",
+        country: "Nigeria",
+        city: "Lagos",
+        specialization:
+          "Professor of Algology, Algal Biotechnology & Ecology",
+        org: "University of Lagos",
+        lat: 6.5244,
+        lng: 3.3792,
+      },
+      {
+        name: "Thabugha Joward",
+        country: "Uganda",
+        city: "Kampala",
+        org: "Algae Africa Network",
+        specialization: "AAN Youth Ambassador",
+        lat: 0.3476,
+        lng: 32.5825,
+      },
+      {
+        name: "REZZOUM Nor-Eddine",
+        country: "Morocco",
+        city: "Casablanca",
+        specialization: "Marine Biologist",
+        org: "INRH (National Institute of Fisheries Research)",
+        lat: 33.5731,
+        lng: -7.5898
+      },
+      {
+        name: "Heba Mahmoud Youssef",
+        country: "Egypt",
+        city: "Beni Suef",
+        specialization: "Microalgae Researcher",
+        org: "Beni-Suef University",
+        lat: 29.0661,
+        lng: 31.0994
+      },
+      {
+        name: "Karim Mtengai",
+        country: "Tanzania",
+        city: "Mbeya",
+        specialization: "PhD Researcher",
+        org: "Copperbelt University",
+        lat: -8.9,
+        lng: 33.45
+      },
+      {
+        name: "Elando Fréda Zamanileha",
+        country: "Madagascar",
+        city: "Antananarivo",
+        specialization: "Researcher",
+        org: "URGPGEm, University of Antananarivo",
+        lat: -18.8799,
+        lng: 47.5099,
+      }
+    ];
+
+    // Create markers map so we can reference them from the directory
+    const markers = {};
+
+    members.forEach(m => {
+      const key = `${m.name}-${m.city}`.replace(/\s+/g, '-');
+      const marker = L.marker([m.lat, m.lng], { icon: aanIcon })
+        .addTo(map)
+        .bindPopup(`<b>${m.name}</b><br>${m.specialization || ''}<br><i>${m.org || ''}</i><br>${m.city}, ${m.country}`);
+      markers[key] = marker;
+      m._markerKey = key;
+    });
+
+    // Populate country filter options
+    const countrySet = Array.from(new Set(members.map(m => m.country))).sort();
+    const countryFilter = document.getElementById('country-filter');
+    countrySet.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      countryFilter.appendChild(opt);
+    });
+
+    // Directory rendering
+    const grid = document.getElementById('members-grid');
+    const searchInput = document.getElementById('member-search');
+
+    function renderMembers(list) {
+      grid.innerHTML = '';
+      if (list.length === 0) {
+        grid.innerHTML = '<p>No members found.</p>';
+        return;
+      }
+      list.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'member-card';
+        card.innerHTML = `
+          <h3>${m.name}</h3>
+          <p class="meta">${m.org ? `<strong>${m.org}</strong> • ` : ''}${m.city}, ${m.country}</p>
+          <p>${m.specialization || ''}</p>
+          <button data-key="${m._markerKey}">View on map</button>
+        `;
+        grid.appendChild(card);
+
+        const btn = card.querySelector('button');
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-key');
+          const marker = markers[key];
+          if (marker) {
+            map.setView(marker.getLatLng(), 6);
+            marker.openPopup();
+          }
+        });
+      });
+    }
+
+    function filterMembers() {
+      const q = searchInput.value.trim().toLowerCase();
+      const country = countryFilter.value;
+      const filtered = members.filter(m => {
+        const matchesCountry = !country || m.country === country;
+        const text = `${m.name} ${m.org} ${m.specialization} ${m.city} ${m.country}`.toLowerCase();
+        const matchesQuery = !q || text.includes(q);
+        return matchesCountry && matchesQuery;
+      });
+
+      // render directory cards
+      renderMembers(filtered);
+
+      // show/hide markers on map for filtered list
+      members.forEach(m => {
+        const marker = markers[m._markerKey];
+        if (!marker) return;
+        if (filtered.includes(m)) {
+          marker.addTo(map);
+        } else {
+          map.removeLayer(marker);
+        }
+      });
+    }
+
+    // initial render
+    renderMembers(members);
+
+    // wire filters
+    searchInput.addEventListener('input', filterMembers);
+    countryFilter.addEventListener('change', filterMembers);
+
+    // Navbar scroll effect (kept clean)
     window.addEventListener('scroll', function() {
       const header = document.querySelector('header');
       if (window.scrollY > 50) {
@@ -353,46 +441,9 @@
       }
     });
   </script>
-
-  <!-- Map Tooltip Interaction -->
-  <script>
-    const dots = document.querySelectorAll('.country-dot');
-    const tooltip = document.getElementById('country-tooltip');
-
-    dots.forEach(dot => {
-      dot.addEventListener('mousemove', (e) => {
-        tooltip.style.display = 'block';
-        tooltip.style.left = e.pageX + 'px';
-        tooltip.style.top = e.pageY - 30 + 'px';
-        tooltip.innerText = dot.getAttribute('data-country');
-      });
-
-      dot.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-      });
-    });
-    <!-- Leaflet Map Scripts -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-  // Initialize Africa Map
-  const map = L.map('africaMap').setView([1.5, 20], 3); // Center roughly on Africa
-
-  // Add OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  // Example placeholder marker (you can delete or keep it)
-  // L.marker([1.5, 20]).addTo(map).bindPopup("Africa Center");
-
-  // Later: Add member markers here dynamically when available
-</script>
-
-  </script>
 </body>
 </html>
+
 
 
 
