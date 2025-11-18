@@ -366,71 +366,126 @@
       countryFilter.appendChild(opt);
     });
 
-    // Directory rendering
-    const grid = document.getElementById('members-grid');
-    const searchInput = document.getElementById('member-search');
+    <script>
+  // --- Compact preview + show-all toggle settings ---
+  const PREVIEW_COUNT = 6; // number of members to show by default
+  let showAll = false;
+  const grid = document.getElementById('members-grid');
+  const searchInput = document.getElementById('member-search');
 
-    function renderMembers(list) {
-      grid.innerHTML = '';
-      if (list.length === 0) {
-        grid.innerHTML = '<p>No members found.</p>';
-        return;
+  // helper to create a member card element
+  function createMemberCard(m) {
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.innerHTML = `
+      <h3>${m.name}</h3>
+      <p class="meta">${m.org ? `<strong>${m.org}</strong> • ` : ''}${m.city}, ${m.country}</p>
+      <p>${m.specialization || ''}</p>
+      <button data-key="${m._markerKey}">View on map</button>
+    `;
+    // wire map button
+    card.querySelector('button').addEventListener('click', () => {
+      const marker = markers[m._markerKey];
+      if (marker) {
+        map.setView(marker.getLatLng(), 6);
+        marker.openPopup();
       }
-      list.forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'member-card';
-        card.innerHTML = `
-          <h3>${m.name}</h3>
-          <p class="meta">${m.org ? `<strong>${m.org}</strong> • ` : ''}${m.city}, ${m.country}</p>
-          <p>${m.specialization || ''}</p>
-          <button data-key="${m._markerKey}">View on map</button>
-        `;
-        grid.appendChild(card);
+    });
+    return card;
+  }
 
-        const btn = card.querySelector('button');
-        btn.addEventListener('click', () => {
-          const key = btn.getAttribute('data-key');
-          const marker = markers[key];
-          if (marker) {
-            map.setView(marker.getLatLng(), 6);
-            marker.openPopup();
-          }
-        });
-      });
+  // renderMembers: accepts list (already filtered) and whether this was triggered by search/filter
+  function renderMembers(list, autoExpanded=false) {
+    grid.innerHTML = '';
+
+    // if there are no results
+    if (list.length === 0) {
+      grid.innerHTML = '<p>No members found.</p>';
+      return;
     }
 
-    function filterMembers() {
-      const q = searchInput.value.trim().toLowerCase();
-      const country = countryFilter.value;
-      const filtered = members.filter(m => {
-        const matchesCountry = !country || m.country === country;
-        const text = `${m.name} ${m.org} ${m.specialization} ${m.city} ${m.country}`.toLowerCase();
-        const matchesQuery = !q || text.includes(q);
-        return matchesCountry && matchesQuery;
-      });
+    // If not showing all, create preview slice
+    const toShow = (showAll || autoExpanded) ? list : list.slice(0, PREVIEW_COUNT);
 
-      // render directory cards
-      renderMembers(filtered);
+    toShow.forEach(m => {
+      const card = createMemberCard(m);
+      // add preview class when we're in preview mode (for styling if desired)
+      if (!showAll && !autoExpanded) card.classList.add('preview');
+      grid.appendChild(card);
+    });
 
-      // show/hide markers on map for filtered list
-      members.forEach(m => {
-        const marker = markers[m._markerKey];
-        if (!marker) return;
-        if (filtered.includes(m)) {
-          marker.addTo(map);
-        } else {
-          map.removeLayer(marker);
-        }
+    // If we're in preview and there are more members, show the toggle button
+    if (!showAll && list.length > PREVIEW_COUNT && !autoExpanded) {
+      const moreWrap = document.createElement('div');
+      moreWrap.style.marginTop = '10px';
+      const moreBtn = document.createElement('button');
+      moreBtn.className = 'toggle-members-btn';
+      moreBtn.textContent = `Show all ${list.length} members`;
+      moreBtn.addEventListener('click', () => {
+        showAll = true;
+        renderMembers(list, false);
       });
+      moreWrap.appendChild(moreBtn);
+      grid.appendChild(moreWrap);
+    } else if (showAll) {
+      const collapseWrap = document.createElement('div');
+      collapseWrap.style.marginTop = '10px';
+      const collapseBtn = document.createElement('button');
+      collapseBtn.className = 'toggle-members-btn';
+      collapseBtn.textContent = 'Collapse members';
+      collapseBtn.addEventListener('click', () => {
+        showAll = false;
+        renderMembers(list, false);
+        // scroll back to directory heading
+        document.getElementById('members-directory').scrollIntoView({ behavior: 'smooth' });
+      });
+      collapseWrap.appendChild(collapseBtn);
+      grid.appendChild(collapseWrap);
     }
+  }
 
-    // initial render
-    renderMembers(members);
+  // filterMembers: returns filtered list and controls marker visibility
+  function filterMembers() {
+    const q = searchInput.value.trim().toLowerCase();
+    const country = countryFilter.value;
+    const filtered = members.filter(m => {
+      const matchesCountry = !country || m.country === country;
+      const text = `${m.name} ${m.org} ${m.specialization} ${m.city} ${m.country}`.toLowerCase();
+      const matchesQuery = !q || text.includes(q);
+      return matchesCountry && matchesQuery;
+    });
 
-    // wire filters
-    searchInput.addEventListener('input', filterMembers);
-    countryFilter.addEventListener('change', filterMembers);
+    // Decide whether search/filter should auto-expand the list
+    const autoExpanded = !!(q || country); // true if user typed or selected country
+    // If user typed or selected a filter, we want to show relevant results (not just preview)
+    renderMembers(filtered, autoExpanded);
 
+    // Update map markers visibility: show only markers for filtered list
+    members.forEach(m => {
+      const marker = markers[m._markerKey];
+      if (!marker) return;
+      if (filtered.includes(m)) {
+        marker.addTo(map);
+      } else {
+        map.removeLayer(marker);
+      }
+    });
+  }
+
+  // initial render: preview of first PREVIEW_COUNT members (not expanded)
+  renderMembers(members);
+
+  // wire filters
+  searchInput.addEventListener('input', () => {
+    // whenever user starts typing, we want to ensure list expands to show matches
+    // reset showAll so users get focused results, but we set autoExpanded in filterMembers
+    showAll = false;
+    filterMembers();
+  });
+  countryFilter.addEventListener('change', () => {
+    showAll = false;
+    filterMembers();
+  });
     // Navbar scroll effect (kept clean)
     window.addEventListener('scroll', function() {
       const header = document.querySelector('header');
@@ -443,6 +498,7 @@
   </script>
 </body>
 </html>
+
 
 
 
