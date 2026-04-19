@@ -140,27 +140,60 @@ For those looking to enter the algae economy, this represents a starting point g
 Margaret Nyaga is the Founder of the Algae Africa Network (AAN) and a PhD researcher specializing in algae biorefineries for sustainable food systems, circular bioeconomy, and environmental applications.
 </p>
 
-<!-- Discussion Section -->
-<div class="discussion">
-  <h2>Discussion</h2>
-  <p>
-    What do you think about this idea? Could this work in your context?
-    What would you improve or build differently?
-  </p>
+<!-- Interaction Section -->
+<div style="margin-top:50px; padding-top:20px; border-top:2px solid #ddd;">
 
-  <script src="https://giscus.app/client.js"
-        data-repo="margienyagah/algaeafrica.github.io"
-        data-repo-id="R_kgDOPl0uMg"
-        data-category="General"
-        data-category-id="DIC_kwDOPl0uMs4C7MbI"
-        data-mapping="pathname"
-        data-reactions-enabled="1"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-  </script>
+  <h2>Engage with this Insight</h2>
+
+  <!-- Quick Feedback -->
+  <div style="margin-top:20px; padding:15px; background:#f4fbf8; border-left:5px solid #0a7f5a; border-radius:5px;">
+    <p><strong>Would you explore this as a business opportunity?</strong></p>
+
+    <button onclick="vote('yes')" style="margin-right:10px;">👍 Yes</button>
+    <button onclick="vote('no')">👎 No</button>
+
+    <p id="response" style="margin-top:10px; color:#0a7f5a;"></p>
+  </div>
+
+  <!-- Like Button -->
+  <div style="margin-top:20px;">
+    <button onclick="likePost()">❤️ Like</button>
+    <span id="likeCount">0</span>
+  </div>
+
+  <!-- Comments -->
+  <div style="margin-top:40px;">
+    <h2>Discussion</h2>
+    <p>
+      What do you think about this idea? Could this work in your context?
+      What would you improve or build differently?
+    </p>
+
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="58ba20a0-3a9c-40cf-8938-66fba543fc28"
+      data-page-id="aan-insight-001"
+      data-page-url="https://margienyagah.github.io/algaeafrica.github.io/post1.html"
+      data-page-title="Algae Biorefineries to Reduce Postharvest Losses in Africa">
+    </div>
+
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script>
+function vote(answer) {
+  document.getElementById("response").innerText = "Thanks for your feedback!";
+}
+
+let likes = 0;
+function likePost() {
+  likes++;
+  document.getElementById("likeCount").innerText = likes;
+}
+</script>
 </div>
 
 </body>
