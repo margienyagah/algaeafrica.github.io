@@ -160,24 +160,25 @@ if (typeof window.members !== "undefined") {
 
     let filteredMembers = [...window.members];
 
-}
+    // ===============================
+    // Update Counters
+    // ===============================
+
     function updateCounters() {
 
-        if(memberCount)
+        if (memberCount)
             memberCount.textContent = window.members.length;
 
-        if(countryCount){
+        if (countryCount) {
 
-            const countries =
-            [...new Set(window.members.map(m=>m.country))];
+            const countries = [...new Set(window.members.map(m => m.country))];
 
             countryCount.textContent = countries.length;
         }
 
-        if(institutionCount){
+        if (institutionCount) {
 
-            const institutions =
-            [...new Set(window.members.map(m=>m.org).filter(Boolean))];
+            const institutions = [...new Set(window.members.map(m => m.org).filter(Boolean))];
 
             institutionCount.textContent = institutions.length;
         }
@@ -185,44 +186,54 @@ if (typeof window.members !== "undefined") {
     }
 
     updateCounters();
-        function populateFilters(){
 
-        if(countryFilter){
+    // ===============================
+    // Populate Filters
+    // ===============================
 
-            [...new Set(window.members.map(m=>m.country))]
-            .sort()
-            .forEach(country=>{
+    function populateFilters() {
 
-                countryFilter.innerHTML +=
-                `<option value="${country}">${country}</option>`;
+        if (countryFilter) {
 
-            });
+            [...new Set(window.members.map(m => m.country))]
+                .sort()
+                .forEach(country => {
+
+                    countryFilter.innerHTML +=
+                        `<option value="${country}">${country}</option>`;
+
+                });
 
         }
 
-        if(institutionFilter){
+        if (institutionFilter) {
 
-            [...new Set(window.members.map(m=>m.org).filter(Boolean))]
-            .sort()
-            .forEach(org=>{
+            [...new Set(window.members.map(m => m.org).filter(Boolean))]
+                .sort()
+                .forEach(org => {
 
-                institutionFilter.innerHTML +=
-                `<option value="${org}">${org}</option>`;
+                    institutionFilter.innerHTML +=
+                        `<option value="${org}">${org}</option>`;
 
-            });
+                });
 
         }
 
     }
 
     populateFilters();
-        function renderMembers(data){
 
-        if(!membersGrid) return;
+    // ===============================
+    // Render Members
+    // ===============================
 
-        membersGrid.innerHTML="";
+    function renderMembers(data) {
 
-        data.forEach(member=>{
+        if (!membersGrid) return;
+
+        membersGrid.innerHTML = "";
+
+        data.forEach(member => {
 
             membersGrid.innerHTML += `
 
@@ -236,9 +247,9 @@ if (typeof window.members !== "undefined") {
 
                 <p>${member.specialization}</p>
 
-                <p>${member.org}</p>
+                <p>${member.org || "Independent"}</p>
 
-                <span>${member.membership}</span>
+                <p>${member.membership}</p>
 
             </div>
 
@@ -249,22 +260,28 @@ if (typeof window.members !== "undefined") {
     }
 
     renderMembers(window.members);
-        if(searchInput){
 
-        searchInput.addEventListener("keyup",()=>{
+    // ===============================
+    // Search
+    // ===============================
 
-            const value =
-            searchInput.value.toLowerCase();
+    if (searchInput) {
 
-            filteredMembers = window.members.filter(member=>
+        searchInput.addEventListener("keyup", () => {
+
+            const value = searchInput.value.toLowerCase();
+
+            filteredMembers = window.members.filter(member =>
 
                 member.name.toLowerCase().includes(value) ||
 
                 member.country.toLowerCase().includes(value) ||
 
-                member.org.toLowerCase().includes(value) ||
+                member.city.toLowerCase().includes(value) ||
 
-                member.specialization.toLowerCase().includes(value)
+                member.specialization.toLowerCase().includes(value) ||
+
+                member.org.toLowerCase().includes(value)
 
             );
 
@@ -273,83 +290,89 @@ if (typeof window.members !== "undefined") {
         });
 
     }
-        if(countryFilter){
 
-        countryFilter.addEventListener("change",()=>{
+    // ===============================
+    // Country Filter
+    // ===============================
+
+    if (countryFilter) {
+
+        countryFilter.addEventListener("change", () => {
 
             const country = countryFilter.value;
 
-            if(country===""){
+            if (country === "") {
 
                 renderMembers(window.members);
 
-                return;
+            } else {
+
+                renderMembers(window.members.filter(m => m.country === country));
 
             }
-
-            renderMembers(
-
-                window.members.filter(m=>m.country===country)
-
-            );
 
         });
 
     }
-        if(institutionFilter){
 
-        institutionFilter.addEventListener("change",()=>{
+    // ===============================
+    // Institution Filter
+    // ===============================
+
+    if (institutionFilter) {
+
+        institutionFilter.addEventListener("change", () => {
 
             const org = institutionFilter.value;
 
-            if(org===""){
+            if (org === "") {
 
                 renderMembers(window.members);
 
-                return;
+            } else {
+
+                renderMembers(window.members.filter(m => m.org === org));
 
             }
-
-            renderMembers(
-
-                window.members.filter(m=>m.org===org)
-
-            );
-
-        });
-
-    }
-        if(document.getElementById("africaMap")){
-
-        const map = L.map("africaMap").setView([2,20],4);
-
-        L.tileLayer(
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            {
-                attribution:"© OpenStreetMap"
-            }
-        ).addTo(map);
-
-        window.members.forEach(member=>{
-
-            L.marker([member.lat,member.lng])
-
-            .addTo(map)
-
-            .bindPopup(`
-
-                <strong>${member.name}</strong><br>
-
-                ${member.org}<br>
-
-                ${member.country}<br>
-
-                ${member.specialization}
-
-            `);
 
         });
 
     }
 
+    // ===============================
+    // Leaflet Map
+    // ===============================
+
+    if (document.getElementById("africaMap") && typeof L !== "undefined") {
+
+        const map = L.map("africaMap").setView([3, 20], 3);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+
+            attribution: "&copy; OpenStreetMap contributors"
+
+        }).addTo(map);
+
+        window.members.forEach(member => {
+
+            if (member.lat && member.lng) {
+
+                L.marker([member.lat, member.lng])
+
+                    .addTo(map)
+
+                    .bindPopup(`
+                        <strong>${member.name}</strong><br>
+                        ${member.org || "Independent"}<br>
+                        ${member.city}, ${member.country}<br>
+                        ${member.specialization}
+                    `);
+
+            }
+
+        });
+
+    }
+
+}
 }
