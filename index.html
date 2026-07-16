@@ -1,549 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Algae Africa Network (AAN)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <title>Algae Africa Network (AAN)</title>
 
-  <!-- Leaflet CSS (included once) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <meta name="description"
+        content="Building Africa's Algae Innovation Ecosystem through research, education, entrepreneurship and sustainable development.">
 
-  <!-- Small inline CSS to ensure the directory empty note appears if style.css not yet updated -->
-  <style>
-    .members-empty-note {
-      color: #555;
-      font-size: 1rem;
-      margin: 8px 0 12px 0;
-      text-align: left;
-    }
-    /* minor nicety: ensure directory controls don't wrap weirdly on tiny screens */
-    @media (max-width:600px) {
-      .members-controls { flex-direction:column; gap:8px; }
-    }
-  </style>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
-  <!-- Navigation -->
-  <header>
-    <nav>
-      <div class="logo">
-        <img src="logo.png" alt="Algae Africa Network Logo">
-      </div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Our Work</a></li>
-        <li><a href="aan-global-insights.html">AAN Global Insights</a></li>
-        <li><a href="#leadership">Leadership</a></li>
-        <li><a href="#membership">Membership</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Uniting Africa’s researchers, innovators, and investors to accelerate algae development.</h1>
-    <div class="hero-buttons">
-      <a href="#membership" class="btn">Join the Network</a>
-      <a href="#contact" class="btn">Contact Us</a>
-    </div>
-  </section>
+<!-- ================= HEADER ================= -->
 
-  <!-- About -->
-  <section id="about" class="section">
-    <h2>About Us</h2>
-    <p>Algae Africa Network (AAN) is a collaborative platform uniting researchers, entrepreneurs, policymakers, and investors to accelerate algae development across the continent.</p>
-    <p>Together, we are building Africa’s algae movement — from food security to climate resilience, from biorefineries to green industries.</p>
-  </section>
+<header>
 
-  <!-- Our Work -->
-  <section id="work" class="section">
-    <h2>Our Work / Focus Areas</h2>
-    <ul>
-      <li>🌱 <b>Sustainable Food & Agriculture</b> – advancing algae-based proteins, feeds, and fertilizers to strengthen food security.</li>
-      <li>🌍 <b>Climate & Environment</b> – leveraging algae for carbon capture, wastewater treatment, and ecosystem restoration.</li>
-      <li>💡 <b>Innovation & Entrepreneurship</b> – supporting African innovators and startups developing algae-based products.</li>
-      <li>🎓 <b>Research & Education</b> – creating spaces for knowledge exchange, training, and partnerships across Africa and beyond.</li>
-    </ul>
-  </section>
+<nav class="navbar">
 
-  <!-- Leadership -->
-  <section id="leadership" class="section">
-    <h2>Leadership</h2>
-    <p><b>Founder & Executive Lead:</b> Margaret Nyaga – PhD Researcher, Founder of AAN.</p>
-    <p><b>Advisory Board & Trustees:</b> Coming soon – AAN will announce a diverse team of African and international experts supporting our mission.</p>
-  </section>
+<div class="logo">
+<a href="index.html">
+<img src="logo.png" alt="Algae Africa Network">
+</a>
+</div>
 
-  <!-- Membership Form -->
-  <section id="membership" class="section">
-    <h2>Join the Algae Africa Network</h2>
-    <p>Be part of Africa’s algae transformation — connect, collaborate, and grow with innovators, researchers, and partners across the continent.</p>
+<ul class="nav-links">
 
-    <form action="https://formspree.io/f/xrbyovza" method="POST" class="membership-form">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+<li><a href="#about">About</a></li>
 
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="_replyto" placeholder="Your Email" required>
+<li><a href="#impact">Impact</a></li>
 
-      <label for="organization">Organization / Institution:</label>
-      <input type="text" id="organization" name="organization" placeholder="Your Organization" required>
+<li><a href="#focus">Focus Areas</a></li>
 
-      <label for="country">Country:</label>
-      <input type="text" id="country" name="country" placeholder="Your Country" required>
+<li><a href="education.html">Education Hub</a></li>
 
-      <label for="interest">Area of Interest:</label>
-      <select id="interest" name="interest" required>
-        <option value="">Select one...</option>
-        <option>Research & Education</option>
-        <option>Innovation & Entrepreneurship</option>
-        <option>Climate & Environment</option>
-        <option>Food & Agriculture</option>
-        <option>Investment / Partnership</option>
-      </select>
+<li><a href="news.html">News</a></li>
 
-      <label for="message">Tell us briefly why you’d like to join:</label>
-      <textarea id="message" name="message" rows="4" placeholder="Your message..." required></textarea>
+<li><a href="events.html">Events</a></li>
 
-      <input type="hidden" name="_subject" value="New AAN Membership Application">
+<li><a href="contact.html">Contact</a></li>
 
-      <button type="submit">Submit Application</button>
-    </form>
+</ul>
 
-    <p class="form-note">💡 Once submitted, our team will reach out via email with next steps for your membership.</p>
-  </section>
+<a href="membership.html" class="join-btn">
+Become a Member
+</a>
 
-  <!-- Our Members Map -->
-  <section id="map" class="section">
-    <h2>Our Global Network</h2>
-    <p>Explore where members and collaborators are advancing algae research, innovation, and sustainable development across Africa and around the world.</p>
+</nav>
 
-    <!-- Map container -->
-    <div id="africaMap"></div>
-  </section>
+</header>
 
-  <!-- Members Directory (search & country filter + grid) -->
-  <section id="members-directory" class="section">
-    <h2>Members Directory</h2>
+<!-- ================= HERO ================= -->
 
-    <div class="members-controls">
-      <input id="member-search" type="search" placeholder="Search name, org, specialization..." />
-      <select id="country-filter">
-        <option value="">Filter by country (all)</option>
-      </select>
-    </div>
+<section class="hero">
 
-    <div id="members-grid" class="members-grid"></div>
-  </section>
+<div class="hero-content">
 
-  <!-- Events -->
-  <section id="events" class="section">
-    <h2>News & Events</h2>
-    <p>🌐 <b>AAN Inaugural Webinar:</b> 28th August 2025<br>
-    Theme: “Launching Africa’s Algae Movement” ✅ Completed</p>
+<p class="hero-tag">
+AFRICA'S CONTINENTAL ALGAE NETWORK
+</p>
 
-    <p>🌐 <b>Next Webinar:</b> 28th October 2025<br>
-    Theme: “Scaling Algae Innovation Across Africa” ✅ Completed</p>
-  </section>
+<h1>
 
-  <!-- Contact -->
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>📧 Email: <a href="mailto:info@algaeafrica.org">info@algaeafrica.org</a></p>
-    <p>📍 Address: Nairobi, 42705-0100, Kenya</p>
-    <p>🔗 LinkedIn: <a href="https://www.linkedin.com/company/algae-africa-network-aan/" target="_blank">Algae Africa Network (AAN)</a></p>
-  </section>
+Building Africa's Algae Innovation Ecosystem
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 Algae Africa Network (AAN). All rights reserved.</p>
-  </footer>
+</h1>
 
-  <!-- Leaflet JS (included once) -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<p class="hero-text">
 
-  <!-- Main map + members script -->
-  <script>
-    // Initialize Africa Map (single initialization)
-    const map = L.map("africaMap").setView([2, 20], 3.2);
+Connecting researchers, entrepreneurs, industry,
+policymakers, investors, and communities to
+advance algae research, education,
+commercialization, and sustainable development
+across Africa.
 
-    // Add OpenStreetMap tiles
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+</p>
 
-    // Custom AAN marker icon
-    const aanIcon = L.icon({
-      iconUrl: "https://upload.wikimedia.org/wikipedia/commons/7/73/Green_marker.svg",
-      iconSize: [28, 28],
-      iconAnchor: [14, 28],
-      popupAnchor: [0, -25],
-    });
+<div class="hero-buttons">
 
-    // MEMBERS ARRAY (preserved from your original)
-    const members = [
-      {
-        name: "Dr. Abdelfettah GHERIB",
-        country: "Algeria",
-        city: "Constantine",
-        specialization: "Biotechnology Researcher",
-        org: "CRBt Constantine",
-        lat: 36.36,
-        lng: 6.60,
-      },
-      {
-        name: "Vincent Mbugua",
-        country: "Kenya",
-        city: "Nairobi",
-        specialization: "Algae-based Product Innovator",
-        org: "Vinnovations",
-        lat: -1.286389,
-        lng: 36.817223,
-      },
-      {
-        name: "Sheila Jepkorir",
-        country: "Kenya",
-        city: "Nairobi",
-        specialization: "AAN Youth Ambassador",
-        org:"Algae Africa Network",
-        lat: -1.29,
-        lng: 36.82,
-      },
-      {
-        name: "Benard Kioko",
-        country: "Kenya",
-        city: "Mombasa",
-        specialization: "Founder, Algae Cosmetics and Bioproducts",
-        org: "Maricosmetics",
-        lat: -4.043477,
-        lng: 39.668206,
-      },
-      {
-        name: "Lucile Gingembre",
-        country: "Madagascar",
-        city: "Antananarivo",
-        specialization: "Seaweed Entrepreneurship and Blue Economy",
-        org: "Seaweed and Beyond",
-        lat: -18.8792,
-        lng: 47.5079
-      },
-      {
-        name: "Dr. Abdalah Makaranga",
-        country: "Tanzania",
-        city: "Moshi",
-        specialization: "Algae Biotechnology Lecturer",
-        org: "Mwenge Catholic University (MWECAU)",
-        lat: -3.35,
-        lng: 37.34,
-      },
-      {
-        name: "Ndeye Coumba Bousso",
-        country: "Senegal",
-        city: "Dakar",
-        specialization: "Microalgae PhD Researcher",
-        org: "",
-        lat: 14.7167,
-        lng: -17.4677,
-      },
-      {
-        name: "Alfred Rono",
-        country: "Kenya",
-        city: "Kwale",
-        specialization: "Seaweed Community Projects",
-        org: "Plan International Kenya",
-        lat: -4.18,
-        lng: 39.45,
-      },
-      {
-        name: "Anthony Adu-Gyamfi",
-        country: "Ghana",
-        city: "Accra",
-        specialization: "PhD Researcher in Marine and Seaweed Biotechnology",
-        org: "Atlantic Technological University",
-        lat: 5.6037,
-        lng: -0.187,
-      },
-      {
-        name: "Oghogho Eleshin",
-        country: "Nigeria",
-        city: "Lagos",
-        specialization: "PhD Researcher in Algal Ecology and Marine Biology",
-        org: "University of Lagos / AAN Youth Ambassador",
-        lat: 6.5344,
-        lng: 3.3799,
-      },
-      {
-        name: "Morufat Li-Hammed",
-        country: "Nigeria",
-        city: "Lagos",
-        specialization: "Marine Research and Education",
-        org: "",
-        lat: 6.5244,
-        lng: 3.3792,
-      },
-      {
-        name: "Dr. Esther Kadiene",
-        country: "Nigeria",
-        city: "Delta State",
-        specialization: "Marine & Environmental Biologist, Lecturer",
-        org: "Delta State University",
-        lat: 5.55,
-        lng: 5.75,
-      },
-      {
-        name: "Dr. Blessing Allen-Adebayo",
-        country: "Nigeria",
-        city: "Lagos",
-        specialization: "Algae Innovation & Entrepreneurship",
-        org: "Weaver and Nexus Ltd",
-        lat: 6.5244,
-        lng: 3.3792,
-      },
-      {
-        name: "Prof. Taofikat Adesalu",
-        country: "Nigeria",
-        city: "Lagos",
-        specialization:
-          "Professor of Algology, Algal Biotechnology & Ecology",
-        org: "University of Lagos",
-        lat: 6.5244,
-        lng: 3.3792,
-      },
-      {
-        name: "Thabugha Joward",
-        country: "Uganda",
-        city: "Kampala",
-        org: "Algae Africa Network",
-        specialization: "AAN Youth Ambassador",
-        lat: 0.3476,
-        lng: 32.5825,
-      },
-      {
-        name: "REZZOUM Nor-Eddine",
-        country: "Morocco",
-        city: "Casablanca",
-        specialization: "Marine Biologist",
-        org: "INRH (National Institute of Fisheries Research)",
-        lat: 33.5731,
-        lng: -7.5898
-      },
-      {
-        name: "Heba Mahmoud Youssef",
-        country: "Egypt",
-        city: "Beni Suef",
-        specialization: "Microalgae Researcher",
-        org: "Beni-Suef University",
-        lat: 29.0661,
-        lng: 31.0994
-      },
-      {
-        name: "Karim Mtengai",
-        country: "Tanzania",
-        city: "Mbeya",
-        specialization: "PhD Researcher",
-        org: "Copperbelt University",
-        lat: -8.9,
-        lng: 33.45
-      },
-      {
-        name: "Elando Fréda Zamanileha",
-        country: "Madagascar",
-        city: "Antananarivo",
-        specialization: "Researcher",
-        org: "URGPGEm, University of Antananarivo",
-        lat: -18.8799,
-        lng: 47.5099,
-      },
-       {
-  name: "Pierre Fils Rodrigue Magwell",
-  country: "Cameroon",
-  city: "Yaoundé",
-  specialization: "Microalgae Biotechnology Researcher",
-  org: "Institute of Agricultural Research for Development",
-  lat: 3.8480,
-  lng: 11.5021
-},
-{
-  name: "Nil Deniz Cidanli",
-  country: "Kenya",
-  city: "Nairobi",
-  specialization: "Marine Scientist",
-  org: "Côte d'Azur University",
-  lat: -1.286389,
-  lng: 36.817223
-},
- {
-  name: "Offoro N Kimambo",
-  country: "Tanzania",
-  city: "Morogoro",
-  specialization: " environmental scientist",
-  org: "Sokoine university of Agriculture",
-  lat: 6.8278,
-  lng: 37.6591
-},
-  {
-  name: "Gabriel Dafeakeh",
-  country: "Nigeria",
-  city: "Otokutu, Delta State",
-  specialization: "Founder",
-  org: "Fish Intensive Supply House",
-  lat: 5.5170,
-  lng: 5.7500,
-},
-{
-  name: "Rana Elromh",
-  country: "Egypt",
-  city: "Alexandria",
-  specialization: "Field Biotechnology, AAN Youth Ambassador",
-  org: "Algae Africa Network",
-  lat: 31.2001,
-  lng: 29.9187,
-},
-  {
-  name: "Bradley Bock",
-  country: "South Africa",
-  city: "Pretoria",
-  specialization: "Researcher",
-  org: "University of Pretoria",
-  lat: -25.7545,
-  lng: 28.2314,
-}, 
-   {
-  name: "Liepollo",
-  country: "Lesotho",
-  city: "Maseru",
-  specialization: "Innovation & Entrepreneurship",
-  org: "Aquagrow Innovations",
-  lat: -29.3100,
-  lng: 27.4800,
-},
-    ];
+<a href="membership.html" class="btn-primary">
 
-    // Create markers map so we can reference them from the directory
-    const markers = {};
-    members.forEach(m => {
-      const key = `${m.name}-${m.city}`.replace(/\s+/g, '-');
-      const marker = L.marker([m.lat, m.lng], { icon: aanIcon })
-        .addTo(map)
-        .bindPopup(`<b>${m.name}</b><br>${m.specialization || ''}<br><i>${m.org || ''}</i><br>${m.city}, ${m.country}`);
-      markers[key] = marker;
-      m._markerKey = key;
-    });
+Become a Member
 
-    // Populate country filter options
-    const countrySet = Array.from(new Set(members.map(m => m.country))).sort();
-    const countryFilter = document.getElementById('country-filter');
-    countrySet.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c;
-      opt.textContent = c;
-      countryFilter.appendChild(opt);
-    });
+</a>
 
-    // DIRECTORY LOGIC: keep directory empty until a search or a country selection
-    const grid = document.getElementById('members-grid');
-    const searchInput = document.getElementById('member-search');
+<a href="education.html" class="btn-secondary">
 
-    function createMemberCard(m) {
-      const card = document.createElement('div');
-      card.className = 'member-card';
-      card.innerHTML = `
-        <h3>${m.name}</h3>
-        <p class="meta">${m.org ? `<strong>${m.org}</strong> • ` : ''}${m.city}, ${m.country}</p>
-        <p>${m.specialization || ''}</p>
-        <button data-key="${m._markerKey}">View on map</button>
-      `;
-      card.querySelector('button').addEventListener('click', () => {
-        const key = card.querySelector('button').getAttribute('data-key');
-        const marker = markers[key];
-        if (marker) {
-          map.setView(marker.getLatLng(), 6);
-          marker.openPopup();
-        }
-      });
-      return card;
-    }
+Explore Education Hub
 
-    function renderDirectory(list) {
-      grid.innerHTML = '';
-      if (!list || list.length === 0) {
-        grid.innerHTML = `<p class="members-empty-note">Type a name, organization, specialization, or a country (e.g. "Kenya") to find members.</p>`;
-        return;
-      }
-      list.forEach(m => {
-        const card = createMemberCard(m);
-        grid.appendChild(card);
-      });
-    }
+</a>
 
-    function filterMembers() {
-      const q = searchInput.value.trim().toLowerCase();
-      const country = countryFilter.value.trim();
+</div>
 
-      // show nothing until user types or chooses a country
-      if (!q && !country) {
-        renderDirectory([]);
-        return;
-      }
+</div>
 
-      const filtered = members.filter(m => {
-        const matchesCountry = country ? (m.country && m.country.toLowerCase() === country.toLowerCase()) : true;
-        const text = `${m.name} ${m.org} ${m.specialization} ${m.city} ${m.country}`.toLowerCase();
-        const matchesQuery = q ? text.includes(q) : true;
-        return matchesCountry && matchesQuery;
-      });
+</section>
 
-      renderDirectory(filtered);
-    }
+<!-- ================= ABOUT ================= -->
 
-    // initial state: directory empty prompt
-    renderDirectory([]);
+<section id="about" class="about">
 
-    // wire inputs (map markers remain always visible)
-    searchInput.addEventListener('input', filterMembers);
-    countryFilter.addEventListener('change', filterMembers);
+<div class="container">
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-  </script>
+<h2>
+
+About Algae Africa Network
+
+</h2>
+
+<p>
+
+The Algae Africa Network (AAN) is a pan-African platform bringing together researchers, entrepreneurs, educators, industry leaders, policymakers, investors, and development partners to unlock the potential of algae for sustainable development.
+
+</p>
+
+<p>
+
+Our mission is to accelerate collaboration, knowledge exchange, innovation, and commercialization of algae-based solutions that contribute to food security, climate resilience, environmental restoration, renewable bioeconomies, and inclusive economic growth across Africa.
+
+</p>
+
+</div>
+
+</section>
+    <!-- ================= IMPACT ================= -->
+
+<section class="impact" id="impact">
+
+<div class="container">
+
+<h2>Our Growing Impact</h2>
+
+<p class="impact-intro">
+
+Building Africa's algae ecosystem through collaboration,
+research, innovation and partnerships.
+
+</p>
+
+<div class="stats">
+
+<div class="stat">
+
+<h3 class="counter" data-target="25">0</h3>
+
+<p>Members</p>
+
+</div>
+
+<div class="stat">
+
+<h3 class="counter" data-target="10">0</h3>
+
+<p>Countries</p>
+
+</div>
+
+<div class="stat">
+
+<h3 class="counter" data-target="20">0</h3>
+
+<p>Institutions</p>
+
+</div>
+
+<div class="stat">
+
+<h3 class="counter" data-target="1">0</h3>
+
+<p>Continental Network</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+    <!-- ================= FOCUS AREAS ================= -->
+
+<section id="focus">
+
+<div class="container">
+
+<h2>Our Focus Areas</h2>
+
+<p class="section-intro">
+
+AAN supports interdisciplinary collaboration to advance
+Africa's algae sector from research to commercialization.
+
+</p>
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fas fa-microscope"></i>
+
+<h3>Research</h3>
+
+<p>
+
+Supporting scientific research, collaboration and
+knowledge generation across freshwater and marine algae.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-lightbulb"></i>
+
+<h3>Innovation</h3>
+
+<p>
+
+Promoting algae-based products, startups,
+biotechnology and commercialization opportunities.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-graduation-cap"></i>
+
+<h3>Education</h3>
+
+<p>
+
+Developing educational resources, webinars,
+training and capacity building for students and professionals.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-handshake"></i>
+
+<h3>Partnerships</h3>
+
+<p>
+
+Connecting academia, industry,
+government and investors to accelerate Africa's algae economy.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+    <!-- ================= NEWS ================= -->
+
+<section class="news">
+
+<div class="container">
+
+<h2>News, Events & Opportunitiess</h2>
+
+<p class="section-intro">
+
+Stay informed with the latest activities,
+events and opportunities from the Algae Africa Network.
+
+</p>
+
+<div class="news-grid">
+
+<div class="news-card">
+
+<div class="news-content">
+
+<h3>
+
+🌍 AAN Webinar Series
+
+</h3>
+
+<p>
+
+Our continental webinar series continues
+to connect researchers, students and innovators
+working across Africa.
+
+</p>
+
+<a href="events.html" class="read-more">
+
+Read More →
+
+</a>
+
+</div>
+
+</div>
+
+<div class="news-card">
+
+<div class="news-content">
+
+<h3>
+
+📚 Education Hub Launch
+
+</h3>
+
+<p>
+
+Explore educational articles,
+guides and learning resources
+designed for Africa's algae community.
+
+</p>
+
+<a href="education.html" class="read-more">
+
+Visit Hub →
+
+</a>
+
+</div>
+
+</div>
+
+<div class="news-card">
+
+<div class="news-content">
+
+<h3>
+
+🤝 Join the Network
+
+</h3>
+
+<p>
+
+Researchers, students,
+entrepreneurs and organizations are invited
+to become part of Africa's growing algae ecosystem.
+
+</p>
+
+<a href="membership.html" class="read-more">
+
+Become a Member →
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= WHY ALGAE ================= -->
+
+<section class="why-algae">
+
+<div class="container">
+
+<h2>
+
+Why Algae Matters for Africa
+
+</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fas fa-seedling"></i>
+
+<h3>
+
+Food Security
+
+</h3>
+
+<p>
+
+Algae provides sustainable food, feed, fertilizers and nutritional solutions for Africa's growing population.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-earth-africa"></i>
+
+<h3>
+
+Climate Solutions
+
+</h3>
+
+<p>
+
+Supporting carbon capture, wastewater treatment, ecosystem restoration and climate adaptation.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-flask"></i>
+
+<h3>
+
+Blue Bioeconomy
+
+</h3>
+
+<p>
+
+Driving innovation in biotechnology, pharmaceuticals, cosmetics, aquaculture and renewable industries.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- NEXT SECTIONS -->
+
+<!--
+AAN Impact
+
+Focus Areas
+
+Latest News
+
+Featured Resource
+
+Join AAN
+
+Footer
+-->
+
+<script>
+
+window.addEventListener("scroll", function () {
+
+document.querySelector("header")
+.classList.toggle("scrolled", window.scrollY > 60);
+
+});
+
+</script>
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
