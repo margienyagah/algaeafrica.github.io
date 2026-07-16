@@ -95,7 +95,14 @@ header.scrolled{
     height:65px;
 
 }
-
+#africaMap{
+    width:100%;
+    height:650px;
+    border-radius:16px;
+    margin-top:30px;
+    overflow:hidden;
+    border:1px solid #ddd;
+}
 /* ---------- Navigation ---------- */
 
 .nav-links{
