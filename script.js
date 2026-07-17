@@ -3,241 +3,244 @@
 // script.js
 // ===========================================
 
-// ---------- Sticky Navigation ----------
+document.addEventListener("DOMContentLoaded", () => {
 
-const header = document.querySelector("header");
+    // ==========================================
+    // Sticky Navigation
+    // ==========================================
 
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 80) {
-        header.classList.add("scrolled");
-    } else {
-        header.classList.remove("scrolled");
+    const header = document.querySelector("header");
+
+    if (header) {
+        window.addEventListener("scroll", () => {
+            header.classList.toggle("scrolled", window.scrollY > 80);
+        });
     }
-});
 
-// ---------- Smooth Scroll ----------
+    // ==========================================
+    // Smooth Scroll
+    // ==========================================
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
-    anchor.addEventListener("click", function(e) {
+        anchor.addEventListener("click", function (e) {
 
-        e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
 
-        const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
 
-        if(target){
+                e.preventDefault();
 
-            target.scrollIntoView({
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
 
-                behavior:"smooth"
+            }
+
+        });
+
+    });
+
+    // ==========================================
+    // Fade In Animation
+    // ==========================================
+
+    const sections = document.querySelectorAll("section");
+
+    if ("IntersectionObserver" in window) {
+
+        const observer = new IntersectionObserver(entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("show");
+
+                }
 
             });
 
-        }
+        }, {
+            threshold: 0.15
+        });
+
+        sections.forEach(section => {
+
+            section.classList.add("hidden");
+
+            observer.observe(section);
+
+        });
+
+    }
+
+    // ==========================================
+    // Homepage Counters
+    // ==========================================
+
+    document.querySelectorAll(".counter").forEach(counter => {
+
+        const target = Number(counter.dataset.target);
+
+        if (!target) return;
+
+        const animate = () => {
+
+            let value = 0;
+
+            const increment = Math.max(1, Math.ceil(target / 100));
+
+            const timer = setInterval(() => {
+
+                value += increment;
+
+                if (value >= target) {
+
+                    value = target;
+
+                    clearInterval(timer);
+
+                }
+
+                counter.textContent = value + "+";
+
+            }, 20);
+
+        };
+
+        const obs = new IntersectionObserver(entries => {
+
+            if (entries[0].isIntersecting) {
+
+                animate();
+
+                obs.disconnect();
+
+            }
+
+        });
+
+        obs.observe(counter);
 
     });
 
-});
+    // ==========================================
+    // Current Year
+    // ==========================================
 
-// ---------- Fade-in Animation ----------
+    const year = document.getElementById("year");
 
-const observer = new IntersectionObserver((entries)=>{
+    if (year) {
 
-    entries.forEach(entry=>{
+        year.textContent = new Date().getFullYear();
 
-        if(entry.isIntersecting){
+    }
 
-            entry.target.classList.add("show");
+    // ==========================================
+    // Mobile Navigation
+    // ==========================================
 
-        }
+    const menuBtn = document.querySelector(".menu-toggle");
 
-    });
+    const navLinks = document.querySelector(".nav-links");
 
-},{
-    threshold:0.2
-});
+    if (menuBtn && navLinks) {
 
-document.querySelectorAll("section").forEach(section=>{
+        menuBtn.addEventListener("click", () => {
 
-    section.classList.add("hidden");
+            navLinks.classList.toggle("active");
 
-    observer.observe(section);
+        });
 
-});
+    }
 
-// ---------- Animated Counters ----------
+    // ==========================================
+    // MEMBERS PAGE
+    // ==========================================
 
-const counters = document.querySelectorAll(".counter");
+    if (typeof window.members === "undefined") return;
 
-const counterObserver = new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-const counter = entry.target;
-
-const target = +counter.dataset.target;
-
-let count = 0;
-
-const speed = target / 100;
-
-const updateCounter = () =>{
-
-count += speed;
-
-if(count < target){
-
-counter.innerText = Math.ceil(count);
-
-requestAnimationFrame(updateCounter);
-
-}else{
-
-counter.innerText = target + "+";
-
-}
-
-};
-
-updateCounter();
-
-counterObserver.unobserve(counter);
-
-}
-
-});
-
-});
-
-counters.forEach(counter=>{
-
-counterObserver.observe(counter);
-
-});
-
-// ---------- Current Year ----------
-
-const year = document.getElementById("year");
-
-if(year){
-
-year.textContent = new Date().getFullYear();
-
-}
-
-// ---------- Mobile Navigation (Future Ready) ----------
-
-const menuBtn = document.querySelector(".menu-toggle");
-
-const navLinks = document.querySelector(".nav-links");
-
-if(menuBtn){
-
-menuBtn.addEventListener("click",()=>{
-
-navLinks.classList.toggle("active");
-
-});
-    // ===========================================
-// MEMBERS PAGE
-// ===========================================
-
-if (typeof window.members !== "undefined") {
+    const members = window.members;
 
     const memberCount = document.getElementById("member-count");
     const countryCount = document.getElementById("country-count");
     const institutionCount = document.getElementById("institution-count");
 
-    const membersGrid = document.getElementById("members-grid");
+    const grid = document.getElementById("members-grid");
 
-    const searchInput = document.getElementById("member-search");
+    const search = document.getElementById("member-search");
 
     const countryFilter = document.getElementById("country-filter");
 
     const institutionFilter = document.getElementById("institution-filter");
 
-    let filteredMembers = [...window.members];
+    // ==========================================
+    // Counters
+    // ==========================================
 
-    // ===============================
-    // Update Counters
-    // ===============================
+    if (memberCount)
+        memberCount.textContent = members.length;
 
-    function updateCounters() {
+    if (countryCount) {
 
-        if (memberCount)
-            memberCount.textContent = window.members.length;
-
-        if (countryCount) {
-
-            const countries = [...new Set(window.members.map(m => m.country))];
-
-            countryCount.textContent = countries.length;
-        }
-
-        if (institutionCount) {
-
-            const institutions = [...new Set(window.members.map(m => m.org).filter(Boolean))];
-
-            institutionCount.textContent = institutions.length;
-        }
+        countryCount.textContent =
+            [...new Set(members.map(m => m.country))].length;
 
     }
 
-    updateCounters();
+    if (institutionCount) {
 
-    // ===============================
-    // Populate Filters
-    // ===============================
-
-    function populateFilters() {
-
-        if (countryFilter) {
-
-            [...new Set(window.members.map(m => m.country))]
-                .sort()
-                .forEach(country => {
-
-                    countryFilter.innerHTML +=
-                        `<option value="${country}">${country}</option>`;
-
-                });
-
-        }
-
-        if (institutionFilter) {
-
-            [...new Set(window.members.map(m => m.org).filter(Boolean))]
-                .sort()
-                .forEach(org => {
-
-                    institutionFilter.innerHTML +=
-                        `<option value="${org}">${org}</option>`;
-
-                });
-
-        }
+        institutionCount.textContent =
+            [...new Set(members.map(m => m.org).filter(Boolean))].length;
 
     }
 
-    populateFilters();
+    // ==========================================
+    // Filters
+    // ==========================================
 
-    // ===============================
-    // Render Members
-    // ===============================
+    if (countryFilter) {
+
+        [...new Set(members.map(m => m.country))]
+            .sort()
+            .forEach(country => {
+
+                countryFilter.innerHTML +=
+                    `<option value="${country}">${country}</option>`;
+
+            });
+
+    }
+
+    if (institutionFilter) {
+
+        [...new Set(members.map(m => m.org).filter(Boolean))]
+            .sort()
+            .forEach(org => {
+
+                institutionFilter.innerHTML +=
+                    `<option value="${org}">${org}</option>`;
+
+            });
+
+    }
+
+    // ==========================================
+    // Member Cards
+    // ==========================================
 
     function renderMembers(data) {
 
-        if (!membersGrid) return;
+        if (!grid) return;
 
-        membersGrid.innerHTML = "";
+        grid.innerHTML = "";
 
         data.forEach(member => {
 
-            membersGrid.innerHTML += `
+            grid.innerHTML += `
 
-            <div class="member-card">
+            <article class="member-card">
 
                 <h3>${member.name}</h3>
 
@@ -247,11 +250,13 @@ if (typeof window.members !== "undefined") {
 
                 <p>${member.specialization}</p>
 
-                <p>${member.org || "Independent"}</p>
+                <p>${member.org || "Independent Researcher"}</p>
 
-                <p>${member.membership}</p>
+                <span class="badge">
+                    ${member.membership}
+                </span>
 
-            </div>
+            </article>
 
             `;
 
@@ -259,120 +264,142 @@ if (typeof window.members !== "undefined") {
 
     }
 
-    renderMembers(window.members);
+    renderMembers(members);
 
-    // ===============================
+    // ==========================================
     // Search
-    // ===============================
+    // ==========================================
 
-    if (searchInput) {
+    if (search) {
 
-        searchInput.addEventListener("keyup", () => {
+        search.addEventListener("keyup", () => {
 
-            const value = searchInput.value.toLowerCase();
+            const value = search.value.toLowerCase();
 
-            filteredMembers = window.members.filter(member =>
+            const filtered = members.filter(member =>
 
                 member.name.toLowerCase().includes(value) ||
 
                 member.country.toLowerCase().includes(value) ||
 
-                member.city.toLowerCase().includes(value) ||
-
                 member.specialization.toLowerCase().includes(value) ||
 
-                member.org.toLowerCase().includes(value)
+                (member.org || "").toLowerCase().includes(value)
 
             );
 
-            renderMembers(filteredMembers);
+            renderMembers(filtered);
 
         });
 
     }
 
-    // ===============================
+    // ==========================================
     // Country Filter
-    // ===============================
+    // ==========================================
 
     if (countryFilter) {
 
         countryFilter.addEventListener("change", () => {
 
-            const country = countryFilter.value;
+            const value = countryFilter.value;
 
-            if (country === "") {
+            if (value === "") {
 
-                renderMembers(window.members);
+                renderMembers(members);
 
-            } else {
-
-                renderMembers(window.members.filter(m => m.country === country));
+                return;
 
             }
+
+            renderMembers(
+
+                members.filter(member => member.country === value)
+
+            );
 
         });
 
     }
 
-    // ===============================
+    // ==========================================
     // Institution Filter
-    // ===============================
+    // ==========================================
 
     if (institutionFilter) {
 
         institutionFilter.addEventListener("change", () => {
 
-            const org = institutionFilter.value;
+            const value = institutionFilter.value;
 
-            if (org === "") {
+            if (value === "") {
 
-                renderMembers(window.members);
+                renderMembers(members);
 
-            } else {
-
-                renderMembers(window.members.filter(m => m.org === org));
+                return;
 
             }
+
+            renderMembers(
+
+                members.filter(member => member.org === value)
+
+            );
 
         });
 
     }
 
-    // ===============================
+    // ==========================================
     // Leaflet Map
-    // ===============================
+    // ==========================================
 
-    if (document.getElementById("africaMap") && typeof L !== "undefined") {
+    const mapElement = document.getElementById("africaMap");
 
-        const map = L.map("africaMap").setView([3, 20], 3);
+    if (mapElement && typeof L !== "undefined") {
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        const map = L.map("africaMap").setView([2, 20], 3);
 
-            attribution: "&copy; OpenStreetMap contributors"
+        L.tileLayer(
 
-        }).addTo(map);
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
-        window.members.forEach(member => {
+            {
 
-            if (member.lat && member.lng) {
-
-                L.marker([member.lat, member.lng])
-
-                    .addTo(map)
-
-                    .bindPopup(`
-                        <strong>${member.name}</strong><br>
-                        ${member.org || "Independent"}<br>
-                        ${member.city}, ${member.country}<br>
-                        ${member.specialization}
-                    `);
+                attribution:
+                    "&copy; OpenStreetMap contributors"
 
             }
 
+        ).addTo(map);
+
+        members.forEach(member => {
+
+            if (!member.lat || !member.lng) return;
+
+            L.marker([member.lat, member.lng])
+
+                .addTo(map)
+
+                .bindPopup(
+
+                    `
+                    <strong>${member.name}</strong><br>
+                    ${member.org || ""}<br>
+                    ${member.city}, ${member.country}<br>
+                    ${member.specialization}
+                    `
+
+                );
+
         });
+
+        setTimeout(() => {
+
+            map.invalidateSize();
+
+        }, 500);
 
     }
 
-}
-}
+});
