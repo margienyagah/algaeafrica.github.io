@@ -1,607 +1,1561 @@
-/* ===========================================
-   ALGAE AFRICA NETWORK (AAN)
-   Modern Website v2
-=========================================== */
+/*=========================================================
+ ALGAE AFRICA NETWORK (AAN)
+ Unified Style Sheet
+ Part 1
+ Global • Navigation • Hero
+==========================================================*/
 
-/* Google Font */
+/*==============================
+ GOOGLE FONT
+==============================*/
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ---------- RESET ---------- */
+/*==============================
+ RESET
+==============================*/
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-    font-family:'Poppins',sans-serif;
-    color:#333;
-    background:#ffffff;
-    line-height:1.7;
+
+font-family:'Poppins',sans-serif;
+background:#ffffff;
+color:#333;
+line-height:1.7;
+overflow-x:hidden;
+
 }
 
-/* ---------- VARIABLES ---------- */
+/*==============================
+ VARIABLES
+==============================*/
 
 :root{
 
-    --primary:#007ACC;
-    --secondary:#3CB371;
-    --dark:#0F172A;
-    --light:#F8FAFC;
-    --gray:#64748B;
-    --white:#ffffff;
+--primary:#00895a;
+--secondary:#00a86b;
+--dark:#123524;
+--light:#f7fbf9;
+--white:#ffffff;
+--gray:#777;
+--border:#e5e5e5;
+--shadow:0 10px 30px rgba(0,0,0,.08);
+--radius:12px;
+--transition:.35s ease;
 
 }
 
-/* ---------- CONTAINER ---------- */
+/*==============================
+ TYPOGRAPHY
+==============================*/
+
+h1,h2,h3,h4{
+
+font-weight:700;
+color:var(--dark);
+line-height:1.2;
+
+}
+
+h1{
+
+font-size:56px;
+
+}
+
+h2{
+
+font-size:38px;
+margin-bottom:20px;
+
+}
+
+h3{
+
+font-size:24px;
+
+}
+
+p{
+
+font-size:17px;
+color:#555;
+margin-bottom:15px;
+
+}
+
+a{
+
+text-decoration:none;
+color:inherit;
+transition:var(--transition);
+
+}
+
+img{
+
+max-width:100%;
+display:block;
+
+}
+
+ul{
+
+list-style:none;
+
+}
+
+/*==============================
+ CONTAINER
+==============================*/
 
 .container{
 
-    width:90%;
-    max-width:1200px;
-    margin:auto;
+width:min(1200px,92%);
+margin:auto;
 
 }
 
-/* ===========================================
-   HEADER
-=========================================== */
+/*==============================
+ SECTIONS
+==============================*/
 
-header{
+section{
 
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-
-    padding:18px 0;
-
-    z-index:999;
-
-    transition:.35s;
+padding:90px 0;
 
 }
 
-header.scrolled{
+.section{
 
-    background:white;
-
-    box-shadow:0 6px 20px rgba(0,0,0,.08);
+padding:90px 0;
 
 }
 
-.navbar{
+.section.light{
 
-    width:90%;
-    max-width:1250px;
+background:var(--light);
 
-    margin:auto;
+}
 
-    display:flex;
+/*==============================
+ LOGO
+==============================*/
 
-    justify-content:space-between;
+.logo{
 
-    align-items:center;
+display:flex;
+align-items:center;
+gap:12px;
+font-size:20px;
+font-weight:700;
+color:var(--dark);
 
 }
 
 .logo img{
 
-    height:65px;
+width:58px;
 
 }
-#africaMap{
-    width:100%;
-    height:650px;
-    border-radius:16px;
-    margin-top:30px;
-    overflow:hidden;
-    border:1px solid #ddd;
+
+/*==============================
+ HEADER
+==============================*/
+
+header{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:rgba(255,255,255,.97);
+backdrop-filter:blur(10px);
+z-index:999;
+transition:.4s;
+box-shadow:0 2px 10px rgba(0,0,0,.04);
+
 }
-/* ---------- Navigation ---------- */
+
+header.scrolled{
+
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+}
+
+/*==============================
+ NAVBAR
+==============================*/
+
+.navbar{
+
+height:85px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
 
 .nav-links{
 
-    display:flex;
-
-    list-style:none;
-
-    gap:35px;
+display:flex;
+align-items:center;
+gap:28px;
 
 }
 
 .nav-links a{
 
-    text-decoration:none;
-
-    color:white;
-
-    font-weight:500;
-
-    transition:.3s;
-
-}
-
-header.scrolled .nav-links a{
-
-    color:#222;
+font-size:15px;
+font-weight:500;
+color:#333;
+position:relative;
 
 }
 
 .nav-links a:hover{
 
-    color:var(--secondary);
+color:var(--primary);
 
 }
 
-/* ---------- Button ---------- */
+.nav-links a.active{
 
+color:var(--primary);
+
+}
+
+.nav-links a::after{
+
+content:"";
+position:absolute;
+bottom:-8px;
+left:0;
+width:0%;
+height:2px;
+background:var(--primary);
+transition:.3s;
+
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after{
+
+width:100%;
+
+}
+
+/*==============================
+ BUTTONS
+==============================*/
+
+.btn-primary,
+.btn-secondary,
 .join-btn{
 
-    background:var(--secondary);
-
-    color:white;
-
-    text-decoration:none;
-
-    padding:12px 24px;
-
-    border-radius:40px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.join-btn:hover{
-
-    background:#2E8B57;
-
-    transform:translateY(-3px);
-
-}
-
-/* ===========================================
-   HERO
-=========================================== */
-
-.hero{
-
-    min-height:100vh;
-
-    background:
-
-    linear-gradient(rgba(5,25,45,.65),rgba(5,25,45,.65)),
-
-    url(hero.jpeg) center center/cover no-repeat;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    color:white;
-
-    padding:120px 20px;
-
-}
-
-.hero-content{
-
-    max-width:900px;
-
-}
-
-.hero-tag{
-
-    display:inline-block;
-
-    background:rgba(255,255,255,.15);
-
-    padding:8px 18px;
-
-    border-radius:40px;
-
-    font-size:.9rem;
-
-    letter-spacing:1px;
-
-    margin-bottom:25px;
-
-}
-
-.hero h1{
-
-    font-size:4rem;
-
-    line-height:1.15;
-
-    margin-bottom:30px;
-
-    font-weight:700;
-
-}
-
-.hero-text{
-
-    font-size:1.25rem;
-
-    color:#F8FAFC;
-
-    max-width:850px;
-
-    margin:auto;
-
-    margin-bottom:40px;
-
-}
-
-/* ---------- Hero Buttons ---------- */
-
-.hero-buttons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:15px 34px;
+border-radius:50px;
+font-weight:600;
+transition:.35s;
+cursor:pointer;
 
 }
 
 .btn-primary{
 
-    background:var(--secondary);
-
-    color:white;
-
-    padding:15px 35px;
-
-    text-decoration:none;
-
-    border-radius:50px;
-
-    font-weight:600;
-
-    transition:.3s;
+background:var(--primary);
+color:#fff;
 
 }
 
 .btn-primary:hover{
 
-    transform:translateY(-4px);
-
-    background:#2E8B57;
+background:#006f48;
+transform:translateY(-3px);
 
 }
 
 .btn-secondary{
 
-    border:2px solid white;
-
-    color:white;
-
-    padding:15px 35px;
-
-    border-radius:50px;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.3s;
+border:2px solid var(--primary);
+color:var(--primary);
+background:#fff;
 
 }
 
 .btn-secondary:hover{
 
-    background:white;
-
-    color:var(--primary);
-
-}
-
-/* ===========================================
-   SECTIONS
-=========================================== */
-
-section{
-
-    padding:100px 0;
+background:var(--primary);
+color:#fff;
 
 }
 
+.join-btn{
+
+background:var(--primary);
+color:#fff;
+
+}
+
+.join-btn:hover{
+
+background:#006f48;
+
+}
+
+/*==============================
+ HERO
+==============================*/
+
+.hero{
+
+padding-top:180px;
+padding-bottom:120px;
+
+background:
+linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.55)),
+url("images/hero.jpg") center center/cover;
+
+color:#fff;
+text-align:center;
+
+}
+
+.hero-content{
+
+max-width:900px;
+margin:auto;
+
+}
+
+.hero-tag{
+
+display:inline-block;
+padding:8px 20px;
+border-radius:40px;
+background:rgba(255,255,255,.15);
+border:1px solid rgba(255,255,255,.25);
+
+font-size:14px;
+letter-spacing:2px;
+text-transform:uppercase;
+
+margin-bottom:25px;
+
+}
+
+.hero h1{
+
+color:#fff;
+font-size:62px;
+margin-bottom:25px;
+
+}
+
+.hero-text{
+
+font-size:21px;
+color:#f3f3f3;
+max-width:850px;
+margin:auto auto 40px;
+
+}
+
+.hero-buttons{
+
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+
+}
+
+/*==============================
+ PAGE HERO
+==============================*/
+
+.page-hero{
+
+padding-top:170px;
+padding-bottom:90px;
+
+background:linear-gradient(135deg,#0b5d43,#0b8d5f);
+
+color:#fff;
+text-align:center;
+
+}
+
+.page-hero h1{
+
+color:#fff;
+font-size:48px;
+margin-bottom:20px;
+
+}
+
+.page-hero p{
+
+color:#f2f2f2;
+max-width:820px;
+margin:auto;
+font-size:20px;
+
+}
+
+/*==============================
+ PAGE HEADER
+==============================*/
+
+.page-header{
+
+padding-top:170px;
+padding-bottom:80px;
+background:var(--light);
+text-align:center;
+
+}
+
+.page-header h1{
+
+margin-bottom:20px;
+
+}
+
+.page-header p{
+
+max-width:850px;
+margin:auto;
+
+}
+
+/*==============================
+ UTILITIES
+==============================*/
+
+.text-center{
+
+text-align:center;
+
+}
+
+.mt-1{margin-top:10px;}
+.mt-2{margin-top:20px;}
+.mt-3{margin-top:40px;}
+.mt-4{margin-top:60px;}
+
+.mb-1{margin-bottom:10px;}
+.mb-2{margin-bottom:20px;}
+.mb-3{margin-bottom:40px;}
+.mb-4{margin-bottom:60px;}
+
+.hidden{
+
+opacity:0;
+transform:translateY(40px);
+
+}
+
+.show{
+
+opacity:1;
+transform:translateY(0);
+transition:all .8s ease;
+
+}
+/*=========================================================
+ PART 2
+ ABOUT • CARDS • IMPACT • NEWS • EDUCATION • RESOURCES
+==========================================================*/
+
+/*==============================
+ SECTION TITLES
+==============================*/
+
+.section-title,
 section h2{
 
-    font-size:2.6rem;
-
-    text-align:center;
-
-    color:var(--primary);
-
-    margin-bottom:35px;
+text-align:center;
+margin-bottom:20px;
 
 }
 
-section p{
+.section-intro{
 
-    color:var(--gray);
-
-    font-size:1.05rem;
+max-width:850px;
+margin:0 auto 60px;
+text-align:center;
+font-size:18px;
+color:#666;
 
 }
 
-/* ===========================================
-   ABOUT
-=========================================== */
+/*==============================
+ ABOUT
+==============================*/
 
 .about{
 
-    background:white;
+background:#ffffff;
+
+}
+
+.about .container{
+
+max-width:1000px;
 
 }
 
 .about p{
 
-    max-width:900px;
-
-    margin:20px auto;
-
-    text-align:center;
+font-size:18px;
+text-align:center;
+margin-bottom:20px;
 
 }
 
-/* ===========================================
-   CARDS
-=========================================== */
+/*==============================
+ UNIVERSAL CARDS
+==============================*/
 
 .cards{
 
-    display:grid;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
 
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
 
-    gap:30px;
+.cards.two{
 
-    margin-top:60px;
+grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+
+}
+
+.cards.three{
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 
 }
 
 .card{
 
-    background:white;
-
-    border-radius:18px;
-
-    padding:40px;
-
-    text-align:center;
-
-    transition:.35s;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
+background:#fff;
+padding:35px;
+border-radius:16px;
+box-shadow:var(--shadow);
+transition:var(--transition);
+border:1px solid rgba(0,0,0,.05);
 
 }
 
 .card:hover{
 
-    transform:translateY(-10px);
-
-    box-shadow:0 20px 40px rgba(0,0,0,.12);
+transform:translateY(-10px);
+box-shadow:0 18px 45px rgba(0,0,0,.12);
 
 }
 
 .card i{
 
-    font-size:3rem;
-
-    color:var(--secondary);
-
-    margin-bottom:25px;
+font-size:52px;
+color:var(--primary);
+margin-bottom:20px;
 
 }
 
 .card h3{
 
-    color:var(--primary);
-
-    margin-bottom:18px;
+margin-bottom:15px;
 
 }
 
-/* ===========================================
-   IMPACT COUNTERS
-=========================================== */
+.card p{
 
-.impact{
-
-    background:linear-gradient(90deg,#007ACC,#0096D6);
-
-    color:white;
+margin-bottom:20px;
 
 }
 
-.stats{
+.card a{
 
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:40px;
+color:var(--primary);
+font-weight:600;
 
 }
 
-.stat{
+/*==============================
+ WHY ALGAE
+==============================*/
 
-    text-align:center;
+.why-algae{
 
-}
-
-.stat h3{
-
-    font-size:3.2rem;
+background:var(--light);
 
 }
 
-.stat p{
+.why-algae .card{
 
-    color:white;
+text-align:center;
 
 }
 
-/* ===========================================
-   NEWS
-=========================================== */
+/*==============================
+ IMPACT
+==============================*/
+
+.impact,
+.impact-section{
+
+background:linear-gradient(135deg,#0d6f4d,#118a61);
+color:#fff;
+
+}
+
+.impact h2,
+.impact-section h2{
+
+color:#fff;
+
+}
+
+.impact p,
+.impact-section p{
+
+color:#f0f0f0;
+
+}
+
+.stats,
+.impact-grid{
+
+margin-top:60px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:30px;
+
+}
+
+.stat,
+.impact-card{
+
+background:rgba(255,255,255,.12);
+
+padding:35px;
+
+border-radius:16px;
+
+text-align:center;
+
+backdrop-filter:blur(8px);
+
+}
+
+.stat h3,
+.impact-card h3{
+
+font-size:52px;
+
+font-weight:700;
+
+color:#fff;
+
+margin-bottom:10px;
+
+}
+
+.stat p,
+.impact-card p{
+
+color:#fff;
+margin:0;
+
+}
+
+/*==============================
+ FOCUS AREAS
+==============================*/
+
+.focus{
+
+background:#fff;
+
+}
+
+.focus .card{
+
+text-align:center;
+
+}
+
+.focus .card:hover{
+
+border-top:5px solid var(--primary);
+
+}
+
+/*==============================
+ NEWS
+==============================*/
+
+.news{
+
+background:var(--light);
+
+}
 
 .news-grid{
 
-    display:grid;
+display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
 
-    gap:30px;
+gap:30px;
 
 }
 
 .news-card{
 
-    background:white;
+background:#fff;
 
-    border-radius:15px;
+border-radius:16px;
 
-    overflow:hidden;
+overflow:hidden;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+box-shadow:var(--shadow);
 
-    transition:.3s;
+transition:.35s;
 
 }
 
 .news-card:hover{
 
-    transform:translateY(-8px);
+transform:translateY(-10px);
+
+}
+
+.news-image{
+
+height:220px;
+
+background:#ddd;
+
+}
+
+.news-image img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
 
 }
 
 .news-content{
 
-    padding:25px;
+padding:30px;
 
 }
 
-/* ===========================================
-   FEATURED RESOURCE
-=========================================== */
+.news-content h3{
 
-.resource{
-
-    background:#F4F9FC;
-
-    text-align:center;
+margin-bottom:15px;
 
 }
 
-.resource-box{
+.news-date{
 
-    max-width:850px;
+display:inline-block;
 
-    margin:auto;
+font-size:14px;
 
-    background:white;
+color:var(--primary);
 
-    padding:60px;
+font-weight:600;
 
-    border-radius:20px;
-
-    box-shadow:0 12px 35px rgba(0,0,0,.08);
+margin-bottom:12px;
 
 }
 
-/* ===========================================
-   CALL TO ACTION
-=========================================== */
+.read-more{
+
+font-weight:600;
+
+color:var(--primary);
+
+}
+
+/*==============================
+ RESOURCES
+==============================*/
+
+.resources{
+
+background:#fff;
+
+}
+
+.resource-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:30px;
+
+}
+
+.resource-card{
+
+padding:35px;
+
+background:#fff;
+
+border-radius:15px;
+
+box-shadow:var(--shadow);
+
+transition:.3s;
+
+}
+
+.resource-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.resource-card i{
+
+font-size:50px;
+
+color:var(--primary);
+
+margin-bottom:20px;
+
+}
+
+/*==============================
+ EDUCATION HUB
+==============================*/
+
+.education{
+
+background:var(--light);
+
+}
+
+.education .card{
+
+text-align:center;
+
+}
+
+.education .card i{
+
+font-size:55px;
+
+margin-bottom:20px;
+
+}
+
+/*==============================
+ FEATURED RESOURCE
+==============================*/
+
+.featured-resource{
+
+background:#ffffff;
+
+}
+
+.featured-box{
+
+background:linear-gradient(135deg,#0b7c58,#149f6b);
+
+padding:60px;
+
+border-radius:18px;
+
+text-align:center;
+
+color:#fff;
+
+}
+
+.featured-box h2{
+
+color:#fff;
+
+}
+
+.featured-box p{
+
+color:#f5f5f5;
+
+}
+
+/*==============================
+ GLOBAL INSIGHTS
+==============================*/
+
+.global-insights{
+
+background:#ffffff;
+
+}
+
+.featured{
+
+background:#f2fbf7;
+
+padding:40px;
+
+border-left:6px solid var(--primary);
+
+border-radius:12px;
+
+margin-bottom:40px;
+
+}
+
+.post{
+
+padding:30px 0;
+
+border-bottom:1px solid #ddd;
+
+}
+
+.post-title{
+
+font-size:24px;
+
+font-weight:700;
+
+color:var(--primary);
+
+margin-bottom:8px;
+
+}
+
+.author{
+
+font-size:15px;
+
+font-style:italic;
+
+color:#777;
+
+margin-bottom:15px;
+
+}
+
+.categories{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-top:30px;
+
+}
+
+.categories span{
+
+background:#e8f8f1;
+
+padding:12px 18px;
+
+border-radius:30px;
+
+font-size:14px;
+
+font-weight:600;
+
+color:var(--primary);
+
+}
+
+/*==============================
+ WEBINARS
+==============================*/
+
+.webinars{
+
+background:var(--light);
+
+}
+
+.webinar-card{
+
+padding:35px;
+
+background:#fff;
+
+border-radius:15px;
+
+box-shadow:var(--shadow);
+
+}
+
+/*==============================
+ PUBLICATIONS
+==============================*/
+
+.publications{
+
+background:#fff;
+
+}
+
+/*==============================
+ CTA
+==============================*/
 
 .cta{
 
-    background:linear-gradient(90deg,#3CB371,#2E8B57);
+background:linear-gradient(135deg,#0b6e4c,#0d8c60);
 
-    color:white;
+color:#fff;
 
-    text-align:center;
+text-align:center;
+
+padding:90px 0;
 
 }
 
 .cta h2{
 
-    color:white;
+color:#fff;
+
+margin-bottom:20px;
 
 }
 
 .cta p{
 
-    color:white;
+max-width:800px;
 
-    margin:25px auto;
+margin:auto auto 35px;
 
-    max-width:750px;
-
-}
-
-/* ===========================================
-   FOOTER
-=========================================== */
-
-footer{
-
-    background:#0F172A;
-
-    color:white;
-
-    text-align:center;
-
-    padding:40px 20px;
+color:#f4f4f4;
 
 }
 
-footer a{
+.cta .btn-primary{
 
-    color:#3CB371;
+background:#fff;
 
-    text-decoration:none;
-
-}
-
-footer a:hover{
-
-    color:white;
+color:var(--primary);
 
 }
 
-/* ===========================================
-   RESPONSIVE
-=========================================== */
+.cta .btn-primary:hover{
 
-@media(max-width:992px){
-
-.hero h1{
-
-font-size:3rem;
+background:#f5f5f5;
 
 }
 
-.nav-links{
+.cta .btn-secondary{
 
-display:none;
+border:2px solid #fff;
+
+color:#fff;
+
+background:transparent;
+
+}
+
+.cta .btn-secondary:hover{
+
+background:#fff;
+
+color:var(--primary);
+
+}
+/*=========================================================
+ PART 3
+ MEMBERS PAGE
+ Leaflet Map • Search • Filters • Directory
+==========================================================*/
+
+/*==============================
+ MEMBERS HERO
+==============================*/
+
+.members-hero{
+
+background:linear-gradient(135deg,#0b6f4c,#0d8b60);
+color:#fff;
+text-align:center;
+padding:120px 0 90px;
+
+}
+
+.members-hero h1{
+
+color:#fff;
+font-size:52px;
+margin-bottom:20px;
+
+}
+
+.members-hero p{
+
+max-width:850px;
+margin:auto;
+color:#f2f2f2;
+font-size:19px;
+
+}
+
+/*==============================
+ MEMBER COUNTERS
+==============================*/
+
+.impact-section{
+
+padding:80px 0;
+background:#ffffff;
+
+}
+
+.impact-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:30px;
+margin-top:45px;
+
+}
+
+.impact-card{
+
+background:#fff;
+padding:35px;
+border-radius:16px;
+text-align:center;
+box-shadow:var(--shadow);
+transition:.35s;
+
+}
+
+.impact-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.impact-card h3{
+
+font-size:52px;
+color:var(--primary);
+margin-bottom:10px;
+
+}
+
+.impact-card p{
+
+margin:0;
+font-weight:600;
+
+}
+
+/*==============================
+ MAP
+==============================*/
+
+.members-map{
+
+padding:80px 0;
+background:var(--light);
+
+}
+
+.members-map h2{
+
+text-align:center;
+
+}
+
+.members-map p{
+
+text-align:center;
+max-width:850px;
+margin:0 auto 35px;
+
+}
+
+#africaMap{
+
+width:100%;
+height:650px;
+border-radius:18px;
+overflow:hidden;
+box-shadow:var(--shadow);
+border:2px solid #e4e4e4;
+
+}
+
+/*==============================
+ LEAFLET
+==============================*/
+
+.leaflet-container{
+
+font-family:'Poppins',sans-serif;
+
+}
+
+.leaflet-popup-content{
+
+font-size:14px;
+line-height:1.6;
+
+}
+
+.leaflet-popup-content strong{
+
+color:var(--primary);
+font-size:16px;
+
+}
+
+/*==============================
+ SEARCH
+==============================*/
+
+.directory-controls{
+
+padding:70px 0;
+background:#fff;
+
+}
+
+.directory-controls h2{
+
+text-align:center;
+
+}
+
+#member-search{
+
+width:100%;
+padding:18px 22px;
+font-size:16px;
+border:1px solid #ddd;
+border-radius:10px;
+margin:35px 0;
+
+}
+
+#member-search:focus{
+
+outline:none;
+border-color:var(--primary);
+
+}
+
+/*==============================
+ FILTERS
+==============================*/
+
+.filters{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+
+}
+
+.filters select{
+
+padding:16px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+background:#fff;
+
+}
+
+.filters select:focus{
+
+outline:none;
+border-color:var(--primary);
+
+}
+
+/*==============================
+ DIRECTORY
+==============================*/
+
+.members-directory{
+
+padding:90px 0;
+background:var(--light);
+
+}
+
+.members-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+
+}
+
+/*==============================
+ MEMBER CARD
+==============================*/
+
+.member-card{
+
+background:#fff;
+padding:30px;
+border-radius:18px;
+box-shadow:var(--shadow);
+transition:.35s;
+border-top:5px solid transparent;
+
+}
+
+.member-card:hover{
+
+transform:translateY(-8px);
+border-color:var(--primary);
+
+}
+
+.member-card h3{
+
+font-size:22px;
+margin-bottom:15px;
+color:var(--dark);
+
+}
+
+.member-card p{
+
+margin-bottom:8px;
+font-size:15px;
+
+}
+
+.member-card strong{
+
+color:var(--primary);
+
+}
+
+.member-card span{
+
+display:inline-block;
+margin-top:18px;
+padding:8px 16px;
+background:#eaf9f2;
+color:var(--primary);
+border-radius:30px;
+font-size:13px;
+font-weight:600;
+
+}
+
+/*==============================
+ EMPTY RESULTS
+==============================*/
+
+.no-results{
+
+text-align:center;
+padding:80px 20px;
+color:#777;
+font-size:18px;
+
+}
+
+/*==============================
+ JOIN SECTION
+==============================*/
+
+.join-banner{
+
+padding:90px 0;
+text-align:center;
+background:linear-gradient(135deg,#0b6f4c,#0d8b60);
+color:#fff;
+
+}
+
+.join-banner h2{
+
+color:#fff;
+margin-bottom:20px;
+
+}
+
+.join-banner p{
+
+max-width:760px;
+margin:auto auto 35px;
+color:#f3f3f3;
+
+}
+
+/*==============================
+ MEMBER PROFILE
+==============================*/
+
+.member-profile{
+
+display:flex;
+align-items:center;
+gap:18px;
+margin-bottom:20px;
+
+}
+
+.member-avatar{
+
+width:70px;
+height:70px;
+border-radius:50%;
+background:var(--primary);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:700;
+
+}
+
+/*==============================
+ BADGES
+==============================*/
+
+.badge{
+
+display:inline-block;
+padding:6px 14px;
+border-radius:30px;
+font-size:12px;
+font-weight:600;
+
+}
+
+.badge.active{
+
+background:#d8f8e6;
+color:#0b8b60;
+
+}
+
+.badge.ambassador{
+
+background:#e8f0ff;
+color:#2356d6;
+
+}
+
+.badge.student{
+
+background:#fff5d9;
+color:#b8860b;
+
+}
+
+/*==============================
+ MEMBER DETAILS
+==============================*/
+
+.member-info{
+
+margin-top:18px;
+
+}
+
+.member-info div{
+
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+font-size:14px;
+
+}
+
+.member-info i{
+
+width:20px;
+color:var(--primary);
+
+}
+
+/*==============================
+ MAP LEGEND
+==============================*/
+
+.map-legend{
+
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:18px;
+margin-top:30px;
+
+}
+
+.map-item{
+
+display:flex;
+align-items:center;
+gap:8px;
+font-size:14px;
+
+}
+
+.map-dot{
+
+width:14px;
+height:14px;
+border-radius:50%;
+background:var(--primary);
+
+}
+
+/*==============================
+ RESPONSIVE
+==============================*/
+
+@media(max-width:900px){
+
+#africaMap{
+
+height:500px;
+
+}
+
+.members-grid{
+
+grid-template-columns:1fr;
 
 }
 
@@ -609,255 +1563,385 @@ display:none;
 
 @media(max-width:768px){
 
-.hero{
+.impact-grid{
 
-padding:140px 20px;
-
-}
-
-.hero h1{
-
-font-size:2.4rem;
+grid-template-columns:1fr 1fr;
 
 }
 
-.hero-text{
+.filters{
 
-font-size:1.05rem;
-
-}
-
-section{
-
-padding:80px 0;
+grid-template-columns:1fr;
 
 }
 
-section h2{
+}
 
-font-size:2rem;
+@media(max-width:600px){
+
+.impact-grid{
+
+grid-template-columns:1fr;
 
 }
 
-.logo img{
+#africaMap{
 
-height:55px;
+height:420px;
 
 }
-/* ===========================
-   Scroll Animations
-=========================== */
+
+.member-card{
+
+padding:22px;
+
+}
+
+.members-hero h1{
+
+font-size:38px;
+
+}
+
+}
+/* ======================================================
+   PART 4
+   Membership • Contact • Forms • Footer
+   Animations • Responsive Design
+======================================================*/
+
+/* ---------- Membership Page ---------- */
+
+.membership-benefits{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    margin-bottom:40px;
+}
+
+.benefit-card{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.benefit-card i{
+    font-size:2rem;
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.join-banner{
+    background:linear-gradient(135deg,var(--primary),#00896d);
+    color:#fff;
+    text-align:center;
+    padding:80px 20px;
+}
+
+.join-banner h2{
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.join-banner p{
+    max-width:700px;
+    margin:auto;
+    margin-bottom:30px;
+    opacity:.95;
+}
+
+.join-banner .btn{
+    background:#fff;
+    color:var(--primary);
+}
+
+.join-banner .btn:hover{
+    background:#f2f2f2;
+}
+
+/* ---------- Forms ---------- */
+
+form{
+    display:grid;
+    gap:18px;
+    max-width:750px;
+    margin:auto;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:15px;
+    border:1px solid #d7d7d7;
+    border-radius:10px;
+    font-size:1rem;
+    transition:.3s;
+    background:#fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--primary);
+    outline:none;
+    box-shadow:0 0 0 3px rgba(0,135,107,.15);
+}
+
+textarea{
+    resize:vertical;
+    min-height:160px;
+}
+
+button{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:1rem;
+    font-weight:600;
+    transition:.3s;
+}
+
+button:hover{
+    background:#006f58;
+}
+
+/* ---------- Contact ---------- */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:start;
+}
+
+.contact-card{
+    background:#fff;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
+}
+
+.contact-card h3{
+    color:var(--primary);
+    margin-bottom:20px;
+}
+
+.contact-card p{
+    margin-bottom:15px;
+}
+
+.contact-card i{
+    color:var(--primary);
+    width:24px;
+    margin-right:10px;
+}
+
+.contact-social{
+    margin-top:25px;
+}
+
+.contact-social a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+    margin-right:10px;
+    transition:.3s;
+}
+
+.contact-social a:hover{
+    transform:translateY(-4px);
+    background:#006d56;
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+    background:#06281f;
+    color:#ddd;
+    padding:60px 20px 25px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+    margin-bottom:40px;
+}
+
+.footer-logo{
+    height:70px;
+    margin-bottom:15px;
+}
+
+.footer-links{
+    list-style:none;
+}
+
+.footer-links li{
+    margin-bottom:10px;
+}
+
+.footer-links a{
+    color:#ddd;
+}
+
+.footer-links a:hover{
+    color:#fff;
+}
+
+.footer-social a{
+    color:#fff;
+    font-size:1.2rem;
+    margin-right:15px;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.15);
+    padding-top:20px;
+    text-align:center;
+    font-size:.95rem;
+    opacity:.8;
+}
+
+/* ---------- Utility ---------- */
+
+.text-center{
+    text-align:center;
+}
 
 .hidden{
-
     opacity:0;
-
-    transform:translateY(60px);
-
-    transition:all .8s ease;
-
+    transform:translateY(50px);
 }
 
 .show{
-
     opacity:1;
-
     transform:translateY(0);
+    transition:all .8s ease;
+}
+
+.fade{
+    animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+
+0%{
+opacity:0;
+transform:translateY(35px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
-/* ===========================
-   Mobile Navigation
-=========================== */
+@keyframes pulse{
 
-.menu-toggle{
-
-    display:none;
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
 
 }
+
+/* ---------- Responsive ---------- */
 
 @media(max-width:992px){
 
-.menu-toggle{
+.hero h1{
+font-size:2.7rem;
+}
 
-display:block;
+.contact-grid{
+grid-template-columns:1fr;
+}
 
-font-size:2rem;
-
-color:white;
-
-cursor:pointer;
+.footer-grid{
+grid-template-columns:1fr 1fr;
+}
 
 }
 
-header.scrolled .menu-toggle{
+@media(max-width:768px){
 
-color:#222;
-
+.navbar{
+flex-direction:column;
+gap:15px;
+padding:18px;
 }
 
 .nav-links{
-
-position:absolute;
-
-top:100%;
-
-left:0;
-
-width:100%;
-
-background:white;
-
 flex-direction:column;
+gap:15px;
+text-align:center;
+}
 
-padding:25px;
+.hero{
+padding:120px 20px 70px;
+}
 
-display:none;
+.hero h1{
+font-size:2.2rem;
+}
 
-box-shadow:0 10px 30px rgba(0,0,0,.1);
+.hero-buttons{
+flex-direction:column;
+}
+
+.stats,
+.cards,
+.news-grid,
+.resource-grid,
+.insights-grid,
+.members-grid{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.contact-social{
+text-align:center;
+}
 
 }
 
-.nav-links.active{
+@media(max-width:480px){
 
-display:flex;
-
+.hero h1{
+font-size:1.9rem;
 }
 
-.nav-links a{
-
-color:#222 !important;
-
-}
-/* ===========================================
-   SECTION INTRODUCTION
-=========================================== */
-
-.section-intro,
-.impact-intro{
-
-    max-width:760px;
-
-    margin:0 auto 60px;
-
-    text-align:center;
-
-    color:var(--gray);
-
-    font-size:1.08rem;
-
+.page-hero h1{
+font-size:2rem;
 }
 
-/* ===========================================
-   IMPACT
-=========================================== */
-
-.impact{
-
-    background:linear-gradient(135deg,#007ACC,#005B99);
-
-    color:white;
-
+.btn,
+.btn-primary,
+.btn-secondary{
+width:100%;
+text-align:center;
 }
 
-.impact h2{
-
-    color:white;
-
+input,
+textarea,
+select{
+font-size:.95rem;
 }
 
-.stat{
-
-    padding:20px;
-
 }
-
-.stat h3{
-
-    font-size:4rem;
-
-    color:white;
-
-    margin-bottom:10px;
-
-    font-weight:700;
-
-}
-
-.stat p{
-
-    color:white;
-
-    font-size:1.1rem;
-
-}
-
-/* ===========================================
-   NEWS
-=========================================== */
-
-.news{
-
-    background:#F8FAFC;
-
-}
-
-.news-card{
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    background:white;
-
-    transition:.35s;
-
-}
-
-.news-card:hover{
-
-    transform:translateY(-8px);
-
-}
-
-.news-content{
-
-    padding:35px;
-
-}
-
-.news-content h3{
-
-    color:var(--primary);
-
-    margin-bottom:15px;
-
-}
-
-.news-content p{
-
-    margin-bottom:20px;
-
-}
-
-.read-more{
-
-    color:var(--secondary);
-
-    font-weight:600;
-
-    text-decoration:none;
-
-}
-
-.read-more:hover{
-
-    color:var(--primary);
-
-}
-}
-
-
-
-
-
