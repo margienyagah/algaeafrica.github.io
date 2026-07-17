@@ -6,31 +6,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Members | Algae Africa Network</title>
+<title>Members | Algae Africa Network (AAN)</title>
+
+<meta name="description"
+content="Explore the members of the Algae Africa Network across Africa through our interactive directory and map.">
 
 <link rel="stylesheet" href="style.css">
 
-<!-- Leaflet -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- Leaflet CSS -->
+
+<link
+rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
-<nav class="navbar">
+<nav class="navbar container">
 
-<div class="logo">
-<a href="index.html">
-<img src="logo.png" alt="AAN Logo">
+<a href="index.html" class="logo">
+
+<img src="logo.png" alt="Algae Africa Network">
+
+<span>Algae Africa Network</span>
+
 </a>
-</div>
 
 <ul class="nav-links">
-
-<li><a href="index.html">Home</a></li>
 
 <li><a href="about.html">About</a></li>
 
@@ -42,39 +58,70 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <li><a href="members.html" class="active">Members</a></li>
 
-<li><a href="membership.html">Membership</a></li>
-
 <li><a href="contact.html">Contact</a></li>
 
 </ul>
+
+<a href="membership.html" class="join-btn">
+
+Join AAN
+
+</a>
 
 </nav>
 
 </header>
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 
-<section class="page-header">
+<section class="page-hero">
 
-<h1>Our Global Members</h1>
+<div class="container">
 
-<p>
+<p class="hero-tag">
 
-Explore the growing network of researchers, educators,
-
-entrepreneurs, students, industry professionals and institutions
-
-advancing algae innovation across Africa and beyond.
+AAN MEMBERS DIRECTORY
 
 </p>
 
-</section>
-<section class="impact-section">
+<h1>
 
-<h2>AAN Network at a Glance</h2>
+Our Continental Network
+
+</h1>
 
 <p>
-Live statistics generated directly from our member database.
+
+Explore the researchers,
+students,
+entrepreneurs,
+industry professionals,
+universities,
+government agencies,
+and organizations building Africa's algae innovation ecosystem.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================= LIVE IMPACT ================= -->
+
+<section class="impact-section">
+
+<div class="container">
+
+<h2>
+
+AAN Network at a Glance
+
+</h2>
+
+<p class="section-intro">
+
+These statistics are generated automatically from the member database.
+
 </p>
 
 <div class="impact-grid">
@@ -83,7 +130,7 @@ Live statistics generated directly from our member database.
 
 <h3 id="member-count">0</h3>
 
-<p>Members</p>
+<p>Total Members</p>
 
 </div>
 
@@ -113,105 +160,269 @@ Live statistics generated directly from our member database.
 
 </div>
 
+</div>
+
 </section>
+
+<!-- ================= MAP ================= -->
+
 <section class="members-map">
 
-<h2>Interactive Member Map</h2>
+<div class="container">
 
-<p>
+<h2>
 
-Discover where Algae Africa Network members are located across Africa.
+Interactive Member Map
 
-Click a marker to learn more about each member.
+</h2>
+
+<p class="section-intro">
+
+Every approved member appears automatically on this interactive map.
+
+Click any marker to view member details.
 
 </p>
 
 <div id="africaMap"></div>
 
+</div>
+
 </section>
+
+<!-- ================= SEARCH ================= -->
+
 <section class="directory-controls">
 
-<h2>Members Directory</h2>
+<div class="container">
+
+<h2>
+
+Members Directory
+
+</h2>
+
+<p>
+
+Search by member name,
+institution,
+country,
+or specialization.
+
+</p>
 
 <input
+
 type="text"
+
 id="member-search"
-placeholder="Search by name, institution, specialization or country">
+
+placeholder="Search members...">
 
 <div class="filters">
 
 <select id="country-filter">
 
-<option value="">All Countries</option>
+<option value="">
+
+All Countries
+
+</option>
 
 </select>
 
 <select id="institution-filter">
 
-<option value="">All Institutions</option>
+<option value="">
+
+All Institutions
+
+</option>
 
 </select>
 
 </div>
 
+</div>
+
 </section>
+
+<!-- ================= MEMBER DIRECTORY ================= -->
+
 <section class="members-directory">
 
-<div id="members-grid" class="members-grid">
+<div class="container">
 
-<!-- Member cards generated automatically -->
+<div
+
+id="members-grid"
+
+class="members-grid">
+
+<!-- Generated automatically by script.js -->
+
+</div>
 
 </div>
 
 </section>
-<section class="join-banner">
+<!-- ================= JOIN AAN ================= -->
 
-<h2>Become Part of Africa's Algae Community</h2>
+<section class="cta">
+
+<div class="container">
+
+<h2>
+
+Become Part of Africa's Algae Innovation Ecosystem
+
+</h2>
 
 <p>
 
-Researchers, students, innovators, entrepreneurs,
+Researchers, students, entrepreneurs, industry leaders,
+government agencies and institutions are invited to join
+Africa's fastest-growing algae network.
 
-industry leaders and institutions are welcome to join AAN.
+Collaborate, learn, innovate and build partnerships that
+advance sustainable development across the continent.
 
 </p>
 
-<a href="membership.html" class="btn">
+<div class="hero-buttons">
+
+<a href="membership.html" class="btn-primary">
 
 Become a Member
 
 </a>
 
+<a href="contact.html" class="btn-secondary">
+
+Contact Us
+
+</a>
+
+</div>
+
+</div>
+
 </section>
+
 <!-- ================= FOOTER ================= -->
 
-<footer class="footer">
+<footer>
 
-    <div class="container">
+<div class="container footer-grid">
 
-        <p>
-            © 2026 Algae Africa Network (AAN). All Rights Reserved.
-        </p>
+<div class="footer-brand">
 
-        <p>
-            Building Africa's Algae Innovation Ecosystem
-        </p>
+<img src="logo.png" alt="AAN Logo" class="footer-logo">
 
-    </div>
+<h3>
+
+Algae Africa Network
+
+</h3>
+
+<p>
+
+Building Africa's Algae Innovation Ecosystem
+
+</p>
+
+</div>
+
+<div>
+
+<h4>Quick Links</h4>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="about.html">About</a></li>
+
+<li><a href="education.html">Education Hub</a></li>
+
+<li><a href="resources.html">Resources</a></li>
+
+<li><a href="news.html">News</a></li>
+
+<li><a href="membership.html">Membership</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h4>Connect</h4>
+
+<div class="social-links">
+
+<a href="https://www.linkedin.com/company/algae-africa-network/" target="_blank">
+
+<i class="fab fa-linkedin"></i>
+
+</a>
+
+<a href="#" target="_blank">
+
+<i class="fab fa-facebook"></i>
+
+</a>
+
+<a href="#" target="_blank">
+
+<i class="fab fa-x-twitter"></i>
+
+</a>
+
+<a href="#" target="_blank">
+
+<i class="fab fa-youtube"></i>
+
+</a>
+
+</div>
+
+<p>
+
+Email: info@algaeafrica.org
+
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="copyright">
+
+© 2026 Algae Africa Network (AAN). All Rights Reserved.
+
+</p>
 
 </footer>
 
-<!-- Leaflet JS -->
+<!-- ================= JAVASCRIPT ================= -->
+
+<!-- Leaflet -->
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- Member database -->
+<!-- Member Database -->
+
 <script src="members.js"></script>
 
-<!-- Main website JS -->
+<!-- Main Website Script -->
+
 <script src="script.js"></script>
 
 </body>
-</html>
-</div>
 
-</footer>
+</html>
