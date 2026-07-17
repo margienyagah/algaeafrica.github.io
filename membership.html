@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Membership | Algae Africa Network</title>
+<title>Membership | Algae Africa Network (AAN)</title>
+
+<meta name="description"
+content="Join the Algae Africa Network and become part of Africa's leading algae innovation ecosystem.">
 
 <link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
@@ -18,28 +28,24 @@
 
 <header>
 
-<nav class="navbar">
+<nav class="navbar container">
 
-<div class="logo">
+<a href="index.html" class="logo">
 
-<img src="logo.png">
+<img src="logo.png" alt="AAN Logo">
 
-</div>
+<span>Algae Africa Network</span>
+
+</a>
 
 <ul class="nav-links">
 
-<li><a href="index.html">Home</a></li>
-
 <li><a href="about.html">About</a></li>
-
 <li><a href="education.html">Education Hub</a></li>
-
 <li><a href="resources.html">Resources</a></li>
-
 <li><a href="news.html">News</a></li>
-
+<li><a href="members.html">Members</a></li>
 <li><a href="membership.html" class="active">Membership</a></li>
-
 <li><a href="contact.html">Contact</a></li>
 
 </ul>
@@ -48,73 +54,284 @@
 
 </header>
 
-<section class="page-header">
+<section class="page-hero">
 
-<h1>Become an AAN Member</h1>
+<div class="container">
 
-<p>Join researchers, innovators, entrepreneurs, students and institutions advancing algae across Africa.</p>
+<p class="hero-tag">
 
-</section>
+JOIN THE NETWORK
 
-<section class="membership-content">
+</p>
 
-<div class="membership-benefits">
+<h1>
 
-<h2>Member Benefits</h2>
+Become an AAN Member
 
-<ul>
+</h1>
 
-<li>Networking opportunities</li>
+<p>
 
-<li>Research collaborations</li>
+Join Africa's continental network of researchers,
+students,
+entrepreneurs,
+industry leaders,
+government agencies,
+development partners,
+and institutions advancing algae innovation.
 
-<li>Training & webinars</li>
-
-<li>Funding opportunities</li>
-
-<li>Visibility through the AAN Directory</li>
-
-<li>Access to Education Hub resources</li>
-
-</ul>
+</p>
 
 </div>
 
-<form action="https://formspree.io/f/xrbyovza" method="POST" class="membership-form">
+</section>
 
-<input type="text" name="name" placeholder="Full Name" required>
+<section class="section">
 
-<input type="email" name="_replyto" placeholder="Email Address" required>
+<div class="container">
 
-<input type="text" name="organization" placeholder="Institution">
+<div class="cards three">
 
-<input type="text" name="country" placeholder="Country">
+<div class="card">
 
-<select name="interest">
+<i class="fas fa-users"></i>
 
-<option>Research & Education</option>
+<h3>Network</h3>
 
-<option>Innovation</option>
+<p>
 
-<option>Climate & Environment</option>
+Connect with experts across Africa.
 
-<option>Food & Agriculture</option>
+</p>
 
-<option>Investment</option>
+</div>
+
+<div class="card">
+
+<i class="fas fa-microscope"></i>
+
+<h3>Research</h3>
+
+<p>
+
+Collaborate on continental research projects.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<i class="fas fa-globe-africa"></i>
+
+<h3>Visibility</h3>
+
+<p>
+
+Appear on the AAN interactive member directory and map.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section light">
+
+<div class="container">
+
+<h2>
+
+Membership Application
+
+</h2>
+
+<p>
+
+Complete the application below.
+After approval by the AAN Secretariat,
+your profile will automatically appear in the Members Directory.
+
+</p>
+
+<form id="membershipForm" class="membership-form">
+
+<div class="form-grid">
+
+<input
+type="text"
+name="fullname"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+name="email"
+placeholder="Email Address"
+required>
+
+<input
+type="text"
+name="institution"
+placeholder="Institution / Organization"
+required>
+
+<input
+type="text"
+name="position"
+placeholder="Position">
+
+<input
+type="text"
+name="country"
+placeholder="Country"
+required>
+
+<input
+type="text"
+name="city"
+placeholder="City">
+
+<input
+type="text"
+name="specialization"
+placeholder="Research Area / Specialization"
+required>
+
+<select name="membership">
+
+<option value="">Membership Category</option>
+
+<option>Professional Member</option>
+
+<option>Student Member</option>
+
+<option>Youth Ambassador</option>
+
+<option>Institutional Member</option>
+
+<option>Industry Member</option>
 
 </select>
 
-<textarea name="message" rows="5" placeholder="Tell us about yourself"></textarea>
+<textarea
+name="bio"
+rows="6"
+placeholder="Brief professional profile"></textarea>
 
-<button type="submit">Apply for Membership</button>
+</div>
+
+<button type="submit" class="btn-primary">
+
+Submit Membership Application
+
+</button>
 
 </form>
+
+<div id="membership-success" style="display:none;">
+
+<h3>
+
+Application Submitted Successfully
+
+</h3>
+
+<p>
+
+Thank you for applying to join the Algae Africa Network.
+
+Your application will be reviewed by the Secretariat.
+
+Once approved, your profile will automatically appear on the Members page and Interactive Africa Map.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="cta">
+
+<div class="container">
+
+<h2>
+
+Together We Build Africa's Algae Future
+
+</h2>
+
+<p>
+
+Researchers,
+students,
+entrepreneurs,
+government,
+industry and development partners are all welcome.
+
+</p>
+
+<a href="members.html" class="btn-secondary">
+
+View Current Members
+
+</a>
+
+</div>
 
 </section>
 
 <footer>
 
-<p>© 2026 Algae Africa Network</p>
+<div class="container footer-grid">
+
+<div>
+
+<img src="logo.png" class="footer-logo" alt="AAN Logo">
+
+<p>
+
+Building Africa's Algae Innovation Ecosystem
+
+</p>
+
+</div>
+
+<div>
+
+<h4>Quick Links</h4>
+
+<p><a href="index.html">Home</a></p>
+<p><a href="members.html">Members</a></p>
+<p><a href="education.html">Education Hub</a></p>
+<p><a href="resources.html">Resources</a></p>
+
+</div>
+
+<div>
+
+<h4>Connect</h4>
+
+<p><a href="https://www.linkedin.com/company/algae-africa-network/" target="_blank">LinkedIn</a></p>
+<p><a href="contact.html">Contact</a></p>
+
+</div>
+
+</div>
+
+<hr>
+
+<p style="text-align:center;">
+
+© 2026 Algae Africa Network (AAN). All Rights Reserved.
+
+</p>
 
 </footer>
 
