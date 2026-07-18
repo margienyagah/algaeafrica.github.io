@@ -155,20 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
- // ==========================================
-// MEMBERS PAGE (Firebase)
-// ==========================================
+    // ==========================================
+    // MEMBERS PAGE
+    // ==========================================
 
-import { db } from "./firebase.js";
+    if (typeof window.members === "undefined") return;
 
-import {
-    collection,
-    getDocs,
-    query,
-    where
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-async function loadMembers() {
+    const members = window.members;
 
     const memberCount = document.getElementById("member-count");
     const countryCount = document.getElementById("country-count");
@@ -182,70 +175,70 @@ async function loadMembers() {
 
     const institutionFilter = document.getElementById("institution-filter");
 
-    const mapElement = document.getElementById("africaMap");
-
-    if (!grid) return;
-
-    const q = query(
-        collection(db, "members"),
-        where("approved", "==", true)
-    );
-
-    const snapshot = await getDocs(q);
-
-    const members = [];
-
-    snapshot.forEach(doc => {
-
-        members.push(doc.data());
-
-    });
-
-    // ===========================
+    // ==========================================
     // Counters
-    // ===========================
+    // ==========================================
 
-    memberCount.textContent = members.length;
+    if (memberCount)
+        memberCount.textContent = members.length;
 
-    countryCount.textContent =
-        [...new Set(members.map(m => m.country))].length;
+    if (countryCount) {
 
-    institutionCount.textContent =
-        [...new Set(members.map(m => m.institution).filter(Boolean))].length;
+        countryCount.textContent =
+            [...new Set(members.map(m => m.country))].length;
 
-    // ===========================
+    }
+
+    if (institutionCount) {
+
+        institutionCount.textContent =
+            [...new Set(members.map(m => m.org).filter(Boolean))].length;
+
+    }
+
+    // ==========================================
     // Filters
-    // ===========================
+    // ==========================================
 
-    [...new Set(members.map(m => m.country))]
-        .sort()
-        .forEach(country => {
+    if (countryFilter) {
 
-            countryFilter.innerHTML +=
-                `<option value="${country}">${country}</option>`;
+        [...new Set(members.map(m => m.country))]
+            .sort()
+            .forEach(country => {
 
-        });
+                countryFilter.innerHTML +=
+                    `<option value="${country}">${country}</option>`;
 
-    [...new Set(members.map(m => m.institution).filter(Boolean))]
-        .sort()
-        .forEach(org => {
+            });
 
-            institutionFilter.innerHTML +=
-                `<option value="${org}">${org}</option>`;
+    }
 
-        });
+    if (institutionFilter) {
 
-    // ===========================
-    // Render Members
-    // ===========================
+        [...new Set(members.map(m => m.org).filter(Boolean))]
+            .sort()
+            .forEach(org => {
 
-    function render(data){
+                institutionFilter.innerHTML +=
+                    `<option value="${org}">${org}</option>`;
 
-        grid.innerHTML="";
+            });
 
-        data.forEach(member=>{
+    }
 
-            grid.innerHTML +=`
+    // ==========================================
+    // Member Cards
+    // ==========================================
+
+    function renderMembers(data) {
+
+        if (!grid) return;
+
+        grid.innerHTML = "";
+
+        data.forEach(member => {
+
+            grid.innerHTML += `
 
             <article class="member-card">
 
@@ -253,13 +246,15 @@ async function loadMembers() {
 
                 <p><strong>${member.country}</strong></p>
 
-                <p>${member.city || ""}</p>
+                <p>${member.city}</p>
 
                 <p>${member.specialization}</p>
 
-                <p>${member.institution || ""}</p>
+                <p>${member.org || "Independent Researcher"}</p>
 
-                <span class="badge">${member.membership}</span>
+                <span class="badge">
+                    ${member.membership}
+                </span>
 
             </article>
 
@@ -269,93 +264,101 @@ async function loadMembers() {
 
     }
 
-    render(members);
+    renderMembers(members);
 
-    // ===========================
+    // ==========================================
     // Search
-    // ===========================
+    // ==========================================
 
-    search.addEventListener("keyup",()=>{
+    if (search) {
 
-        const value=search.value.toLowerCase();
+        search.addEventListener("keyup", () => {
 
-        render(
+            const value = search.value.toLowerCase();
 
-            members.filter(member=>
+            const filtered = members.filter(member =>
 
                 member.name.toLowerCase().includes(value) ||
 
                 member.country.toLowerCase().includes(value) ||
 
-                (member.institution||"").toLowerCase().includes(value) ||
+                member.specialization.toLowerCase().includes(value) ||
 
-                member.specialization.toLowerCase().includes(value)
+                (member.org || "").toLowerCase().includes(value)
 
-            )
+            );
 
-        );
+            renderMembers(filtered);
 
-    });
+        });
 
-    // ===========================
+    }
+
+    // ==========================================
     // Country Filter
-    // ===========================
+    // ==========================================
 
-    countryFilter.addEventListener("change",()=>{
+    if (countryFilter) {
 
-        if(countryFilter.value===""){
+        countryFilter.addEventListener("change", () => {
 
-            render(members);
+            const value = countryFilter.value;
 
-            return;
+            if (value === "") {
 
-        }
+                renderMembers(members);
 
-        render(
+                return;
 
-            members.filter(
+            }
 
-                m=>m.country===countryFilter.value
+            renderMembers(
 
-            )
+                members.filter(member => member.country === value)
 
-        );
+            );
 
-    });
+        });
 
-    // ===========================
+    }
+
+    // ==========================================
     // Institution Filter
-    // ===========================
+    // ==========================================
 
-    institutionFilter.addEventListener("change",()=>{
+    if (institutionFilter) {
 
-        if(institutionFilter.value===""){
+        institutionFilter.addEventListener("change", () => {
 
-            render(members);
+            const value = institutionFilter.value;
 
-            return;
+            if (value === "") {
 
-        }
+                renderMembers(members);
 
-        render(
+                return;
 
-            members.filter(
+            }
 
-                m=>m.institution===institutionFilter.value
+            renderMembers(
 
-            )
+                members.filter(member => member.org === value)
 
-        );
+            );
 
-    });
+        });
 
-    // ===========================
+    }
+
+    // ==========================================
     // Leaflet Map
-    // ===========================
+    // ==========================================
 
-    if(mapElement && typeof L!=="undefined"){
+    const mapElement = document.getElementById("africaMap");
 
-        const map=L.map("africaMap").setView([3,20],3);
+    if (mapElement && typeof L !== "undefined") {
+
+        const map = L.map("africaMap").setView([2, 20], 3);
 
         L.tileLayer(
 
@@ -363,40 +366,40 @@ async function loadMembers() {
 
             {
 
-                attribution:"© OpenStreetMap"
+                attribution:
+                    "&copy; OpenStreetMap contributors"
 
             }
 
         ).addTo(map);
 
-        members.forEach(member=>{
+        members.forEach(member => {
 
-            if(!member.lat || !member.lng) return;
+            if (!member.lat || !member.lng) return;
 
-            L.marker([member.lat,member.lng])
+            L.marker([member.lat, member.lng])
 
-            .addTo(map)
+                .addTo(map)
 
-            .bindPopup(`
+                .bindPopup(
 
-                <strong>${member.name}</strong><br>
+                    `
+                    <strong>${member.name}</strong><br>
+                    ${member.org || ""}<br>
+                    ${member.city}, ${member.country}<br>
+                    ${member.specialization}
+                    `
 
-                ${member.institution || ""}<br>
-
-                ${member.country}
-
-            `);
+                );
 
         });
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             map.invalidateSize();
 
-        },300);
+        }, 500);
 
     }
 
-}
-
-loadMembers();
+});
