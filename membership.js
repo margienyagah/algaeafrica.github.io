@@ -1,7 +1,7 @@
 // ==========================================
-// Algae Africa Network
+// Algae Africa Network (AAN)
 // membership.js
-// Saves membership applications to Firestore
+// Submit membership applications to Firebase
 // ==========================================
 
 import { db } from "./firebase.js";
@@ -21,6 +21,7 @@ if (membershipForm) {
         e.preventDefault();
 
         const submitButton = membershipForm.querySelector("button[type='submit']");
+
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
 
@@ -28,19 +29,23 @@ if (membershipForm) {
 
             await addDoc(collection(db, "members"), {
 
-                name: membershipForm.name.value,
+                name: membershipForm.fullname.value.trim(),
 
-                email: membershipForm.email.value,
+                email: membershipForm.email.value.trim(),
 
-                country: membershipForm.country.value,
+                institution: membershipForm.institution.value.trim(),
 
-                city: membershipForm.city.value,
+                position: membershipForm.position.value.trim(),
 
-                institution: membershipForm.organization.value,
+                country: membershipForm.country.value.trim(),
 
-                specialization: membershipForm.specialization.value,
+                city: membershipForm.city.value.trim(),
+
+                specialization: membershipForm.specialization.value.trim(),
 
                 membership: membershipForm.membership.value,
+
+                bio: membershipForm.bio.value.trim(),
 
                 status: "Pending",
 
@@ -50,24 +55,31 @@ if (membershipForm) {
 
             });
 
+            // Show success message
+            const success = document.getElementById("membership-success");
+
+            if (success) {
+                success.style.display = "block";
+            }
+
             alert(
-                "Thank you for joining the Algae Africa Network.\n\nYour application has been submitted successfully and is awaiting administrator approval."
+                "Thank you for applying to join the Algae Africa Network.\n\nYour application has been submitted successfully and is awaiting approval from the AAN Secretariat."
             );
 
             membershipForm.reset();
 
         } catch (error) {
 
-            console.error(error);
+            console.error("Membership submission error:", error);
 
             alert(
-                "There was an error submitting your application. Please try again."
+                "Sorry, something went wrong while submitting your application.\nPlease try again."
             );
 
         } finally {
 
             submitButton.disabled = false;
-            submitButton.textContent = "Apply for Membership";
+            submitButton.textContent = "Submit Membership Application";
 
         }
 
