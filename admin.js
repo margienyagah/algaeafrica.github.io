@@ -18,22 +18,24 @@ import {
     where,
     getDocs,
     updateDoc,
-    doc
+    deleteDoc,
+    doc,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// --------------------
-// Elements
-// --------------------
+
+// ==========================================
+// HTML Elements
+// ==========================================
 
 const loginForm = document.getElementById("loginForm");
-
 const dashboard = document.getElementById("dashboard");
-
 const applications = document.getElementById("applications");
 
-// --------------------
+
+// ==========================================
 // Login
-// --------------------
+// ==========================================
 
 if (loginForm) {
 
@@ -42,7 +44,6 @@ if (loginForm) {
         e.preventDefault();
 
         const email = document.getElementById("adminEmail").value;
-
         const password = document.getElementById("adminPassword").value;
 
         try {
@@ -51,7 +52,7 @@ if (loginForm) {
 
         } catch (error) {
 
-            alert(error.message);
+            alert("Login failed.\n\n" + error.message);
 
         }
 
@@ -59,16 +60,16 @@ if (loginForm) {
 
 }
 
-// --------------------
-// Authentication
-// --------------------
 
-onAuthStateChanged(auth, async (user) => {
+// ==========================================
+// Authentication
+// ==========================================
+
+onAuthStateChanged(auth, (user) => {
 
     if (user) {
 
         loginForm.style.display = "none";
-
         dashboard.style.display = "block";
 
         loadApplications();
@@ -76,128 +77,196 @@ onAuthStateChanged(auth, async (user) => {
     } else {
 
         loginForm.style.display = "block";
-
         dashboard.style.display = "none";
 
     }
 
 });
 
-// --------------------
-// Load Pending Members
-// --------------------
+
+// ==========================================
+// Load Pending Applications
+// ==========================================
 
 async function loadApplications() {
 
-    applications.innerHTML = "Loading applications...";
+    applications.innerHTML = "<p>Loading applications...</p>";
 
-    const q = query(
+    try {
 
-        collection(db, "members"),
+        const q = query(
 
-        where("approved", "==", false)
+            collection(db, "members"),
 
-    );
+            where("approved", "==", false),
 
-    const snapshot = await getDocs(q);
+            orderBy("created", "desc")
 
-    if (snapshot.empty) {
+        );
 
-        applications.innerHTML = "<p>No pending applications.</p>";
+        const snapshot = await getDocs(q);
 
-        return;
+        if (snapshot.empty) {
+
+            applications.innerHTML = `
+
+                <div class="card">
+
+                    <h3>No Pending Applications</h3>
+
+                    <p>All membership requests have been processed.</p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+        applications.innerHTML = "";
+
+        snapshot.forEach((memberDoc) => {
+
+            const member = memberDoc.data();
+
+            const created = member.created?.toDate
+                ? member.created.toDate().toLocaleDateString()
+                : "Unknown";
+
+            applications.innerHTML += `
+
+                <div class="member-card">
+
+                    <h3>${member.name}</h3>
+
+                    <p><strong>Email:</strong> ${member.email}</p>
+
+                    <p><strong>Institution:</strong> ${member.institution}</p>
+
+                    <p><strong>Country:</strong> ${member.country}</p>
+
+                    <p><strong>City:</strong> ${member.city || "-"}</p>
+
+                    <p><strong>Position:</strong> ${member.position || "-"}</p>
+
+                    <p><strong>Specialization:</strong> ${member.specialization}</p>
+
+                    <p><strong>Membership:</strong> ${member.membership}</p>
+
+                    <p><strong>Submitted:</strong> ${created}</p>
+
+                    <div class="admin-buttons">
+
+                        <button
+                            class="approve-btn"
+                            onclick="approveMember('${memberDoc.id}')">
+
+                            ✅ Approve
+
+                        </button>
+
+                        <button
+                            class="reject-btn"
+                            onclick="rejectMember('${memberDoc.id}')">
+
+                            ❌ Reject
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
 
     }
 
-    applications.innerHTML = "";
+    catch (error) {
 
-    snapshot.forEach((documentData) => {
+        console.error(error);
 
-        const member = documentData.data();
+        applications.innerHTML = "<p>Unable to load applications.</p>";
 
-        applications.innerHTML += `
-
-        <div class="member-card">
-
-            <h3>${member.name}</h3>
-
-            <p><strong>${member.institution}</strong></p>
-
-            <p>${member.country}</p>
-
-            <p>${member.specialization}</p>
-
-            <p>${member.membership}</p>
-
-            <button
-                class="approve-btn"
-                onclick="approveMember('${documentData.id}')">
-
-                Approve
-
-            </button>
-
-            <button
-                class="reject-btn"
-                onclick="rejectMember('${documentData.id}')">
-
-                Reject
-
-            </button>
-
-        </div>
-
-        `;
-
-    });
+    }
 
 }
 
-// --------------------
+
+// ==========================================
 // Approve Member
-// --------------------
+// ==========================================
 
 window.approveMember = async function(id) {
 
-    await updateDoc(doc(db, "members", id), {
+    try {
 
-        approved: true,
+        await updateDoc(doc(db, "members", id), {
 
-        status: "Approved"
+            approved: true,
+            status: "Approved"
 
-    });
+        });
 
-    alert("Member approved successfully.");
+        alert("Member approved successfully.");
 
-    loadApplications();
+        loadApplications();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Approval failed.");
+
+    }
 
 };
 
-// --------------------
+
+// ==========================================
 // Reject Member
-// --------------------
+// ==========================================
 
 window.rejectMember = async function(id) {
 
-    await updateDoc(doc(db, "members", id), {
+    const confirmReject = confirm(
 
-        approved: false,
+        "Reject this application?\n\nThis will permanently remove it."
 
-        status: "Rejected"
+    );
 
-    });
+    if(!confirmReject) return;
 
-    alert("Application rejected.");
+    try{
 
-    loadApplications();
+        await deleteDoc(doc(db,"members",id));
+
+        alert("Application rejected.");
+
+        loadApplications();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to reject application.");
+
+    }
 
 };
 
-// --------------------
-// Logout (optional)
-// --------------------
 
-window.logoutAdmin = async function () {
+// ==========================================
+// Logout
+// ==========================================
+
+window.logoutAdmin = async function(){
 
     await signOut(auth);
 
