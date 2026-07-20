@@ -1,7 +1,7 @@
 // ==========================================
-// Algae Africa Network
+// Algae Africa Network (AAN)
 // members-firebase.js
-// Loads approved members from Firebase
+// Firebase Approval Checker
 // ==========================================
 
 import { db } from "./firebase.js";
@@ -13,74 +13,47 @@ import {
     getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-async function loadMembers() {
+async function loadApprovedMembers() {
 
     try {
 
         const q = query(
-
             collection(db, "members"),
-
             where("approved", "==", true)
-
         );
 
         const snapshot = await getDocs(q);
 
-        const members = [];
+        const approvedMembers = [];
 
         snapshot.forEach(doc => {
 
-            const data = doc.data();
-
-            members.push({
+            approvedMembers.push({
 
                 id: doc.id,
 
-                name: data.name || "",
-
-                country: data.country || "",
-
-                city: data.city || "",
-
-                specialization: data.specialization || "",
-
-                org: data.institution || "",
-
-                membership: data.membership || "",
-
-                email: data.email || "",
-
-                lat: Number(data.lat) || null,
-
-                lng: Number(data.lng) || null
+                ...doc.data()
 
             });
 
         });
 
-        // Make available to script.js
-        window.members = members;
-
-        // Trigger an event so script.js knows data is ready
-        document.dispatchEvent(
-            new CustomEvent("membersLoaded")
-        );
-
         console.log(
-            "Loaded",
-            members.length,
-            "approved members from Firebase."
+            "Approved applications:",
+            approvedMembers
         );
+
+        // Don't overwrite window.members
+        window.approvedApplications = approvedMembers;
 
     }
 
-    catch (error) {
+    catch(error){
 
-        console.error("Error loading members:", error);
+        console.error(error);
 
     }
 
 }
 
-loadMembers();
+loadApprovedMembers();
