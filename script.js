@@ -159,9 +159,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // MEMBERS PAGE
     // ==========================================
 
-    if (typeof window.members === "undefined") return;
+   document.addEventListener("membersLoaded", () => {
 
     const members = window.members;
+
+    // EVERYTHING BELOW stays exactly the same
+    // Counters
+    // Filters
+    // Search
+    // Member cards
+    // Leaflet map
+
+});
 
     const memberCount = document.getElementById("member-count");
     const countryCount = document.getElementById("country-count");
