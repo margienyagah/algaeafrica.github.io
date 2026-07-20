@@ -171,21 +171,14 @@ Visit Page →
 </section>
 
 <!-- ================= CONTACT FORM ================= -->
-
 <section class="section light">
 
 <div class="container">
 
-<h2>
-
-Send Us a Message
-
-</h2>
+<h2>Send Us a Message</h2>
 
 <p>
-
 Complete the form below and our team will get back to you.
-
 </p>
 
 <form id="contactForm" class="membership-form">
@@ -194,49 +187,55 @@ Complete the form below and our team will get back to you.
 
 <input
 type="text"
-name="name"
+id="name"
 placeholder="Full Name"
 required>
 
 <input
 type="email"
-name="email"
+id="email"
 placeholder="Email Address"
 required>
 
 <input
 type="text"
-name="organization"
+id="organization"
 placeholder="Institution / Organization">
 
-<select name="subject">
+<select id="subject" required>
 
 <option value="">Select Subject</option>
 
-<option>General Enquiry</option>
+<option value="Research Collaboration">
+Research Collaboration
+</option>
 
-<option>Membership</option>
+<option value="Membership">
+Membership
+</option>
 
-<option>Research Collaboration</option>
+<option value="Education">
+Education
+</option>
 
-<option>Education Hub</option>
+<option value="Partnership">
+Partnership
+</option>
 
-<option>Partnership</option>
+<option value="Media">
+Media
+</option>
 
-<option>Media</option>
-
-<option>Other</option>
+<option value="General Inquiry">
+General Inquiry
+</option>
 
 </select>
 
 <textarea
-
-name="message"
-
+id="message"
 rows="8"
-
 placeholder="Write your message..."
-
 required></textarea>
 
 </div>
@@ -249,19 +248,21 @@ Send Message
 
 </form>
 
-<div id="contact-success" style="display:none;">
+<div
+id="contact-success"
+style="display:none; margin-top:30px;">
 
 <h3>
 
-Thank You!
+Message Sent Successfully
 
 </h3>
 
 <p>
 
-Your message has been received.
+Thank you for contacting the Algae Africa Network.
 
-A member of the Algae Africa Network team will respond as soon as possible.
+Your message has been received and our team will respond as soon as possible.
 
 </p>
 
@@ -463,6 +464,8 @@ info@algaeafrica.org
 </footer>
 
 <script src="script.js"></script>
+
+<script type="module" src="contact.js"></script>
 
 </body>
 
