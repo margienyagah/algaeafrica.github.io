@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AAN Admin Dashboard</title>
+<title>AAN Administrator Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -17,13 +17,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
 <nav class="navbar container">
 
 <a href="index.html" class="logo">
 
-<img src="logo.png" alt="AAN">
+<img src="logo.png" alt="AAN Logo">
 
 <span>Algae Africa Network</span>
 
@@ -33,6 +35,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 </header>
 
+<!-- ================= HERO ================= -->
+
 <section class="page-hero">
 
 <div class="container">
@@ -41,7 +45,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <p>
 
-Manage membership applications and approve new members.
+Manage membership applications, approve new members,
+and respond to enquiries received through the website.
 
 </p>
 
@@ -49,7 +54,9 @@ Manage membership applications and approve new members.
 
 </section>
 
-<section class="section">
+<!-- ================= LOGIN ================= -->
+
+<section class="section" id="loginSection">
 
 <div class="container">
 
@@ -69,7 +76,9 @@ id="adminPassword"
 placeholder="Password"
 required>
 
-<button type="submit" class="btn-primary">
+<button
+type="submit"
+class="btn-primary">
 
 Login
 
@@ -81,11 +90,96 @@ Login
 
 </section>
 
-<section class="section" id="dashboard" style="display:none;">
+<!-- ================= DASHBOARD ================= -->
+
+<section
+class="section"
+id="dashboard"
+style="display:none;">
 
 <div class="container">
 
-<h2>Pending Membership Applications</h2>
+<div style="display:flex;justify-content:space-between;align-items:center;">
+
+<h2>
+
+Dashboard
+
+</h2>
+
+<button
+onclick="logoutAdmin()"
+class="btn-secondary">
+
+Logout
+
+</button>
+
+</div>
+
+<!-- ================= STATS ================= -->
+
+<div class="cards three" style="margin-top:40px;">
+
+<div class="card">
+
+<h3 id="pendingCount">
+
+0
+
+</h3>
+
+<p>
+
+Pending Applications
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3 id="approvedCount">
+
+0
+
+</h3>
+
+<p>
+
+Approved Members
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3 id="messageCount">
+
+0
+
+</h3>
+
+<p>
+
+Contact Messages
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ================= MEMBERS ================= -->
+
+<div style="margin-top:60px;">
+
+<h2>
+
+Pending Membership Applications
+
+</h2>
 
 <div id="applications">
 
@@ -95,7 +189,29 @@ Loading...
 
 </div>
 
+<!-- ================= CONTACTS ================= -->
+
+<div style="margin-top:80px;">
+
+<h2>
+
+Website Contact Messages
+
+</h2>
+
+<div id="contactMessages">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
 </section>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
@@ -103,7 +219,7 @@ Loading...
 
 <p>
 
-© 2026 Algae Africa Network
+© 2026 Algae Africa Network (AAN)
 
 </p>
 
