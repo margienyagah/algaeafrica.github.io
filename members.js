@@ -378,6 +378,21 @@ const members = [
         lat: -29.3158,
         lng: 27.4869
     },
+   {
+    id: 26,
+    name: "TOUEMBOU MAFFO MURIELLE",
+    country: "Cameroon",
+    city: "Yaoundé",
+    institution: "University of Yaounde 1 / National Commette for Developpment of Technology",
+    specialization: "Microalgae-based Wastewater Treatment",
+    membership: "Professional Member",
+    email: "",
+    linkedin: "",
+    photo: "images/members/default.jpg",
+
+    lat: 3.8480,
+    lng: 11.5021
+},
 
     /* ==================================================
        INTERNATIONAL MEMBERS
