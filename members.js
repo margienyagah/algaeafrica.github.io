@@ -1,21 +1,22 @@
-```js
+
 /* ======================================================
    Algae Africa Network (AAN)
    Member Database
-   Version: 1.1
-====================================================== */
+   Version: 1.2
+   ====================================================== */
 
 const members = [
 
     /* ==================================================
        AFRICAN MEMBERS
-    ================================================== */
+       ================================================== */
 
     {
         id: 1,
         name: "Dr. Abdelfettah GHERIB",
         country: "Algeria",
         city: "Constantine",
+        org: "CRBt Constantine",
         institution: "CRBt Constantine",
         specialization: "Biotechnology Researcher",
         membership: "Professional Member",
@@ -31,6 +32,7 @@ const members = [
         name: "Vincent Mbugua",
         country: "Kenya",
         city: "Nairobi",
+        org: "Vinnovations",
         institution: "Vinnovations",
         specialization: "Algae-based Product Innovator",
         membership: "Professional Member",
@@ -46,6 +48,7 @@ const members = [
         name: "Sheila Jepkorir",
         country: "Kenya",
         city: "Nairobi",
+        org: "Algae Africa Network",
         institution: "Algae Africa Network",
         specialization: "Youth Ambassador",
         membership: "Youth Ambassador",
@@ -61,6 +64,7 @@ const members = [
         name: "Benard Kioko",
         country: "Kenya",
         city: "Mombasa",
+        org: "Maricosmetics",
         institution: "Maricosmetics",
         specialization: "Algae Cosmetics & Bioproducts",
         membership: "Professional Member",
@@ -76,6 +80,7 @@ const members = [
         name: "Lucile Gingembre",
         country: "Madagascar",
         city: "Antananarivo",
+        org: "Seaweed and Beyond",
         institution: "Seaweed and Beyond",
         specialization: "Seaweed Entrepreneurship",
         membership: "Professional Member",
@@ -91,6 +96,7 @@ const members = [
         name: "Dr. Abdalah Makaranga",
         country: "Tanzania",
         city: "Moshi",
+        org: "Mwenge Catholic University",
         institution: "Mwenge Catholic University",
         specialization: "Algae Biotechnology",
         membership: "Professional Member",
@@ -106,6 +112,7 @@ const members = [
         name: "Ndeye Coumba Bousso",
         country: "Senegal",
         city: "Dakar",
+        org: "",
         institution: "",
         specialization: "Microalgae Research",
         membership: "Professional Member",
@@ -121,6 +128,7 @@ const members = [
         name: "Alfred Rono",
         country: "Kenya",
         city: "Kwale",
+        org: "Plan International Kenya",
         institution: "Plan International Kenya",
         specialization: "Seaweed Community Projects",
         membership: "Professional Member",
@@ -136,6 +144,7 @@ const members = [
         name: "Anthony Adu-Gyamfi",
         country: "Ghana",
         city: "Accra",
+        org: "Atlantic Technological University",
         institution: "Atlantic Technological University",
         specialization: "Marine Biotechnology",
         membership: "Professional Member",
@@ -151,6 +160,7 @@ const members = [
         name: "Oghogho Eleshin",
         country: "Nigeria",
         city: "Lagos",
+        org: "University of Lagos",
         institution: "University of Lagos",
         specialization: "Marine Biology",
         membership: "Youth Ambassador",
@@ -166,6 +176,7 @@ const members = [
         name: "Morufat Li-Hammed",
         country: "Nigeria",
         city: "Lagos",
+        org: "",
         institution: "",
         specialization: "Marine Research",
         membership: "Professional Member",
@@ -181,6 +192,7 @@ const members = [
         name: "Dr. Esther Kadiene",
         country: "Nigeria",
         city: "Delta State",
+        org: "Delta State University",
         institution: "Delta State University",
         specialization: "Environmental Biology",
         membership: "Professional Member",
@@ -196,6 +208,7 @@ const members = [
         name: "Dr. Blessing Allen-Adebayo",
         country: "Nigeria",
         city: "Lagos",
+        org: "Weaver and Nexus Ltd",
         institution: "Weaver and Nexus Ltd",
         specialization: "Algae Innovation",
         membership: "Professional Member",
@@ -211,6 +224,7 @@ const members = [
         name: "Prof. Taofikat Adesalu",
         country: "Nigeria",
         city: "Lagos",
+        org: "University of Lagos",
         institution: "University of Lagos",
         specialization: "Algology",
         membership: "Professional Member",
@@ -226,6 +240,7 @@ const members = [
         name: "Thabugha Joward",
         country: "Uganda",
         city: "Kampala",
+        org: "Algae Africa Network",
         institution: "Algae Africa Network",
         specialization: "Youth Ambassador",
         membership: "Youth Ambassador",
@@ -241,6 +256,7 @@ const members = [
         name: "REZZOUM Nor-Eddine",
         country: "Morocco",
         city: "Casablanca",
+        org: "INRH",
         institution: "INRH",
         specialization: "Marine Biology",
         membership: "Professional Member",
@@ -256,6 +272,7 @@ const members = [
         name: "Heba Mahmoud Youssef",
         country: "Egypt",
         city: "Beni Suef",
+        org: "Beni Suef University",
         institution: "Beni Suef University",
         specialization: "Microalgae Research",
         membership: "Professional Member",
@@ -271,6 +288,7 @@ const members = [
         name: "Karim Mtengai",
         country: "Tanzania",
         city: "Mbeya",
+        org: "Copperbelt University",
         institution: "Copperbelt University",
         specialization: "PhD Researcher",
         membership: "Professional Member",
@@ -286,6 +304,7 @@ const members = [
         name: "Elando Fréda Zamanileha",
         country: "Madagascar",
         city: "Antananarivo",
+        org: "University of Antananarivo",
         institution: "University of Antananarivo",
         specialization: "Researcher",
         membership: "Professional Member",
@@ -301,6 +320,7 @@ const members = [
         name: "Bradley Bock",
         country: "South Africa",
         city: "Pretoria",
+        org: "University of Pretoria",
         institution: "University of Pretoria",
         specialization: "Researcher",
         membership: "Professional Member",
@@ -316,6 +336,7 @@ const members = [
         name: "Gabriel Dafeakeh",
         country: "Nigeria",
         city: "Otokutu",
+        org: "Fish Intensive Supply House",
         institution: "Fish Intensive Supply House",
         specialization: "Founder",
         membership: "Professional Member",
@@ -331,6 +352,7 @@ const members = [
         name: "Rana Elromh",
         country: "Egypt",
         city: "Alexandria",
+        org: "Algae Africa Network",
         institution: "Algae Africa Network",
         specialization: "Biotechnology",
         membership: "Youth Ambassador",
@@ -346,6 +368,7 @@ const members = [
         name: "Liepollo",
         country: "Lesotho",
         city: "Maseru",
+        org: "Aquagrow Innovations",
         institution: "Aquagrow Innovations",
         specialization: "Innovation & Entrepreneurship",
         membership: "Professional Member",
@@ -356,17 +379,17 @@ const members = [
         lng: 27.4869
     },
 
-
     /* ==================================================
        INTERNATIONAL MEMBERS
-       Europe • Asia • Other Regions
-    ================================================== */
+       Europe • Asia
+       ================================================== */
 
     {
         id: 24,
         name: "Faiza Haider",
         country: "Pakistan",
         city: "Islamabad",
+        org: "National Defence University, Islamabad",
         institution: "National Defence University, Islamabad",
         specialization: "Research & Education",
         membership: "International Member",
@@ -382,6 +405,7 @@ const members = [
         name: "Ricardo Haroun Tabraue",
         country: "Spain",
         city: "Las Palmas de Gran Canaria",
+        org: "University of Las Palmas de Gran Canaria",
         institution: "University of Las Palmas de Gran Canaria",
         specialization: "Research & Education",
         membership: "International Member",
@@ -394,10 +418,9 @@ const members = [
 
 ];
 
-
 /* ======================================================
    MAKE DATABASE GLOBALLY AVAILABLE
-====================================================== */
+   ====================================================== */
 
 window.members = members;
 ```
