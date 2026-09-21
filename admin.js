@@ -18,6 +18,7 @@ import {
     where,
     getDocs,
     updateDoc,
+    setDoc,
     deleteDoc,
     doc,
     orderBy
@@ -51,6 +52,8 @@ if (loginForm) {
             await signInWithEmailAndPassword(auth, email, password);
 
         } catch (error) {
+
+            console.error(error);
 
             alert("Login failed.\n\n" + error.message);
 
@@ -138,21 +141,21 @@ async function loadApplications() {
 
                 <div class="member-card">
 
-                    <h3>${member.name}</h3>
+                    <h3>${member.name || "-"}</h3>
 
-                    <p><strong>Email:</strong> ${member.email}</p>
+                    <p><strong>Email:</strong> ${member.email || "-"}</p>
 
-                    <p><strong>Institution:</strong> ${member.institution}</p>
+                    <p><strong>Institution:</strong> ${member.institution || "-"}</p>
 
-                    <p><strong>Country:</strong> ${member.country}</p>
+                    <p><strong>Country:</strong> ${member.country || "-"}</p>
 
                     <p><strong>City:</strong> ${member.city || "-"}</p>
 
                     <p><strong>Position:</strong> ${member.position || "-"}</p>
 
-                    <p><strong>Specialization:</strong> ${member.specialization}</p>
+                    <p><strong>Specialization:</strong> ${member.specialization || "-"}</p>
 
-                    <p><strong>Membership:</strong> ${member.membership}</p>
+                    <p><strong>Membership:</strong> ${member.membership || "-"}</p>
 
                     <p><strong>Submitted:</strong> ${created}</p>
 
@@ -188,7 +191,8 @@ async function loadApplications() {
 
         console.error(error);
 
-        applications.innerHTML = "<p>Unable to load applications.</p>";
+        applications.innerHTML =
+            "<p>Unable to load applications.</p>";
 
     }
 
@@ -203,24 +207,109 @@ window.approveMember = async function(id) {
 
     try {
 
-        await updateDoc(doc(db, "members", id), {
+        // ------------------------------------------
+        // 1. Get the private member/application
+        // ------------------------------------------
+
+        const memberRef = doc(db, "members", id);
+
+        const memberSnapshot = await getDocs(
+            query(
+                collection(db, "members"),
+                where("__name__", "==", id)
+            )
+        );
+
+        if (memberSnapshot.empty) {
+
+            alert("Member application could not be found.");
+
+            return;
+
+        }
+
+        const memberDoc = memberSnapshot.docs[0];
+        const member = memberDoc.data();
+
+
+        // ------------------------------------------
+        // 2. Update private application
+        // ------------------------------------------
+
+        await updateDoc(memberRef, {
 
             approved: true,
             status: "Approved"
 
         });
 
-        alert("Member approved successfully.");
+
+        // ------------------------------------------
+        // 3. Create SAFE public member record
+        // ------------------------------------------
+        //
+        // IMPORTANT:
+        // We deliberately DO NOT copy:
+        //
+        // email
+        // bio
+        // position
+        // application information
+        //
+        // Only public directory information is copied.
+        // ------------------------------------------
+
+        const publicMember = {
+
+            name: member.name || "",
+            country: member.country || "",
+            city: member.city || "",
+            institution: member.institution || "",
+            specialization: member.specialization || "",
+            membership: member.membership || "",
+            linkedin: member.linkedin || "",
+            photo: member.photo || "",
+            lat: member.lat || null,
+            lng: member.lng || null
+
+        };
+
+
+        await setDoc(
+
+            doc(db, "publicMembers", id),
+
+            publicMember
+
+        );
+
+
+        // ------------------------------------------
+        // 4. Tell administrator everything succeeded
+        // ------------------------------------------
+
+        alert(
+            "Member approved successfully.\n\n" +
+            "The member is now available on the public AAN Members Directory."
+        );
+
+
+        // ------------------------------------------
+        // 5. Reload pending applications
+        // ------------------------------------------
 
         loadApplications();
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(error);
+        console.error("Approval error:", error);
 
-        alert("Approval failed.");
+        alert(
+            "Approval failed.\n\n" +
+            error.message
+        );
 
     }
 
@@ -239,11 +328,15 @@ window.rejectMember = async function(id) {
 
     );
 
-    if(!confirmReject) return;
+    if (!confirmReject) return;
 
-    try{
+    try {
 
-        await deleteDoc(doc(db,"members",id));
+        await deleteDoc(
+
+            doc(db, "members", id)
+
+        );
 
         alert("Application rejected.");
 
@@ -251,7 +344,7 @@ window.rejectMember = async function(id) {
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
@@ -266,7 +359,7 @@ window.rejectMember = async function(id) {
 // Logout
 // ==========================================
 
-window.logoutAdmin = async function(){
+window.logoutAdmin = async function() {
 
     await signOut(auth);
 
