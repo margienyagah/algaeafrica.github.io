@@ -9,25 +9,20 @@
 // ==========================================
 
 import { db } from "./firebase.js";
-
 import {
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-// ==========================================
-// Load Public Approved Members
-// ==========================================
-
 async function loadApprovedMembers() {
-
-    console.log("Loading approved AAN members from publicMembers...");
+    console.log("Loading approved AAN members from publicmembers...");
 
     try {
-
+        // IMPORTANT:
+        // The Firestore collection is named exactly:
+        // publicmembers
         const snapshot = await getDocs(
-            collection(db, "publicMembers")
+            collection(db, "publicmembers")
         );
 
         console.log(
@@ -35,58 +30,46 @@ async function loadApprovedMembers() {
             snapshot.size
         );
 
+        // Keep all existing members from members.js
+        const existingMembers = Array.isArray(window.members)
+            ? window.members
+            : [];
 
-        // ------------------------------------------
-        // Existing static AAN members
-        // ------------------------------------------
-
-        const existingMembers =
-            Array.isArray(window.members)
-                ? window.members
-                : [];
-
-
-        // ------------------------------------------
-        // Find next website ID
-        // ------------------------------------------
-
+        // Find the highest existing website ID.
+        // Existing members 1–26 remain unchanged.
         let highestId = existingMembers.reduce(
-
             (highest, member) => {
-
                 const id = Number(member.id);
 
                 return Number.isFinite(id)
                     ? Math.max(highest, id)
                     : highest;
-
             },
-
             0
-
         );
-
-
-        // ------------------------------------------
-        // Convert Firebase public members
-        // ------------------------------------------
 
         const firebaseMembers = [];
 
-
         snapshot.forEach((firebaseDoc) => {
-
             const data = firebaseDoc.data();
 
             highestId++;
 
+            // Your Firestore coordinates field is a GeoPoint.
+            // Convert it to the lat/lng format used by the website map.
+            const latitude =
+                data.coordinates?.latitude ??
+                data.lat ??
+                null;
+
+            const longitude =
+                data.coordinates?.longitude ??
+                data.lng ??
+                null;
 
             firebaseMembers.push({
-
-                // IMPORTANT:
-                // Website numbering continues from 26.
-                // Firebase document ID remains internal.
-
+                // Website ID: 27, 28, 29...
+                // NOT the Firebase document ID.
                 id: highestId,
 
                 name: data.name || "AAN Member",
@@ -95,6 +78,7 @@ async function loadApprovedMembers() {
 
                 city: data.city || "",
 
+                // The website uses org/institution.
                 org: data.institution || "",
 
                 institution: data.institution || "",
@@ -103,96 +87,63 @@ async function loadApprovedMembers() {
 
                 membership: data.membership || "",
 
-                // Never expose private email addresses
+                // Email is intentionally NOT loaded.
+                // Keep private member email data out of the public collection.
                 email: "",
 
                 linkedin: data.linkedin || "",
 
-                photo: data.photo || "",
+                photo: data.photo || "images/members/default.jpg",
 
-                lat: data.lat ?? null,
-
-                lng: data.lng ?? null
-
+                // Converted from Firestore GeoPoint
+                lat: latitude,
+                lng: longitude
             });
-
         });
 
-
-        // ------------------------------------------
-        // Combine existing + Firebase members
-        // ------------------------------------------
-
+        // Add Firebase public members to the existing 26 members.
         window.members = [
-
             ...existingMembers,
-
             ...firebaseMembers
-
         ];
 
-
-        // ------------------------------------------
-        // Keep compatibility with existing code
-        // ------------------------------------------
-
+        // Keep a separate reference if other website code needs it.
         window.approvedApplications = firebaseMembers;
 
+        console.log(
+            "Firebase public members added:",
+            firebaseMembers.length
+        );
 
         console.log(
-
             "AAN total website members:",
-
             window.members.length
-
         );
 
-
-        // ------------------------------------------
-        // Tell script.js that members are ready
-        // ------------------------------------------
-
+        // Tell script.js that the complete member list is ready.
         document.dispatchEvent(
-
             new CustomEvent("membersLoaded")
-
         );
 
-    }
-
-    catch (error) {
-
+    } catch (error) {
         console.error(
-
             "Error loading public AAN members from Firebase:",
-
             error
-
         );
 
-
-        // ------------------------------------------
-        // IMPORTANT:
-        // If Firebase fails, don't destroy the
-        // existing 26-member website.
-        // ------------------------------------------
-
+        // Keep the original 26 members working
+        // even if Firebase temporarily fails.
         if (!Array.isArray(window.members)) {
-
             window.members = [];
-
         }
 
-
         document.dispatchEvent(
-
             new CustomEvent("membersLoaded")
-
         );
-
     }
-
 }
+
+loadApprovedMembers();
 
 
 // ==========================================
