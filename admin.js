@@ -17,6 +17,7 @@ import {
     query,
     where,
     getDocs,
+    getDoc,
     updateDoc,
     setDoc,
     deleteDoc,
@@ -44,18 +45,28 @@ if (loginForm) {
 
         e.preventDefault();
 
-        const email = document.getElementById("adminEmail").value;
-        const password = document.getElementById("adminPassword").value;
+        const email =
+            document.getElementById("adminEmail").value.trim();
+
+        const password =
+            document.getElementById("adminPassword").value;
 
         try {
 
-            await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
         } catch (error) {
 
-            console.error(error);
+            console.error("Login failed:", error);
 
-            alert("Login failed.\n\n" + error.message);
+            alert(
+                "Login failed.\n\n" +
+                error.message
+            );
 
         }
 
@@ -93,7 +104,8 @@ onAuthStateChanged(auth, (user) => {
 
 async function loadApplications() {
 
-    applications.innerHTML = "<p>Loading applications...</p>";
+    applications.innerHTML =
+        "<p>Loading applications...</p>";
 
     try {
 
@@ -107,7 +119,9 @@ async function loadApplications() {
 
         );
 
-        const snapshot = await getDocs(q);
+        const snapshot =
+            await getDocs(q);
+
 
         if (snapshot.empty) {
 
@@ -117,7 +131,9 @@ async function loadApplications() {
 
                     <h3>No Pending Applications</h3>
 
-                    <p>All membership requests have been processed.</p>
+                    <p>
+                        All membership requests have been processed.
+                    </p>
 
                 </div>
 
@@ -127,37 +143,69 @@ async function loadApplications() {
 
         }
 
+
         applications.innerHTML = "";
+
 
         snapshot.forEach((memberDoc) => {
 
-            const member = memberDoc.data();
+            const member =
+                memberDoc.data();
 
-            const created = member.created?.toDate
-                ? member.created.toDate().toLocaleDateString()
-                : "Unknown";
+            const created =
+                member.created?.toDate
+                    ? member.created.toDate()
+                        .toLocaleDateString()
+                    : "Unknown";
+
 
             applications.innerHTML += `
 
                 <div class="member-card">
 
-                    <h3>${member.name || "-"}</h3>
+                    <h3>
+                        ${member.name || "-"}
+                    </h3>
 
-                    <p><strong>Email:</strong> ${member.email || "-"}</p>
+                    <p>
+                        <strong>Email:</strong>
+                        ${member.email || "-"}
+                    </p>
 
-                    <p><strong>Institution:</strong> ${member.institution || "-"}</p>
+                    <p>
+                        <strong>Institution:</strong>
+                        ${member.institution || "-"}
+                    </p>
 
-                    <p><strong>Country:</strong> ${member.country || "-"}</p>
+                    <p>
+                        <strong>Country:</strong>
+                        ${member.country || "-"}
+                    </p>
 
-                    <p><strong>City:</strong> ${member.city || "-"}</p>
+                    <p>
+                        <strong>City:</strong>
+                        ${member.city || "-"}
+                    </p>
 
-                    <p><strong>Position:</strong> ${member.position || "-"}</p>
+                    <p>
+                        <strong>Position:</strong>
+                        ${member.position || "-"}
+                    </p>
 
-                    <p><strong>Specialization:</strong> ${member.specialization || "-"}</p>
+                    <p>
+                        <strong>Specialization:</strong>
+                        ${member.specialization || "-"}
+                    </p>
 
-                    <p><strong>Membership:</strong> ${member.membership || "-"}</p>
+                    <p>
+                        <strong>Membership:</strong>
+                        ${member.membership || "-"}
+                    </p>
 
-                    <p><strong>Submitted:</strong> ${created}</p>
+                    <p>
+                        <strong>Submitted:</strong>
+                        ${created}
+                    </p>
 
                     <div class="admin-buttons">
 
@@ -189,7 +237,10 @@ async function loadApplications() {
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Error loading applications:",
+            error
+        );
 
         applications.innerHTML =
             "<p>Unable to load applications.</p>";
@@ -208,40 +259,45 @@ window.approveMember = async function(id) {
     try {
 
         // ------------------------------------------
-        // 1. Get the private member/application
+        // 1. Get the private application
         // ------------------------------------------
 
-        const memberRef = doc(db, "members", id);
+        const memberRef =
+            doc(db, "members", id);
 
-        const memberSnapshot = await getDocs(
-            query(
-                collection(db, "members"),
-                where("__name__", "==", id)
-            )
-        );
+        const memberSnapshot =
+            await getDoc(memberRef);
 
-        if (memberSnapshot.empty) {
 
-            alert("Member application could not be found.");
+        if (!memberSnapshot.exists()) {
+
+            alert(
+                "Member application could not be found."
+            );
 
             return;
 
         }
 
-        const memberDoc = memberSnapshot.docs[0];
-        const member = memberDoc.data();
+
+        const member =
+            memberSnapshot.data();
 
 
         // ------------------------------------------
         // 2. Update private application
         // ------------------------------------------
 
-        await updateDoc(memberRef, {
+        await updateDoc(
 
-            approved: true,
-            status: "Approved"
+            memberRef,
 
-        });
+            {
+                approved: true,
+                status: "Approved"
+            }
+
+        );
 
 
         // ------------------------------------------
@@ -254,30 +310,63 @@ window.approveMember = async function(id) {
         // email
         // bio
         // position
-        // application information
+        // private application information
         //
         // Only public directory information is copied.
         // ------------------------------------------
 
         const publicMember = {
 
-            name: member.name || "",
-            country: member.country || "",
-            city: member.city || "",
-            institution: member.institution || "",
-            specialization: member.specialization || "",
-            membership: member.membership || "",
-            linkedin: member.linkedin || "",
-            photo: member.photo || "",
-            lat: member.lat || null,
-            lng: member.lng || null
+            name:
+                member.name || "",
+
+            country:
+                member.country || "",
+
+            city:
+                member.city || "",
+
+            institution:
+                member.institution || "",
+
+            specialization:
+                member.specialization || "",
+
+            membership:
+                member.membership || "",
+
+            linkedin:
+                member.linkedin || "",
+
+            photo:
+                member.photo || "",
+
+            lat:
+                member.lat ?? null,
+
+            lng:
+                member.lng ?? null
 
         };
 
 
+        // ------------------------------------------
+        // IMPORTANT:
+        // This MUST match the public reader:
+        //
+        // publicmembers
+        //
+        // Firebase collection names are
+        // case-sensitive.
+        // ------------------------------------------
+
         await setDoc(
 
-            doc(db, "publicMembers", id),
+            doc(
+                db,
+                "publicmembers",
+                id
+            ),
 
             publicMember
 
@@ -285,12 +374,19 @@ window.approveMember = async function(id) {
 
 
         // ------------------------------------------
-        // 4. Tell administrator everything succeeded
+        // 4. Confirm success
         // ------------------------------------------
 
         alert(
+
             "Member approved successfully.\n\n" +
-            "The member is now available on the public AAN Members Directory."
+
+            "The private application has been approved " +
+
+            "and the member has been added to the " +
+
+            "public AAN Members Directory."
+
         );
 
 
@@ -298,17 +394,23 @@ window.approveMember = async function(id) {
         // 5. Reload pending applications
         // ------------------------------------------
 
-        loadApplications();
+        await loadApplications();
 
     }
 
     catch (error) {
 
-        console.error("Approval error:", error);
+        console.error(
+            "Approval error:",
+            error
+        );
 
         alert(
+
             "Approval failed.\n\n" +
+
             error.message
+
         );
 
     }
@@ -322,33 +424,51 @@ window.approveMember = async function(id) {
 
 window.rejectMember = async function(id) {
 
-    const confirmReject = confirm(
+    const confirmReject =
+        confirm(
 
-        "Reject this application?\n\nThis will permanently remove it."
+            "Reject this application?\n\n" +
 
-    );
+            "This will permanently remove it."
+
+        );
+
 
     if (!confirmReject) return;
+
 
     try {
 
         await deleteDoc(
 
-            doc(db, "members", id)
+            doc(
+                db,
+                "members",
+                id
+            )
 
         );
 
-        alert("Application rejected.");
 
-        loadApplications();
+        alert(
+            "Application rejected."
+        );
+
+
+        await loadApplications();
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "Rejection error:",
+            error
+        );
 
-        alert("Unable to reject application.");
+        alert(
+            "Unable to reject application."
+        );
 
     }
 
@@ -361,6 +481,19 @@ window.rejectMember = async function(id) {
 
 window.logoutAdmin = async function() {
 
-    await signOut(auth);
+    try {
+
+        await signOut(auth);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
 
 };
