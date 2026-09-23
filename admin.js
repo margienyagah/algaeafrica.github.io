@@ -26,13 +26,21 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+console.log("AAN ADMIN.JS LOADED SUCCESSFULLY");
+
+
 // ==========================================
 // HTML Elements
 // ==========================================
 
-const loginForm = document.getElementById("loginForm");
-const dashboard = document.getElementById("dashboard");
-const applications = document.getElementById("applications");
+const loginForm =
+    document.getElementById("loginForm");
+
+const dashboard =
+    document.getElementById("dashboard");
+
+const applications =
+    document.getElementById("applications");
 
 
 // ==========================================
@@ -46,12 +54,19 @@ if (loginForm) {
         e.preventDefault();
 
         const email =
-            document.getElementById("adminEmail").value.trim();
+            document
+                .getElementById("adminEmail")
+                .value
+                .trim();
 
         const password =
-            document.getElementById("adminPassword").value;
+            document
+                .getElementById("adminPassword")
+                .value;
 
         try {
+
+            console.log("Attempting administrator login...");
 
             await signInWithEmailAndPassword(
                 auth,
@@ -59,9 +74,18 @@ if (loginForm) {
                 password
             );
 
-        } catch (error) {
+            console.log(
+                "Administrator login successful."
+            );
 
-            console.error("Login failed:", error);
+        }
+
+        catch (error) {
+
+            console.error(
+                "Login failed:",
+                error
+            );
 
             alert(
                 "Login failed.\n\n" +
@@ -81,16 +105,25 @@ if (loginForm) {
 
 onAuthStateChanged(auth, (user) => {
 
+    console.log(
+        "Authentication state changed:",
+        user ? user.email : "No user"
+    );
+
     if (user) {
 
         loginForm.style.display = "none";
+
         dashboard.style.display = "block";
 
         loadApplications();
 
-    } else {
+    }
+
+    else {
 
         loginForm.style.display = "block";
+
         dashboard.style.display = "none";
 
     }
@@ -109,18 +142,34 @@ async function loadApplications() {
 
     try {
 
+        console.log(
+            "Loading pending membership applications..."
+        );
+
         const q = query(
 
             collection(db, "members"),
 
-            where("approved", "==", false),
+            where(
+                "approved",
+                "==",
+                false
+            ),
 
-            orderBy("created", "desc")
+            orderBy(
+                "created",
+                "desc"
+            )
 
         );
 
         const snapshot =
             await getDocs(q);
+
+        console.log(
+            "Pending applications found:",
+            snapshot.size
+        );
 
 
         if (snapshot.empty) {
@@ -129,10 +178,13 @@ async function loadApplications() {
 
                 <div class="card">
 
-                    <h3>No Pending Applications</h3>
+                    <h3>
+                        No Pending Applications
+                    </h3>
 
                     <p>
-                        All membership requests have been processed.
+                        All membership requests
+                        have been processed.
                     </p>
 
                 </div>
@@ -154,7 +206,8 @@ async function loadApplications() {
 
             const created =
                 member.created?.toDate
-                    ? member.created.toDate()
+                    ? member.created
+                        .toDate()
                         .toLocaleDateString()
                     : "Unknown";
 
@@ -256,20 +309,38 @@ async function loadApplications() {
 
 window.approveMember = async function(id) {
 
+    console.log(
+        "APPROVE BUTTON CLICKED. Application ID:",
+        id
+    );
+
     try {
 
         // ------------------------------------------
-        // 1. Get the private application
+        // 1. Get private application
         // ------------------------------------------
 
+        console.log(
+            "Reading private application..."
+        );
+
         const memberRef =
-            doc(db, "members", id);
+            doc(
+                db,
+                "members",
+                id
+            );
 
         const memberSnapshot =
             await getDoc(memberRef);
 
 
         if (!memberSnapshot.exists()) {
+
+            console.error(
+                "Application does not exist:",
+                id
+            );
 
             alert(
                 "Member application could not be found."
@@ -284,35 +355,14 @@ window.approveMember = async function(id) {
             memberSnapshot.data();
 
 
-        // ------------------------------------------
-        // 2. Update private application
-        // ------------------------------------------
-
-        await updateDoc(
-
-            memberRef,
-
-            {
-                approved: true,
-                status: "Approved"
-            }
-
+        console.log(
+            "Private application found:",
+            member
         );
 
 
         // ------------------------------------------
-        // 3. Create SAFE public member record
-        // ------------------------------------------
-        //
-        // IMPORTANT:
-        // We deliberately DO NOT copy:
-        //
-        // email
-        // bio
-        // position
-        // private application information
-        //
-        // Only public directory information is copied.
+        // 2. Create safe public member object
         // ------------------------------------------
 
         const publicMember = {
@@ -350,45 +400,109 @@ window.approveMember = async function(id) {
         };
 
 
+        console.log(
+            "PUBLIC MEMBER DATA PREPARED:",
+            publicMember
+        );
+
+
         // ------------------------------------------
+        // 3. Create public member FIRST
+        // ------------------------------------------
+        //
         // IMPORTANT:
-        // This MUST match the public reader:
+        // We create the public record BEFORE
+        // marking the private application approved.
         //
-        // publicmembers
-        //
-        // Firebase collection names are
-        // case-sensitive.
+        // This prevents a half-approved application
+        // if public creation fails.
         // ------------------------------------------
 
-       console.log("ABOUT TO CREATE PUBLIC MEMBER");
+        console.log(
+            "Creating document in publicmembers..."
+        );
 
-console.log("Application ID:", id);
 
-console.log("Public member data:", publicMember);
+        const publicMemberRef =
+            doc(
+                db,
+                "publicmembers",
+                id
+            );
 
-await setDoc(
-    doc(
-        db,
-        "publicmembers",
-        id
-    ),
-    publicMember
-);
 
-console.log("PUBLIC MEMBER CREATED SUCCESSFULLY");
+        await setDoc(
+            publicMemberRef,
+            publicMember
+        );
+
+
+        console.log(
+            "PUBLIC MEMBER CREATED SUCCESSFULLY."
+        );
 
 
         // ------------------------------------------
-        // 4. Confirm success
+        // 4. Verify public member exists
+        // ------------------------------------------
+
+        console.log(
+            "Verifying public member..."
+        );
+
+
+        const publicCheck =
+            await getDoc(
+                publicMemberRef
+            );
+
+
+        if (!publicCheck.exists()) {
+
+            throw new Error(
+                "The public member could not be verified after creation."
+            );
+
+        }
+
+
+        console.log(
+            "PUBLIC MEMBER VERIFIED SUCCESSFULLY."
+        );
+
+
+        // ------------------------------------------
+        // 5. Update private application
+        // ------------------------------------------
+
+        console.log(
+            "Updating private application..."
+        );
+
+
+        await updateDoc(
+            memberRef,
+            {
+                approved: true,
+                status: "Approved"
+            }
+        );
+
+
+        console.log(
+            "PRIVATE APPLICATION MARKED APPROVED."
+        );
+
+
+        // ------------------------------------------
+        // 6. Success
         // ------------------------------------------
 
         alert(
 
-            "Member approved successfully.\n\n" +
+            "Member approved successfully!\n\n" +
 
-            "The private application has been approved " +
-
-            "and the member has been added to the " +
+            "The member has been added to the " +
 
             "public AAN Members Directory."
 
@@ -396,7 +510,7 @@ console.log("PUBLIC MEMBER CREATED SUCCESSFULLY");
 
 
         // ------------------------------------------
-        // 5. Reload pending applications
+        // 7. Reload applications
         // ------------------------------------------
 
         await loadApplications();
@@ -406,7 +520,7 @@ console.log("PUBLIC MEMBER CREATED SUCCESSFULLY");
     catch (error) {
 
         console.error(
-            "Approval error:",
+            "APPROVAL ERROR:",
             error
         );
 
@@ -439,7 +553,11 @@ window.rejectMember = async function(id) {
         );
 
 
-    if (!confirmReject) return;
+    if (!confirmReject) {
+
+        return;
+
+    }
 
 
     try {
