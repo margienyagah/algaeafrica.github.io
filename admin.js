@@ -360,17 +360,22 @@ window.approveMember = async function(id) {
         // case-sensitive.
         // ------------------------------------------
 
-        await setDoc(
+       console.log("ABOUT TO CREATE PUBLIC MEMBER");
 
-            doc(
-                db,
-                "publicmembers",
-                id
-            ),
+console.log("Application ID:", id);
 
-            publicMember
+console.log("Public member data:", publicMember);
 
-        );
+await setDoc(
+    doc(
+        db,
+        "publicmembers",
+        id
+    ),
+    publicMember
+);
+
+console.log("PUBLIC MEMBER CREATED SUCCESSFULLY");
 
 
         // ------------------------------------------
